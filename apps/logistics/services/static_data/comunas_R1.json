@@ -1,0 +1,77 @@
+{
+  "coverageAreas": [
+    {
+      "countyCode": "AHOS",
+      "countyName": "ALTO HOSPICIO",
+      "regionCode": "R1",
+      "ineCountyCode": 998,
+      "queryMode": 1,
+      "coverageName": "ALTO HOSPICIO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "CAMI",
+      "countyName": "CAMINA",
+      "regionCode": "R1",
+      "ineCountyCode": 212,
+      "queryMode": 1,
+      "coverageName": "CAMINA",
+      "ind_ppd": 0,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "COLC",
+      "countyName": "COLCHANE",
+      "regionCode": "R1",
+      "ineCountyCode": 213,
+      "queryMode": 1,
+      "coverageName": "COLCHANE",
+      "ind_ppd": 0,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "HUAR",
+      "countyName": "HUARA",
+      "regionCode": "R1",
+      "ineCountyCode": 211,
+      "queryMode": 1,
+      "coverageName": "HUARA",
+      "ind_ppd": 0,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "IQUI",
+      "countyName": "IQUIQUE",
+      "regionCode": "R1",
+      "ineCountyCode": 210,
+      "queryMode": 1,
+      "coverageName": "IQUIQUE",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "PICA",
+      "countyName": "PICA",
+      "regionCode": "R1",
+      "ineCountyCode": 214,
+      "queryMode": 1,
+      "coverageName": "PICA",
+      "ind_ppd": 0,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "POZO",
+      "countyName": "POZO ALMONTE",
+      "regionCode": "R1",
+      "ineCountyCode": 215,
+      "queryMode": 1,
+      "coverageName": "POZO ALMONTE",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    }
+  ],
+  "statusCode": 0,
+  "statusDescription": "Extraccion exitosa",
+  "errors": null
+}

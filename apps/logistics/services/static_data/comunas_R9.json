@@ -1,0 +1,477 @@
+{
+  "coverageAreas": [
+    {
+      "countyCode": "ANGO",
+      "countyName": "ANGOL",
+      "regionCode": "R9",
+      "ineCountyCode": 475,
+      "queryMode": 1,
+      "coverageName": "ANGOL",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "CARA",
+      "countyName": "CARAHUE",
+      "regionCode": "R9",
+      "ineCountyCode": 506,
+      "queryMode": 1,
+      "coverageName": "CARAHUE",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "CHLC",
+      "countyName": "CHOLCHOL",
+      "regionCode": "R9",
+      "ineCountyCode": 995,
+      "queryMode": 1,
+      "coverageName": "CHOLCHOL",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "COLL",
+      "countyName": "COLLIPULLI",
+      "regionCode": "R9",
+      "ineCountyCode": 477,
+      "queryMode": 1,
+      "coverageName": "COLLIPULLI",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "CUNC",
+      "countyName": "CUNCO",
+      "regionCode": "R9",
+      "ineCountyCode": 494,
+      "queryMode": 1,
+      "coverageName": "CUNCO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "CURC",
+      "countyName": "CURACAUTIN",
+      "regionCode": "R9",
+      "ineCountyCode": 479,
+      "queryMode": 1,
+      "coverageName": "CURACAUTIN",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "CRHU",
+      "countyName": "CURARREHUE",
+      "regionCode": "R9",
+      "ineCountyCode": 496,
+      "queryMode": 1,
+      "coverageName": "CURARREHUE",
+      "ind_ppd": 0,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "ERCI",
+      "countyName": "ERCILLA",
+      "regionCode": "R9",
+      "ineCountyCode": 480,
+      "queryMode": 1,
+      "coverageName": "ERCILLA",
+      "ind_ppd": 0,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "FRER",
+      "countyName": "FREIRE",
+      "regionCode": "R9",
+      "ineCountyCode": 499,
+      "queryMode": 1,
+      "coverageName": "FREIRE",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "GALV",
+      "countyName": "GALVARINO",
+      "regionCode": "R9",
+      "ineCountyCode": 508,
+      "queryMode": 1,
+      "coverageName": "GALVARINO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "GORB",
+      "countyName": "GORBEA",
+      "regionCode": "R9",
+      "ineCountyCode": 501,
+      "queryMode": 1,
+      "coverageName": "GORBEA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "LPAZ",
+      "countyName": "LONCOCHE",
+      "regionCode": "R9",
+      "ineCountyCode": 502,
+      "queryMode": 2,
+      "coverageName": "LA PAZ",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "LAUT",
+      "countyName": "LAUTARO",
+      "regionCode": "R9",
+      "ineCountyCode": 491,
+      "queryMode": 1,
+      "coverageName": "LAUTARO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "PIUN",
+      "countyName": "LAUTARO",
+      "regionCode": "R9",
+      "ineCountyCode": 491,
+      "queryMode": 2,
+      "coverageName": "LAUTARO - PILLANLELBUN",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "LRAY",
+      "countyName": "VILLARRICA",
+      "regionCode": "R9",
+      "ineCountyCode": 498,
+      "queryMode": 2,
+      "coverageName": "LICANRAY",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "LONC",
+      "countyName": "LONCOCHE",
+      "regionCode": "R9",
+      "ineCountyCode": 502,
+      "queryMode": 1,
+      "coverageName": "LONCOCHE",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "LNQY",
+      "countyName": "LONQUIMAY",
+      "regionCode": "R9",
+      "ineCountyCode": 478,
+      "queryMode": 1,
+      "coverageName": "LONQUIMAY",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "SAUC",
+      "countyName": "LOS SAUCES",
+      "regionCode": "R9",
+      "ineCountyCode": 485,
+      "queryMode": 1,
+      "coverageName": "LOS SAUCES",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "LUMA",
+      "countyName": "LUMACO",
+      "regionCode": "R9",
+      "ineCountyCode": 483,
+      "queryMode": 1,
+      "coverageName": "LUMACO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "MLPC",
+      "countyName": "MELIPEUCO",
+      "regionCode": "R9",
+      "ineCountyCode": 495,
+      "queryMode": 1,
+      "coverageName": "MELIPEUCO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "MINI",
+      "countyName": "ANGOL",
+      "regionCode": "R9",
+      "ineCountyCode": 475,
+      "queryMode": 2,
+      "coverageName": "MININCO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "NVAI",
+      "countyName": "NUEVA IMPERIAL",
+      "regionCode": "R9",
+      "ineCountyCode": 507,
+      "queryMode": 1,
+      "coverageName": "NUEVA IMPERIAL",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "PLCA",
+      "countyName": "PADRE LAS CASAS",
+      "regionCode": "R9",
+      "ineCountyCode": 509,
+      "queryMode": 1,
+      "coverageName": "PADRE LAS CASAS",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "METR",
+      "countyName": "PADRE LAS CASAS",
+      "regionCode": "R9",
+      "ineCountyCode": 509,
+      "queryMode": 2,
+      "coverageName": "PADRE LAS CASAS - METRENCO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "PERQ",
+      "countyName": "PERQUENCO",
+      "regionCode": "R9",
+      "ineCountyCode": 492,
+      "queryMode": 1,
+      "coverageName": "PERQUENCO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "PITR",
+      "countyName": "PITRUFQUEN",
+      "regionCode": "R9",
+      "ineCountyCode": 500,
+      "queryMode": 1,
+      "coverageName": "PITRUFQUEN",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "PUCO",
+      "countyName": "PUCON",
+      "regionCode": "R9",
+      "ineCountyCode": 497,
+      "queryMode": 1,
+      "coverageName": "PUCON",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "CAUA",
+      "countyName": "PUCON",
+      "regionCode": "R9",
+      "ineCountyCode": 497,
+      "queryMode": 2,
+      "coverageName": "PUCON - CABURGUA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "CAND",
+      "countyName": "PUCON",
+      "regionCode": "R9",
+      "ineCountyCode": 497,
+      "queryMode": 2,
+      "coverageName": "PUCON - CANDELARIA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "ELTU",
+      "countyName": "PUCON",
+      "regionCode": "R9",
+      "ineCountyCode": 497,
+      "queryMode": 2,
+      "coverageName": "PUCON - EL TURBIO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "PLAA",
+      "countyName": "PUCON",
+      "regionCode": "R9",
+      "ineCountyCode": 497,
+      "queryMode": 2,
+      "coverageName": "PUCON - PLAYA BLANCA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "EUFU",
+      "countyName": "PUCON",
+      "regionCode": "R9",
+      "ineCountyCode": 497,
+      "queryMode": 2,
+      "coverageName": "PUCON - QUETROLEUFU",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "PURE",
+      "countyName": "PUREN",
+      "regionCode": "R9",
+      "ineCountyCode": 484,
+      "queryMode": 1,
+      "coverageName": "PUREN",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "QUEP",
+      "countyName": "PADRE LAS CASAS",
+      "regionCode": "R9",
+      "ineCountyCode": 509,
+      "queryMode": 2,
+      "coverageName": "QUEPE",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "RNCO",
+      "countyName": "RENAICO",
+      "regionCode": "R9",
+      "ineCountyCode": 476,
+      "queryMode": 1,
+      "coverageName": "RENAICO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "TIJE",
+      "countyName": "RENAICO",
+      "regionCode": "R9",
+      "ineCountyCode": 476,
+      "queryMode": 2,
+      "coverageName": "RENAICO - TIJERAL",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "SVDR",
+      "countyName": "SAAVEDRA",
+      "regionCode": "R9",
+      "ineCountyCode": 505,
+      "queryMode": 1,
+      "coverageName": "SAAVEDRA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "TEMU",
+      "countyName": "TEMUCO",
+      "regionCode": "R9",
+      "ineCountyCode": 490,
+      "queryMode": 1,
+      "coverageName": "TEMUCO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "CAJO",
+      "countyName": "TEMUCO",
+      "regionCode": "R9",
+      "ineCountyCode": 490,
+      "queryMode": 2,
+      "coverageName": "TEMUCO - CAJON",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "LABR",
+      "countyName": "TEMUCO",
+      "regionCode": "R9",
+      "ineCountyCode": 490,
+      "queryMode": 2,
+      "coverageName": "TEMUCO - LABRANZA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "TSCH",
+      "countyName": "TEODORO SCHMIDT",
+      "regionCode": "R9",
+      "ineCountyCode": 504,
+      "queryMode": 1,
+      "coverageName": "TEODORO SCHMIDT",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "TOLT",
+      "countyName": "TOLTEN",
+      "regionCode": "R9",
+      "ineCountyCode": 503,
+      "queryMode": 1,
+      "coverageName": "TOLTEN",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "TRAI",
+      "countyName": "TRAIGUEN",
+      "regionCode": "R9",
+      "ineCountyCode": 482,
+      "queryMode": 1,
+      "coverageName": "TRAIGUEN",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "VICT",
+      "countyName": "VICTORIA",
+      "regionCode": "R9",
+      "ineCountyCode": 481,
+      "queryMode": 1,
+      "coverageName": "VICTORIA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "VILC",
+      "countyName": "VILCUN",
+      "regionCode": "R9",
+      "ineCountyCode": 493,
+      "queryMode": 1,
+      "coverageName": "VILCUN",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "GELO",
+      "countyName": "VILCUN",
+      "regionCode": "R9",
+      "ineCountyCode": 493,
+      "queryMode": 2,
+      "coverageName": "VILCUN - GENERAL LOPEZ",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "VILL",
+      "countyName": "VILLARRICA",
+      "regionCode": "R9",
+      "ineCountyCode": 498,
+      "queryMode": 1,
+      "coverageName": "VILLARRICA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    }
+  ],
+  "statusCode": 0,
+  "statusDescription": "Extraccion exitosa",
+  "errors": null
+}

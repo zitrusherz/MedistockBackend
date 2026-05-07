@@ -1,0 +1,67 @@
+{
+  "coverageAreas": [
+    {
+      "countyCode": "ARIC",
+      "countyName": "ARICA",
+      "regionCode": "R15",
+      "ineCountyCode": 201,
+      "queryMode": 1,
+      "coverageName": "ARICA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "VIFR",
+      "countyName": "ARICA",
+      "regionCode": "R15",
+      "ineCountyCode": 201,
+      "queryMode": 2,
+      "coverageName": "ARICA - VILLA FRONTERA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "CAMA",
+      "countyName": "CAMARONES",
+      "regionCode": "R15",
+      "ineCountyCode": 202,
+      "queryMode": 1,
+      "coverageName": "CAMARONES",
+      "ind_ppd": 0,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "GLAG",
+      "countyName": "GENERAL LAGOS",
+      "regionCode": "R15",
+      "ineCountyCode": 206,
+      "queryMode": 1,
+      "coverageName": "GENERAL LAGOS",
+      "ind_ppd": 0,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "VISV",
+      "countyName": "GENERAL LAGOS",
+      "regionCode": "R15",
+      "ineCountyCode": 206,
+      "queryMode": 2,
+      "coverageName": "GENERAL LAGOS - VISVIRI",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "PUTR",
+      "countyName": "PUTRE",
+      "regionCode": "R15",
+      "ineCountyCode": 205,
+      "queryMode": 1,
+      "coverageName": "PUTRE",
+      "ind_ppd": 0,
+      "ind_rd": 1
+    }
+  ],
+  "statusCode": 0,
+  "statusDescription": "Extraccion exitosa",
+  "errors": null
+}

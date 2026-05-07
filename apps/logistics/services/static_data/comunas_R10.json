@@ -1,0 +1,557 @@
+{
+  "coverageAreas": [
+    {
+      "countyCode": "ACHA",
+      "countyName": "QUINCHAO",
+      "regionCode": "R10",
+      "ineCountyCode": 550,
+      "queryMode": 1,
+      "coverageName": "ACHAO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "ALER",
+      "countyName": "PUERTO MONTT",
+      "regionCode": "R10",
+      "ineCountyCode": 535,
+      "queryMode": 2,
+      "coverageName": "ALERCE",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "ANCU",
+      "countyName": "ANCUD",
+      "regionCode": "R10",
+      "ineCountyCode": 546,
+      "queryMode": 1,
+      "coverageName": "ANCUD",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "CALB",
+      "countyName": "CALBUCO",
+      "regionCode": "R10",
+      "ineCountyCode": 538,
+      "queryMode": 1,
+      "coverageName": "CALBUCO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "CAST",
+      "countyName": "CASTRO",
+      "regionCode": "R10",
+      "ineCountyCode": 545,
+      "queryMode": 1,
+      "coverageName": "CASTRO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "ELAS",
+      "countyName": "CASTRO",
+      "regionCode": "R10",
+      "ineCountyCode": 545,
+      "queryMode": 2,
+      "coverageName": "CASTRO - EL ASTILLERO",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "GAMB",
+      "countyName": "CASTRO",
+      "regionCode": "R10",
+      "ineCountyCode": 545,
+      "queryMode": 2,
+      "coverageName": "CASTRO - GAMBOA",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "CHAC",
+      "countyName": "CASTRO",
+      "regionCode": "R10",
+      "ineCountyCode": 545,
+      "queryMode": 2,
+      "coverageName": "CASTRO - LA CHACRA",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "LLAU",
+      "countyName": "CASTRO",
+      "regionCode": "R10",
+      "ineCountyCode": 545,
+      "queryMode": 2,
+      "coverageName": "CASTRO - LLAULLAO",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "LLIC",
+      "countyName": "CASTRO",
+      "regionCode": "R10",
+      "ineCountyCode": 545,
+      "queryMode": 2,
+      "coverageName": "CASTRO - LLICALDAD",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "PIDP",
+      "countyName": "CASTRO",
+      "regionCode": "R10",
+      "ineCountyCode": 545,
+      "queryMode": 2,
+      "coverageName": "CASTRO - PIDPID",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "PTEN",
+      "countyName": "CASTRO",
+      "regionCode": "R10",
+      "ineCountyCode": 545,
+      "queryMode": 2,
+      "coverageName": "CASTRO - PUNTA TENTEN",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "PUTE",
+      "countyName": "CASTRO",
+      "regionCode": "R10",
+      "ineCountyCode": 545,
+      "queryMode": 2,
+      "coverageName": "CASTRO - PUTEMUN",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "UICO",
+      "countyName": "CASTRO",
+      "regionCode": "R10",
+      "ineCountyCode": 545,
+      "queryMode": 2,
+      "coverageName": "CASTRO - QUILQUICO",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "TENT",
+      "countyName": "CASTRO",
+      "regionCode": "R10",
+      "ineCountyCode": 545,
+      "queryMode": 2,
+      "coverageName": "CASTRO - TENTEN",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "CHAI",
+      "countyName": "CHAITEN",
+      "regionCode": "R10",
+      "ineCountyCode": 560,
+      "queryMode": 1,
+      "coverageName": "CHAITEN",
+      "ind_ppd": 0,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "CHON",
+      "countyName": "CHONCHI",
+      "regionCode": "R10",
+      "ineCountyCode": 552,
+      "queryMode": 1,
+      "coverageName": "CHONCHI",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "CCHM",
+      "countyName": "COCHAMO",
+      "regionCode": "R10",
+      "ineCountyCode": 537,
+      "queryMode": 1,
+      "coverageName": "COCHAMO",
+      "ind_ppd": 0,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "CUVE",
+      "countyName": "CURACO DE VELEZ",
+      "regionCode": "R10",
+      "ineCountyCode": 549,
+      "queryMode": 1,
+      "coverageName": "CURACO DE VELEZ",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "DALC",
+      "countyName": "DALCAHUE",
+      "regionCode": "R10",
+      "ineCountyCode": 548,
+      "queryMode": 1,
+      "coverageName": "DALCAHUE",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "ELAG",
+      "countyName": "PUYEHUE",
+      "regionCode": "R10",
+      "ineCountyCode": 527,
+      "queryMode": 2,
+      "coverageName": "ENTRE LAGOS",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "FRES",
+      "countyName": "FRESIA",
+      "regionCode": "R10",
+      "ineCountyCode": 541,
+      "queryMode": 1,
+      "coverageName": "FRESIA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "FRUT",
+      "countyName": "FRUTILLAR",
+      "regionCode": "R10",
+      "ineCountyCode": 543,
+      "queryMode": 1,
+      "coverageName": "FRUTILLAR",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "CASM",
+      "countyName": "FRUTILLAR",
+      "regionCode": "R10",
+      "ineCountyCode": 543,
+      "queryMode": 2,
+      "coverageName": "FRUTILLAR - CASMA",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "LAIO",
+      "countyName": "FRUTILLAR",
+      "regionCode": "R10",
+      "ineCountyCode": 543,
+      "queryMode": 2,
+      "coverageName": "FRUTILLAR - LA RADIO",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "FROR",
+      "countyName": "FRUTILLAR",
+      "regionCode": "R10",
+      "ineCountyCode": 543,
+      "queryMode": 2,
+      "coverageName": "FRUTILLAR ORIENTE",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "FRSU",
+      "countyName": "FRUTILLAR",
+      "regionCode": "R10",
+      "ineCountyCode": 543,
+      "queryMode": 2,
+      "coverageName": "FRUTILLAR SUR",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "FUTA",
+      "countyName": "FUTALEUFU",
+      "regionCode": "R10",
+      "ineCountyCode": 562,
+      "queryMode": 1,
+      "coverageName": "FUTALEUFU",
+      "ind_ppd": 0,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "HORP",
+      "countyName": "HUALAIHUE",
+      "regionCode": "R10",
+      "ineCountyCode": 561,
+      "queryMode": 2,
+      "coverageName": "HORNOPIREN",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "HULA",
+      "countyName": "HUALAIHUE",
+      "regionCode": "R10",
+      "ineCountyCode": 561,
+      "queryMode": 1,
+      "coverageName": "HUALAIHUE",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "PIAN",
+      "countyName": "HUALAIHUE",
+      "regionCode": "R10",
+      "ineCountyCode": 561,
+      "queryMode": 2,
+      "coverageName": "HUALAIHUE - PICHANCO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "LLAN",
+      "countyName": "LLANQUIHUE",
+      "regionCode": "R10",
+      "ineCountyCode": 542,
+      "queryMode": 1,
+      "coverageName": "LLANQUIHUE",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "LMUE",
+      "countyName": "LOS MUERMOS",
+      "regionCode": "R10",
+      "ineCountyCode": 540,
+      "queryMode": 1,
+      "coverageName": "LOS MUERMOS",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "MAUL",
+      "countyName": "MAULLIN",
+      "regionCode": "R10",
+      "ineCountyCode": 539,
+      "queryMode": 1,
+      "coverageName": "MAULLIN",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "OSOR",
+      "countyName": "OSORNO",
+      "regionCode": "R10",
+      "ineCountyCode": 525,
+      "queryMode": 1,
+      "coverageName": "OSORNO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "PALE",
+      "countyName": "PALENA",
+      "regionCode": "R10",
+      "ineCountyCode": 563,
+      "queryMode": 1,
+      "coverageName": "PALENA",
+      "ind_ppd": 0,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "PARG",
+      "countyName": "MAULLIN",
+      "regionCode": "R10",
+      "ineCountyCode": 539,
+      "queryMode": 2,
+      "coverageName": "PARGUA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "PMON",
+      "countyName": "PUERTO MONTT",
+      "regionCode": "R10",
+      "ineCountyCode": 535,
+      "queryMode": 1,
+      "coverageName": "PUERTO MONTT",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "ARRA",
+      "countyName": "PUERTO MONTT",
+      "regionCode": "R10",
+      "ineCountyCode": 535,
+      "queryMode": 2,
+      "coverageName": "PUERTO MONTT - ARRAYAN",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "CIZA",
+      "countyName": "PUERTO MONTT",
+      "regionCode": "R10",
+      "ineCountyCode": 535,
+      "queryMode": 2,
+      "coverageName": "PUERTO MONTT - CHAMIZA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "POCT",
+      "countyName": "PUERTO OCTAY",
+      "regionCode": "R10",
+      "ineCountyCode": 528,
+      "queryMode": 1,
+      "coverageName": "PUERTO OCTAY",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "PVAR",
+      "countyName": "PUERTO VARAS",
+      "regionCode": "R10",
+      "ineCountyCode": 536,
+      "queryMode": 1,
+      "coverageName": "PUERTO VARAS",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "LAFA",
+      "countyName": "PUERTO VARAS",
+      "regionCode": "R10",
+      "ineCountyCode": 536,
+      "queryMode": 2,
+      "coverageName": "PUERTO VARAS - LA FABRICA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "TENE",
+      "countyName": "PUERTO VARAS",
+      "regionCode": "R10",
+      "ineCountyCode": 536,
+      "queryMode": 2,
+      "coverageName": "PUERTO VARAS - LOS MAITENES",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "NUBR",
+      "countyName": "PUERTO VARAS",
+      "regionCode": "R10",
+      "ineCountyCode": 536,
+      "queryMode": 2,
+      "coverageName": "PUERTO VARAS - NUEVA BRAUNAU",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "PUQU",
+      "countyName": "PUQUELDON",
+      "regionCode": "R10",
+      "ineCountyCode": 551,
+      "queryMode": 1,
+      "coverageName": "PUQUELDON",
+      "ind_ppd": 0,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "PURR",
+      "countyName": "PURRANQUE",
+      "regionCode": "R10",
+      "ineCountyCode": 529,
+      "queryMode": 1,
+      "coverageName": "PURRANQUE",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "PUYG",
+      "countyName": "PUYEHUE",
+      "regionCode": "R10",
+      "ineCountyCode": 527,
+      "queryMode": 1,
+      "coverageName": "PUYEHUE",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "QUEI",
+      "countyName": "QUEILEN",
+      "regionCode": "R10",
+      "ineCountyCode": 553,
+      "queryMode": 1,
+      "coverageName": "QUEILEN",
+      "ind_ppd": 0,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "QUEL",
+      "countyName": "QUELLON",
+      "regionCode": "R10",
+      "ineCountyCode": 554,
+      "queryMode": 1,
+      "coverageName": "QUELLON",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "QUEM",
+      "countyName": "QUEMCHI",
+      "regionCode": "R10",
+      "ineCountyCode": 547,
+      "queryMode": 1,
+      "coverageName": "QUEMCHI",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "QUCH",
+      "countyName": "QUINCHAO",
+      "regionCode": "R10",
+      "ineCountyCode": 550,
+      "queryMode": 2,
+      "coverageName": "QUINCHAO",
+      "ind_ppd": 0,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "RNEG",
+      "countyName": "RIO NEGRO",
+      "regionCode": "R10",
+      "ineCountyCode": 530,
+      "queryMode": 1,
+      "coverageName": "RIO NEGRO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "SJCO",
+      "countyName": "SAN JUAN DE LA COSTA",
+      "regionCode": "R10",
+      "ineCountyCode": 531,
+      "queryMode": 1,
+      "coverageName": "SAN JUAN DE LA COSTA",
+      "ind_ppd": 0,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "SPAB",
+      "countyName": "SAN PABLO",
+      "regionCode": "R10",
+      "ineCountyCode": 526,
+      "queryMode": 1,
+      "coverageName": "SAN PABLO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    }
+  ],
+  "statusCode": 0,
+  "statusDescription": "Extraccion exitosa",
+  "errors": null
+}

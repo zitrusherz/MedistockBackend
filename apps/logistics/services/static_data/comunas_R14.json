@@ -1,0 +1,547 @@
+{
+  "coverageAreas": [
+    {
+      "countyCode": "CORR",
+      "countyName": "CORRAL",
+      "regionCode": "R14",
+      "ineCountyCode": 515,
+      "queryMode": 1,
+      "coverageName": "CORRAL",
+      "ind_ppd": 0,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "FUTR",
+      "countyName": "FUTRONO",
+      "regionCode": "R14",
+      "ineCountyCode": 514,
+      "queryMode": 1,
+      "coverageName": "FUTRONO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "CAUN",
+      "countyName": "FUTRONO",
+      "regionCode": "R14",
+      "ineCountyCode": 514,
+      "queryMode": 2,
+      "coverageName": "FUTRONO - CAUNAO",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "LLIF",
+      "countyName": "FUTRONO",
+      "regionCode": "R14",
+      "ineCountyCode": 514,
+      "queryMode": 2,
+      "coverageName": "FUTRONO - LLIFEN",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "MONT",
+      "countyName": "FUTRONO",
+      "regionCode": "R14",
+      "ineCountyCode": 514,
+      "queryMode": 2,
+      "coverageName": "FUTRONO - MONTUELA",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "PROS",
+      "countyName": "FUTRONO",
+      "regionCode": "R14",
+      "ineCountyCode": 514,
+      "queryMode": 2,
+      "coverageName": "FUTRONO - PUERTO DE ROSAS",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "PSQU",
+      "countyName": "FUTRONO",
+      "regionCode": "R14",
+      "ineCountyCode": 514,
+      "queryMode": 2,
+      "coverageName": "FUTRONO - PUERTO SQUELLA",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "SANA",
+      "countyName": "FUTRONO",
+      "regionCode": "R14",
+      "ineCountyCode": 514,
+      "queryMode": 2,
+      "coverageName": "FUTRONO - SANTA ANA",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "LAUN",
+      "countyName": "LA UNION",
+      "regionCode": "R14",
+      "ineCountyCode": 518,
+      "queryMode": 1,
+      "coverageName": "LA UNION",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "LRAN",
+      "countyName": "LAGO RANCO",
+      "regionCode": "R14",
+      "ineCountyCode": 521,
+      "queryMode": 1,
+      "coverageName": "LAGO RANCO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "LANC",
+      "countyName": "LANCO",
+      "regionCode": "R14",
+      "ineCountyCode": 512,
+      "queryMode": 1,
+      "coverageName": "LANCO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "LAPE",
+      "countyName": "LANCO",
+      "regionCode": "R14",
+      "ineCountyCode": 512,
+      "queryMode": 2,
+      "coverageName": "LANCO - LA PENA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "LSUR",
+      "countyName": "LANCO",
+      "regionCode": "R14",
+      "ineCountyCode": 512,
+      "queryMode": 2,
+      "coverageName": "LANCO - LANCO 5 SUR",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "LOCO",
+      "countyName": "LANCO",
+      "regionCode": "R14",
+      "ineCountyCode": 512,
+      "queryMode": 2,
+      "coverageName": "LANCO - LOS COPIHUES",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "MAMA",
+      "countyName": "LANCO",
+      "regionCode": "R14",
+      "ineCountyCode": 512,
+      "queryMode": 2,
+      "coverageName": "LANCO - MALALHUE",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "PURU",
+      "countyName": "LANCO",
+      "regionCode": "R14",
+      "ineCountyCode": 512,
+      "queryMode": 2,
+      "coverageName": "LANCO - PURULON",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "LLAG",
+      "countyName": "LOS LAGOS",
+      "regionCode": "R14",
+      "ineCountyCode": 513,
+      "queryMode": 1,
+      "coverageName": "LOS LAGOS",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "MAFI",
+      "countyName": "MAFIL",
+      "regionCode": "R14",
+      "ineCountyCode": 516,
+      "queryMode": 1,
+      "coverageName": "MAFIL",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "MRQN",
+      "countyName": "MARIQUINA",
+      "regionCode": "R14",
+      "ineCountyCode": 511,
+      "queryMode": 1,
+      "coverageName": "MARIQUINA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "PAIL",
+      "countyName": "PAILLACO",
+      "regionCode": "R14",
+      "ineCountyCode": 519,
+      "queryMode": 1,
+      "coverageName": "PAILLACO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "PANG",
+      "countyName": "PANGUIPULLI",
+      "regionCode": "R14",
+      "ineCountyCode": 517,
+      "queryMode": 1,
+      "coverageName": "PANGUIPULLI",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "CAES",
+      "countyName": "PANGUIPULLI",
+      "regionCode": "R14",
+      "ineCountyCode": 517,
+      "queryMode": 2,
+      "coverageName": "PANGUIPULLI - CAMINO A LA ESPERANZA",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "CAUE",
+      "countyName": "PANGUIPULLI",
+      "regionCode": "R14",
+      "ineCountyCode": 517,
+      "queryMode": 2,
+      "coverageName": "PANGUIPULLI - CARRIRINGUE",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "CHOS",
+      "countyName": "PANGUIPULLI",
+      "regionCode": "R14",
+      "ineCountyCode": 517,
+      "queryMode": 2,
+      "coverageName": "PANGUIPULLI - CHOSHUENCO",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "COIH",
+      "countyName": "PANGUIPULLI",
+      "regionCode": "R14",
+      "ineCountyCode": 517,
+      "queryMode": 2,
+      "coverageName": "PANGUIPULLI - COIHUECO",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "CONA",
+      "countyName": "PANGUIPULLI",
+      "regionCode": "R14",
+      "ineCountyCode": 517,
+      "queryMode": 2,
+      "coverageName": "PANGUIPULLI - CONARIPE",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "GUNE",
+      "countyName": "PANGUIPULLI",
+      "regionCode": "R14",
+      "ineCountyCode": 517,
+      "queryMode": 2,
+      "coverageName": "PANGUIPULLI - GUANEHUE",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "AHUE",
+      "countyName": "PANGUIPULLI",
+      "regionCode": "R14",
+      "ineCountyCode": 517,
+      "queryMode": 2,
+      "coverageName": "PANGUIPULLI - HUELLAHUE",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "LIQU",
+      "countyName": "PANGUIPULLI",
+      "regionCode": "R14",
+      "ineCountyCode": 517,
+      "queryMode": 2,
+      "coverageName": "PANGUIPULLI - LIQUINE",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "LLAE",
+      "countyName": "PANGUIPULLI",
+      "regionCode": "R14",
+      "ineCountyCode": 517,
+      "queryMode": 2,
+      "coverageName": "PANGUIPULLI - LLANCAHUE",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "LLON",
+      "countyName": "PANGUIPULLI",
+      "regionCode": "R14",
+      "ineCountyCode": 517,
+      "queryMode": 2,
+      "coverageName": "PANGUIPULLI - LLONQUEN",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "MELE",
+      "countyName": "PANGUIPULLI",
+      "regionCode": "R14",
+      "ineCountyCode": 517,
+      "queryMode": 2,
+      "coverageName": "PANGUIPULLI - MELEFQUEN",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "NETU",
+      "countyName": "PANGUIPULLI",
+      "regionCode": "R14",
+      "ineCountyCode": 517,
+      "queryMode": 2,
+      "coverageName": "PANGUIPULLI - NELTUME",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "NITR",
+      "countyName": "PANGUIPULLI",
+      "regionCode": "R14",
+      "ineCountyCode": 517,
+      "queryMode": 2,
+      "coverageName": "PANGUIPULLI - NITRE",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "PANC",
+      "countyName": "PANGUIPULLI",
+      "regionCode": "R14",
+      "ineCountyCode": 517,
+      "queryMode": 2,
+      "coverageName": "PANGUIPULLI - PANCUL",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "PUFU",
+      "countyName": "PANGUIPULLI",
+      "regionCode": "R14",
+      "ineCountyCode": 517,
+      "queryMode": 2,
+      "coverageName": "PANGUIPULLI - PUERTO FUY",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "PNIT",
+      "countyName": "PANGUIPULLI",
+      "regionCode": "R14",
+      "ineCountyCode": 517,
+      "queryMode": 2,
+      "coverageName": "PANGUIPULLI - PUERTO NITRE",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "PSRE",
+      "countyName": "PANGUIPULLI",
+      "regionCode": "R14",
+      "ineCountyCode": 517,
+      "queryMode": 2,
+      "coverageName": "PANGUIPULLI - PUERTO SANTA REGINA",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "PUUE",
+      "countyName": "PANGUIPULLI",
+      "regionCode": "R14",
+      "ineCountyCode": 517,
+      "queryMode": 2,
+      "coverageName": "PANGUIPULLI - PULLIGUE",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "PUNA",
+      "countyName": "PANGUIPULLI",
+      "regionCode": "R14",
+      "ineCountyCode": 517,
+      "queryMode": 2,
+      "coverageName": "PANGUIPULLI - PUNAHUE",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "PUEN",
+      "countyName": "PANGUIPULLI",
+      "regionCode": "R14",
+      "ineCountyCode": 517,
+      "queryMode": 2,
+      "coverageName": "PANGUIPULLI - PUYUMEN",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "REME",
+      "countyName": "PANGUIPULLI",
+      "regionCode": "R14",
+      "ineCountyCode": 517,
+      "queryMode": 2,
+      "coverageName": "PANGUIPULLI - REMECO",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "TECO",
+      "countyName": "PANGUIPULLI",
+      "regionCode": "R14",
+      "ineCountyCode": 517,
+      "queryMode": 2,
+      "coverageName": "PANGUIPULLI - TERMAS DE CONARIPE",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "TRAC",
+      "countyName": "PANGUIPULLI",
+      "regionCode": "R14",
+      "ineCountyCode": 517,
+      "queryMode": 2,
+      "coverageName": "PANGUIPULLI - TRACALPULLI",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "TRCO",
+      "countyName": "PANGUIPULLI",
+      "regionCode": "R14",
+      "ineCountyCode": 517,
+      "queryMode": 2,
+      "coverageName": "PANGUIPULLI - TRAITRAICO",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "RIOB",
+      "countyName": "RIO BUENO",
+      "regionCode": "R14",
+      "ineCountyCode": 520,
+      "queryMode": 1,
+      "coverageName": "RIO BUENO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "VALD",
+      "countyName": "VALDIVIA",
+      "regionCode": "R14",
+      "ineCountyCode": 510,
+      "queryMode": 1,
+      "coverageName": "VALDIVIA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "CAAN",
+      "countyName": "VALDIVIA",
+      "regionCode": "R14",
+      "ineCountyCode": 510,
+      "queryMode": 2,
+      "coverageName": "VALDIVIA - CAMINO A MANATIALES",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "CPBL",
+      "countyName": "VALDIVIA",
+      "regionCode": "R14",
+      "ineCountyCode": 510,
+      "queryMode": 2,
+      "coverageName": "VALDIVIA - CAMINO A PIEDRA BLANCA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "CAYU",
+      "countyName": "VALDIVIA",
+      "regionCode": "R14",
+      "ineCountyCode": 510,
+      "queryMode": 2,
+      "coverageName": "VALDIVIA - CAYUMAPU",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "MAYO",
+      "countyName": "VALDIVIA",
+      "regionCode": "R14",
+      "ineCountyCode": 510,
+      "queryMode": 2,
+      "coverageName": "VALDIVIA - CHOCOCAMAYO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "NIEB",
+      "countyName": "VALDIVIA",
+      "regionCode": "R14",
+      "ineCountyCode": 510,
+      "queryMode": 2,
+      "coverageName": "VALDIVIA - NIEBLA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "RLIN",
+      "countyName": "VALDIVIA",
+      "regionCode": "R14",
+      "ineCountyCode": 510,
+      "queryMode": 2,
+      "coverageName": "VALDIVIA - REBELLIN",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "SCIO",
+      "countyName": "VALDIVIA",
+      "regionCode": "R14",
+      "ineCountyCode": 510,
+      "queryMode": 2,
+      "coverageName": "VALDIVIA - SAN IGNACIO",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    }
+  ],
+  "statusCode": 0,
+  "statusDescription": "Extraccion exitosa",
+  "errors": null
+}

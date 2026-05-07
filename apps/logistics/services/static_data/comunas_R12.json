@@ -1,0 +1,117 @@
+{
+  "coverageAreas": [
+    {
+      "countyCode": "ANTA",
+      "countyName": "ANTARTICA",
+      "regionCode": "R12",
+      "ineCountyCode": 601,
+      "queryMode": 1,
+      "coverageName": "ANTARTICA",
+      "ind_ppd": 0,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "CAHO",
+      "countyName": "CABO DE HORNOS",
+      "regionCode": "R12",
+      "ineCountyCode": 600,
+      "queryMode": 1,
+      "coverageName": "CABO DE HORNOS",
+      "ind_ppd": 0,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "LABL",
+      "countyName": "LAGUNA BLANCA",
+      "regionCode": "R12",
+      "ineCountyCode": 592,
+      "queryMode": 1,
+      "coverageName": "LAGUNA BLANCA",
+      "ind_ppd": 0,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "PNAT",
+      "countyName": "NATALES",
+      "regionCode": "R12",
+      "ineCountyCode": 585,
+      "queryMode": 1,
+      "coverageName": "NATALES",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "PORV",
+      "countyName": "PORVENIR",
+      "regionCode": "R12",
+      "ineCountyCode": 595,
+      "queryMode": 1,
+      "coverageName": "PORVENIR",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "PRIM",
+      "countyName": "PRIMAVERA",
+      "regionCode": "R12",
+      "ineCountyCode": 596,
+      "queryMode": 1,
+      "coverageName": "PRIMAVERA",
+      "ind_ppd": 0,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "PUNT",
+      "countyName": "PUNTA ARENAS",
+      "regionCode": "R12",
+      "ineCountyCode": 590,
+      "queryMode": 1,
+      "coverageName": "PUNTA ARENAS",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "RVER",
+      "countyName": "RIO VERDE",
+      "regionCode": "R12",
+      "ineCountyCode": 591,
+      "queryMode": 1,
+      "coverageName": "RIO VERDE",
+      "ind_ppd": 0,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "SGRE",
+      "countyName": "SAN GREGORIO",
+      "regionCode": "R12",
+      "ineCountyCode": 593,
+      "queryMode": 1,
+      "coverageName": "SAN GREGORIO",
+      "ind_ppd": 0,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "TMKL",
+      "countyName": "TIMAUKEL",
+      "regionCode": "R12",
+      "ineCountyCode": 597,
+      "queryMode": 1,
+      "coverageName": "TIMAUKEL",
+      "ind_ppd": 0,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "TPAI",
+      "countyName": "TORRES DEL PAINE",
+      "regionCode": "R12",
+      "ineCountyCode": 586,
+      "queryMode": 1,
+      "coverageName": "TORRES DEL PAINE",
+      "ind_ppd": 0,
+      "ind_rd": 1
+    }
+  ],
+  "statusCode": 0,
+  "statusDescription": "Extraccion exitosa",
+  "errors": null
+}

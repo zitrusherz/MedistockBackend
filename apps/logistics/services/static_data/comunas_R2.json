@@ -1,0 +1,197 @@
+{
+  "coverageAreas": [
+    {
+      "countyCode": "ANTO",
+      "countyName": "ANTOFAGASTA",
+      "regionCode": "R2",
+      "ineCountyCode": 230,
+      "queryMode": 1,
+      "coverageName": "ANTOFAGASTA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "LNEG",
+      "countyName": "ANTOFAGASTA",
+      "regionCode": "R2",
+      "ineCountyCode": 230,
+      "queryMode": 2,
+      "coverageName": "ANTOFAGASTA - LA NEGRA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "PCOL",
+      "countyName": "ANTOFAGASTA",
+      "regionCode": "R2",
+      "ineCountyCode": 230,
+      "queryMode": 2,
+      "coverageName": "ANTOFAGASTA - PUERTO COLOSO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "CALA",
+      "countyName": "CALAMA",
+      "regionCode": "R2",
+      "ineCountyCode": 225,
+      "queryMode": 1,
+      "coverageName": "CALAMA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "MARI",
+      "countyName": "MARIA ELENA",
+      "regionCode": "R2",
+      "ineCountyCode": 221,
+      "queryMode": 1,
+      "coverageName": "MARIA ELENA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "MELS",
+      "countyName": "MARIA ELENA",
+      "regionCode": "R2",
+      "ineCountyCode": 221,
+      "queryMode": 2,
+      "coverageName": "MARIA ELENA SOQUIMICH",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "MEJI",
+      "countyName": "MEJILLONES",
+      "regionCode": "R2",
+      "ineCountyCode": 231,
+      "queryMode": 1,
+      "coverageName": "MEJILLONES",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "OLLA",
+      "countyName": "OLLAGUE",
+      "regionCode": "R2",
+      "ineCountyCode": 226,
+      "queryMode": 1,
+      "coverageName": "OLLAGUE",
+      "ind_ppd": 0,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "SPAT",
+      "countyName": "SAN PEDRO DE ATACAMA",
+      "regionCode": "R2",
+      "ineCountyCode": 227,
+      "queryMode": 1,
+      "coverageName": "SAN PEDRO DE ATACAMA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "ALTA",
+      "countyName": "SAN PEDRO DE ATACAMA",
+      "regionCode": "R2",
+      "ineCountyCode": 227,
+      "queryMode": 2,
+      "coverageName": "SAN PEDRO DE ATACAMA - ALTO TALOR",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "BETE",
+      "countyName": "SAN PEDRO DE ATACAMA",
+      "regionCode": "R2",
+      "ineCountyCode": 227,
+      "queryMode": 2,
+      "coverageName": "SAN PEDRO DE ATACAMA - BETER",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "CLLO",
+      "countyName": "SAN PEDRO DE ATACAMA",
+      "regionCode": "R2",
+      "ineCountyCode": 227,
+      "queryMode": 2,
+      "coverageName": "SAN PEDRO DE ATACAMA - COLLO",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "POHI",
+      "countyName": "SAN PEDRO DE ATACAMA",
+      "regionCode": "R2",
+      "ineCountyCode": 227,
+      "queryMode": 2,
+      "coverageName": "SAN PEDRO DE ATACAMA - POCONCHI",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "SOLO",
+      "countyName": "SAN PEDRO DE ATACAMA",
+      "regionCode": "R2",
+      "ineCountyCode": 227,
+      "queryMode": 2,
+      "coverageName": "SAN PEDRO DE ATACAMA - SOLOR",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "TOAO",
+      "countyName": "SAN PEDRO DE ATACAMA",
+      "regionCode": "R2",
+      "ineCountyCode": 227,
+      "queryMode": 2,
+      "coverageName": "SAN PEDRO DE ATACAMA - TOCONAO",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "SGOR",
+      "countyName": "SIERRA GORDA",
+      "regionCode": "R2",
+      "ineCountyCode": 232,
+      "queryMode": 1,
+      "coverageName": "SIERRA GORDA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "TALT",
+      "countyName": "TALTAL",
+      "regionCode": "R2",
+      "ineCountyCode": 233,
+      "queryMode": 1,
+      "coverageName": "TALTAL",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "TOCO",
+      "countyName": "TOCOPILLA",
+      "regionCode": "R2",
+      "ineCountyCode": 220,
+      "queryMode": 1,
+      "coverageName": "TOCOPILLA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "CALE",
+      "countyName": "TOCOPILLA",
+      "regionCode": "R2",
+      "ineCountyCode": 220,
+      "queryMode": 2,
+      "coverageName": "TOCOPILLA - CALETA BOY",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    }
+  ],
+  "statusCode": 0,
+  "statusDescription": "Extraccion exitosa",
+  "errors": null
+}

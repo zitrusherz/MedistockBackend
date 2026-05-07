@@ -1,0 +1,1287 @@
+{
+  "coverageAreas": [
+    {
+      "countyCode": "CHEP",
+      "countyName": "CHEPICA",
+      "regionCode": "R6",
+      "ineCountyCode": 359,
+      "queryMode": 1,
+      "coverageName": "CHEPICA",
+      "ind_ppd": 0,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "AUQU",
+      "countyName": "CHEPICA",
+      "regionCode": "R6",
+      "ineCountyCode": 359,
+      "queryMode": 2,
+      "coverageName": "CHEPICA - AUQUINCO",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "LAOR",
+      "countyName": "CHEPICA",
+      "regionCode": "R6",
+      "ineCountyCode": 359,
+      "queryMode": 2,
+      "coverageName": "CHEPICA - LA ORILLA DE AUQUINCO",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "LAAR",
+      "countyName": "CHEPICA",
+      "regionCode": "R6",
+      "ineCountyCode": 359,
+      "queryMode": 2,
+      "coverageName": "CHEPICA - LAS ARANAS",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "LILI",
+      "countyName": "CHEPICA",
+      "regionCode": "R6",
+      "ineCountyCode": 359,
+      "queryMode": 2,
+      "coverageName": "CHEPICA - LIMA",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "SANG",
+      "countyName": "CHEPICA",
+      "regionCode": "R6",
+      "ineCountyCode": 359,
+      "queryMode": 2,
+      "coverageName": "CHEPICA - SAN GABRIEL",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "SAAD",
+      "countyName": "CHEPICA",
+      "regionCode": "R6",
+      "ineCountyCode": 359,
+      "queryMode": 2,
+      "coverageName": "CHEPICA - SANTA ADRIANA",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "CHIM",
+      "countyName": "CHIMBARONGO",
+      "regionCode": "R6",
+      "ineCountyCode": 356,
+      "queryMode": 1,
+      "coverageName": "CHIMBARONGO",
+      "ind_ppd": 0,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "CARR",
+      "countyName": "CHIMBARONGO",
+      "regionCode": "R6",
+      "ineCountyCode": 356,
+      "queryMode": 2,
+      "coverageName": "CHIMBARONGO - CARRIZAL",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "CHCO",
+      "countyName": "CHIMBARONGO",
+      "regionCode": "R6",
+      "ineCountyCode": 356,
+      "queryMode": 2,
+      "coverageName": "CHIMBARONGO - CODEGUA",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "ELPE",
+      "countyName": "CHIMBARONGO",
+      "regionCode": "R6",
+      "ineCountyCode": 356,
+      "queryMode": 2,
+      "coverageName": "CHIMBARONGO - EL PEREGIL",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "EROM",
+      "countyName": "CHIMBARONGO",
+      "regionCode": "R6",
+      "ineCountyCode": 356,
+      "queryMode": 2,
+      "coverageName": "CHIMBARONGO - EL ROMERAL",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "LAGO",
+      "countyName": "CHIMBARONGO",
+      "regionCode": "R6",
+      "ineCountyCode": 356,
+      "queryMode": 2,
+      "coverageName": "CHIMBARONGO - LA GOYANA",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "LADA",
+      "countyName": "CHIMBARONGO",
+      "regionCode": "R6",
+      "ineCountyCode": 356,
+      "queryMode": 2,
+      "coverageName": "CHIMBARONGO - LA RINCONADA",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "LARO",
+      "countyName": "CHIMBARONGO",
+      "regionCode": "R6",
+      "ineCountyCode": 356,
+      "queryMode": 2,
+      "coverageName": "CHIMBARONGO - LOS AROMOS",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "LOPE",
+      "countyName": "CHIMBARONGO",
+      "regionCode": "R6",
+      "ineCountyCode": 356,
+      "queryMode": 2,
+      "coverageName": "CHIMBARONGO - LOS PETRILES",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "PESN",
+      "countyName": "CHIMBARONGO",
+      "regionCode": "R6",
+      "ineCountyCode": 356,
+      "queryMode": 2,
+      "coverageName": "CHIMBARONGO - PEOR ES NADA",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "ONIO",
+      "countyName": "CHIMBARONGO",
+      "regionCode": "R6",
+      "ineCountyCode": 356,
+      "queryMode": 2,
+      "coverageName": "CHIMBARONGO - SAN ANTONIO",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "SENR",
+      "countyName": "CHIMBARONGO",
+      "regionCode": "R6",
+      "ineCountyCode": 356,
+      "queryMode": 2,
+      "coverageName": "CHIMBARONGO - SAN ENRIQUE",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "SJSI",
+      "countyName": "CHIMBARONGO",
+      "regionCode": "R6",
+      "ineCountyCode": 356,
+      "queryMode": 2,
+      "coverageName": "CHIMBARONGO - SAN JOSE DE LA SIERRA",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "SVAL",
+      "countyName": "CHIMBARONGO",
+      "regionCode": "R6",
+      "ineCountyCode": 356,
+      "queryMode": 2,
+      "coverageName": "CHIMBARONGO - SANTA VALENTINA",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "TING",
+      "countyName": "CHIMBARONGO",
+      "regionCode": "R6",
+      "ineCountyCode": 356,
+      "queryMode": 2,
+      "coverageName": "CHIMBARONGO - TINGUIRIRICA",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "CODE",
+      "countyName": "CODEGUA",
+      "regionCode": "R6",
+      "ineCountyCode": 338,
+      "queryMode": 1,
+      "coverageName": "CODEGUA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "COIN",
+      "countyName": "COINCO",
+      "regionCode": "R6",
+      "ineCountyCode": 349,
+      "queryMode": 1,
+      "coverageName": "COINCO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "COLT",
+      "countyName": "COLTAUCO",
+      "regionCode": "R6",
+      "ineCountyCode": 348,
+      "queryMode": 1,
+      "coverageName": "COLTAUCO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "EPAR",
+      "countyName": "COLTAUCO",
+      "regionCode": "R6",
+      "ineCountyCode": 348,
+      "queryMode": 2,
+      "coverageName": "COLTAUCO - EL PARRAL",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "IDAH",
+      "countyName": "COLTAUCO",
+      "regionCode": "R6",
+      "ineCountyCode": 348,
+      "queryMode": 2,
+      "coverageName": "COLTAUCO - IDAHUE",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "IDAL",
+      "countyName": "COLTAUCO",
+      "regionCode": "R6",
+      "ineCountyCode": 348,
+      "queryMode": 2,
+      "coverageName": "COLTAUCO - IDAHUILLO",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "PUVI",
+      "countyName": "COLTAUCO",
+      "regionCode": "R6",
+      "ineCountyCode": 348,
+      "queryMode": 2,
+      "coverageName": "COLTAUCO - PUREN",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "RRAL",
+      "countyName": "COLTAUCO",
+      "regionCode": "R6",
+      "ineCountyCode": 348,
+      "queryMode": 2,
+      "coverageName": "COLTAUCO - RINCONADA DE PARRAL",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "COVI",
+      "countyName": "COLTAUCO",
+      "regionCode": "R6",
+      "ineCountyCode": 348,
+      "queryMode": 2,
+      "coverageName": "COLTAUCO - VILLA ALEGRE",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "DONI",
+      "countyName": "DONIHUE",
+      "regionCode": "R6",
+      "ineCountyCode": 350,
+      "queryMode": 1,
+      "coverageName": "DONIHUE",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "GRAN",
+      "countyName": "GRANEROS",
+      "regionCode": "R6",
+      "ineCountyCode": 336,
+      "queryMode": 1,
+      "coverageName": "GRANEROS",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "LACO",
+      "countyName": "GRANEROS",
+      "regionCode": "R6",
+      "ineCountyCode": 336,
+      "queryMode": 2,
+      "coverageName": "GRANEROS - LA COMPANIA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "LAES",
+      "countyName": "LA ESTRELLA",
+      "regionCode": "R6",
+      "ineCountyCode": 373,
+      "queryMode": 1,
+      "coverageName": "LA ESTRELLA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "LCAB",
+      "countyName": "LAS CABRAS",
+      "regionCode": "R6",
+      "ineCountyCode": 351,
+      "queryMode": 1,
+      "coverageName": "LAS CABRAS",
+      "ind_ppd": 0,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "COCA",
+      "countyName": "LAS CABRAS",
+      "regionCode": "R6",
+      "ineCountyCode": 351,
+      "queryMode": 2,
+      "coverageName": "LAS CABRAS - COCALAN",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "CAEL",
+      "countyName": "LAS CABRAS",
+      "regionCode": "R6",
+      "ineCountyCode": 351,
+      "queryMode": 2,
+      "coverageName": "LAS CABRAS - EL CARMEN",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "ELES",
+      "countyName": "LAS CABRAS",
+      "regionCode": "R6",
+      "ineCountyCode": 351,
+      "queryMode": 2,
+      "coverageName": "LAS CABRAS - EL ESTERO",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "ELMA",
+      "countyName": "LAS CABRAS",
+      "regionCode": "R6",
+      "ineCountyCode": 351,
+      "queryMode": 2,
+      "coverageName": "LAS CABRAS - EL MANZANO",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "LACE",
+      "countyName": "LAS CABRAS",
+      "regionCode": "R6",
+      "ineCountyCode": 351,
+      "queryMode": 2,
+      "coverageName": "LAS CABRAS - LA CEBADA",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "LAGA",
+      "countyName": "LAS CABRAS",
+      "regionCode": "R6",
+      "ineCountyCode": 351,
+      "queryMode": 2,
+      "coverageName": "LAS CABRAS - LA GUANANGA",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "LABA",
+      "countyName": "LAS CABRAS",
+      "regionCode": "R6",
+      "ineCountyCode": 351,
+      "queryMode": 2,
+      "coverageName": "LAS CABRAS - LAS BALSAS",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "PVER",
+      "countyName": "LAS CABRAS",
+      "regionCode": "R6",
+      "ineCountyCode": 351,
+      "queryMode": 2,
+      "coverageName": "LAS CABRAS - PUNTA VERDE",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "SAIZ",
+      "countyName": "LAS CABRAS",
+      "regionCode": "R6",
+      "ineCountyCode": 351,
+      "queryMode": 2,
+      "coverageName": "LAS CABRAS - SANTA INEZ",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "LCHE",
+      "countyName": "LITUECHE",
+      "regionCode": "R6",
+      "ineCountyCode": 372,
+      "queryMode": 1,
+      "coverageName": "LITUECHE",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "LOMI",
+      "countyName": "DONIHUE",
+      "regionCode": "R6",
+      "ineCountyCode": 350,
+      "queryMode": 2,
+      "coverageName": "LO MIRANDA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "LOLO",
+      "countyName": "LOLOL",
+      "regionCode": "R6",
+      "ineCountyCode": 361,
+      "queryMode": 1,
+      "coverageName": "LOLOL",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "LONV",
+      "countyName": "PALMILLA",
+      "regionCode": "R6",
+      "ineCountyCode": 363,
+      "queryMode": 2,
+      "coverageName": "LONGOVILO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "MACH",
+      "countyName": "MACHALI",
+      "regionCode": "R6",
+      "ineCountyCode": 339,
+      "queryMode": 1,
+      "coverageName": "MACHALI",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "MALO",
+      "countyName": "MALLOA",
+      "regionCode": "R6",
+      "ineCountyCode": 343,
+      "queryMode": 1,
+      "coverageName": "MALLOA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "MARC",
+      "countyName": "MARCHIHUE",
+      "regionCode": "R6",
+      "ineCountyCode": 374,
+      "queryMode": 1,
+      "coverageName": "MARCHIHUE",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "NANC",
+      "countyName": "NANCAGUA",
+      "regionCode": "R6",
+      "ineCountyCode": 358,
+      "queryMode": 1,
+      "coverageName": "NANCAGUA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "CUNA",
+      "countyName": "NANCAGUA",
+      "regionCode": "R6",
+      "ineCountyCode": 358,
+      "queryMode": 2,
+      "coverageName": "NANCAGUA - CUNACO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "NAVI",
+      "countyName": "NAVIDAD",
+      "regionCode": "R6",
+      "ineCountyCode": 371,
+      "queryMode": 1,
+      "coverageName": "NAVIDAD",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "OLIV",
+      "countyName": "OLIVAR",
+      "regionCode": "R6",
+      "ineCountyCode": 340,
+      "queryMode": 1,
+      "coverageName": "OLIVAR",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "PALM",
+      "countyName": "PALMILLA",
+      "regionCode": "R6",
+      "ineCountyCode": 363,
+      "queryMode": 1,
+      "coverageName": "PALMILLA",
+      "ind_ppd": 0,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "CGUA",
+      "countyName": "PALMILLA",
+      "regionCode": "R6",
+      "ineCountyCode": 363,
+      "queryMode": 2,
+      "coverageName": "PALMILLA - COLCHAGUA",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "HUIQ",
+      "countyName": "PALMILLA",
+      "regionCode": "R6",
+      "ineCountyCode": 363,
+      "queryMode": 2,
+      "coverageName": "PALMILLA - HUIQUE",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "LOIS",
+      "countyName": "PALMILLA",
+      "regionCode": "R6",
+      "ineCountyCode": 363,
+      "queryMode": 2,
+      "coverageName": "PALMILLA - LOS MAQUIS",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "LOSO",
+      "countyName": "PALMILLA",
+      "regionCode": "R6",
+      "ineCountyCode": 363,
+      "queryMode": 2,
+      "coverageName": "PALMILLA - LOS OLMOS",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "SFHU",
+      "countyName": "PALMILLA",
+      "regionCode": "R6",
+      "ineCountyCode": 363,
+      "queryMode": 2,
+      "coverageName": "PALMILLA - SAN FRANCISCO DE HUIQUE",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "FAEL",
+      "countyName": "PALMILLA",
+      "regionCode": "R6",
+      "ineCountyCode": 363,
+      "queryMode": 2,
+      "coverageName": "PALMILLA - SAN RAFAEL",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "SAHU",
+      "countyName": "PALMILLA",
+      "regionCode": "R6",
+      "ineCountyCode": 363,
+      "queryMode": 2,
+      "coverageName": "PALMILLA - SANTA ANA DE HUIQUE",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "PARE",
+      "countyName": "PAREDONES",
+      "regionCode": "R6",
+      "ineCountyCode": 375,
+      "queryMode": 1,
+      "coverageName": "PAREDONES",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "PELE",
+      "countyName": "MALLOA",
+      "regionCode": "R6",
+      "ineCountyCode": 343,
+      "queryMode": 2,
+      "coverageName": "PELEQUEN",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "PERA",
+      "countyName": "PERALILLO",
+      "regionCode": "R6",
+      "ineCountyCode": 364,
+      "queryMode": 1,
+      "coverageName": "PERALILLO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "PEUM",
+      "countyName": "PEUMO",
+      "regionCode": "R6",
+      "ineCountyCode": 347,
+      "queryMode": 1,
+      "coverageName": "PEUMO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "PICD",
+      "countyName": "PICHIDEGUA",
+      "regionCode": "R6",
+      "ineCountyCode": 346,
+      "queryMode": 1,
+      "coverageName": "PICHIDEGUA",
+      "ind_ppd": 0,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "ALVI",
+      "countyName": "PICHIDEGUA",
+      "regionCode": "R6",
+      "ineCountyCode": 346,
+      "queryMode": 2,
+      "coverageName": "PICHIDEGUA - ALMAHUE VIEJO",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "EOCO",
+      "countyName": "PICHIDEGUA",
+      "regionCode": "R6",
+      "ineCountyCode": 346,
+      "queryMode": 2,
+      "coverageName": "PICHIDEGUA - EL TOCO",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "LPAT",
+      "countyName": "PICHIDEGUA",
+      "regionCode": "R6",
+      "ineCountyCode": 346,
+      "queryMode": 2,
+      "coverageName": "PICHIDEGUA - LA PATONERA",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "LARM",
+      "countyName": "PICHIDEGUA",
+      "regionCode": "R6",
+      "ineCountyCode": 346,
+      "queryMode": 2,
+      "coverageName": "PICHIDEGUA - LARMAHUE",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "LAPA",
+      "countyName": "PICHIDEGUA",
+      "regionCode": "R6",
+      "ineCountyCode": 346,
+      "queryMode": 2,
+      "coverageName": "PICHIDEGUA - LAS PATAGUAS",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "LOID",
+      "countyName": "PICHIDEGUA",
+      "regionCode": "R6",
+      "ineCountyCode": 346,
+      "queryMode": 2,
+      "coverageName": "PICHIDEGUA - LO MADRID",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "SJDM",
+      "countyName": "PICHIDEGUA",
+      "regionCode": "R6",
+      "ineCountyCode": 346,
+      "queryMode": 2,
+      "coverageName": "PICHIDEGUA - SAN JOSE DE MARCHIHUE",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "SALU",
+      "countyName": "PICHIDEGUA",
+      "regionCode": "R6",
+      "ineCountyCode": 346,
+      "queryMode": 2,
+      "coverageName": "PICHIDEGUA - SANTA LUCIA",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "PICH",
+      "countyName": "PICHILEMU",
+      "regionCode": "R6",
+      "ineCountyCode": 370,
+      "queryMode": 1,
+      "coverageName": "PICHILEMU",
+      "ind_ppd": 0,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "BCAS",
+      "countyName": "PICHILEMU",
+      "regionCode": "R6",
+      "ineCountyCode": 370,
+      "queryMode": 2,
+      "coverageName": "PICHILEMU - BARRANCAS",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "CAHU",
+      "countyName": "PICHILEMU",
+      "regionCode": "R6",
+      "ineCountyCode": 370,
+      "queryMode": 2,
+      "coverageName": "PICHILEMU - CAHUIL",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "URRA",
+      "countyName": "PICHILEMU",
+      "regionCode": "R6",
+      "ineCountyCode": 370,
+      "queryMode": 2,
+      "coverageName": "PICHILEMU - CHACURRA",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "LLOS",
+      "countyName": "PICHILEMU",
+      "regionCode": "R6",
+      "ineCountyCode": 370,
+      "queryMode": 2,
+      "coverageName": "PICHILEMU - LOS CIRUELOS",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "PLAC",
+      "countyName": "PLACILLA",
+      "regionCode": "R6",
+      "ineCountyCode": 357,
+      "queryMode": 1,
+      "coverageName": "PLACILLA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "PUMA",
+      "countyName": "PUMANQUE",
+      "regionCode": "R6",
+      "ineCountyCode": 362,
+      "queryMode": 1,
+      "coverageName": "PUMANQUE",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "QTIL",
+      "countyName": "QUINTA DE TILCOCO",
+      "regionCode": "R6",
+      "ineCountyCode": 344,
+      "queryMode": 1,
+      "coverageName": "QUINTA DE TILCOCO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "RANC",
+      "countyName": "RANCAGUA",
+      "regionCode": "R6",
+      "ineCountyCode": 335,
+      "queryMode": 1,
+      "coverageName": "RANCAGUA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "OALT",
+      "countyName": "RANCAGUA",
+      "regionCode": "R6",
+      "ineCountyCode": 335,
+      "queryMode": 2,
+      "coverageName": "RANCAGUA - OLIVAR ALTO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "OBAJ",
+      "countyName": "RANCAGUA",
+      "regionCode": "R6",
+      "ineCountyCode": 335,
+      "queryMode": 2,
+      "coverageName": "RANCAGUA - OLIVAR BAJO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "PDEC",
+      "countyName": "RANCAGUA",
+      "regionCode": "R6",
+      "ineCountyCode": 335,
+      "queryMode": 2,
+      "coverageName": "RANCAGUA - PUNTA DE CORTES",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "RENG",
+      "countyName": "RENGO",
+      "regionCode": "R6",
+      "ineCountyCode": 342,
+      "queryMode": 1,
+      "coverageName": "RENGO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "RECE",
+      "countyName": "RENGO",
+      "regionCode": "R6",
+      "ineCountyCode": 342,
+      "queryMode": 2,
+      "coverageName": "RENGO - CERRILLOS",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "REQU",
+      "countyName": "REQUINOA",
+      "regionCode": "R6",
+      "ineCountyCode": 341,
+      "queryMode": 1,
+      "coverageName": "REQUINOA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "PIMP",
+      "countyName": "REQUINOA",
+      "regionCode": "R6",
+      "ineCountyCode": 341,
+      "queryMode": 2,
+      "coverageName": "REQUINOA - PIMPINELA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "ROSA",
+      "countyName": "RENGO",
+      "regionCode": "R6",
+      "ineCountyCode": 342,
+      "queryMode": 2,
+      "coverageName": "ROSARIO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "SFER",
+      "countyName": "SAN FERNANDO",
+      "regionCode": "R6",
+      "ineCountyCode": 355,
+      "queryMode": 1,
+      "coverageName": "SAN FERNANDO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "SFRA",
+      "countyName": "MOSTAZAL",
+      "regionCode": "R6",
+      "ineCountyCode": 337,
+      "queryMode": 1,
+      "coverageName": "SAN FRANCISCO DE MOSTAZAL",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "LAPU",
+      "countyName": "MOSTAZAL",
+      "regionCode": "R6",
+      "ineCountyCode": 337,
+      "queryMode": 2,
+      "coverageName": "SAN FRANCISCO DE MOSTAZAL - LA PUNTA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "SVIC",
+      "countyName": "SAN VICENTE",
+      "regionCode": "R6",
+      "ineCountyCode": 345,
+      "queryMode": 1,
+      "coverageName": "SAN VICENTE",
+      "ind_ppd": 0,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "ETSV",
+      "countyName": "SAN VICENTE",
+      "regionCode": "R6",
+      "ineCountyCode": 345,
+      "queryMode": 2,
+      "coverageName": "SAN VICENTE - EL TAMBO",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "ELVI",
+      "countyName": "SAN VICENTE",
+      "regionCode": "R6",
+      "ineCountyCode": 345,
+      "queryMode": 2,
+      "coverageName": "SAN VICENTE - EL VIENTO",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "LAPR",
+      "countyName": "SAN VICENTE",
+      "regionCode": "R6",
+      "ineCountyCode": 345,
+      "queryMode": 2,
+      "coverageName": "SAN VICENTE - LA PLATINA REQUEGUA",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "SVLP",
+      "countyName": "SAN VICENTE",
+      "regionCode": "R6",
+      "ineCountyCode": 345,
+      "queryMode": 2,
+      "coverageName": "SAN VICENTE - LAS PATAGUAS",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "LOIN",
+      "countyName": "SAN VICENTE",
+      "regionCode": "R6",
+      "ineCountyCode": 345,
+      "queryMode": 2,
+      "coverageName": "SAN VICENTE - LOS INDIOS",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "LNES",
+      "countyName": "SAN VICENTE",
+      "regionCode": "R6",
+      "ineCountyCode": 345,
+      "queryMode": 2,
+      "coverageName": "SAN VICENTE - LOS MAITENES",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "LOSR",
+      "countyName": "SAN VICENTE",
+      "regionCode": "R6",
+      "ineCountyCode": 345,
+      "queryMode": 2,
+      "coverageName": "SAN VICENTE - LOS RASTROJOS",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "NARA",
+      "countyName": "SAN VICENTE",
+      "regionCode": "R6",
+      "ineCountyCode": 345,
+      "queryMode": 2,
+      "coverageName": "SAN VICENTE - NARANJAL",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "ENCA",
+      "countyName": "SAN VICENTE",
+      "regionCode": "R6",
+      "ineCountyCode": 345,
+      "queryMode": 2,
+      "coverageName": "SAN VICENTE - PENCAHUE",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "RINT",
+      "countyName": "SAN VICENTE",
+      "regionCode": "R6",
+      "ineCountyCode": 345,
+      "queryMode": 2,
+      "coverageName": "SAN VICENTE - RINCONADA DEL TAMBO",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "TOQU",
+      "countyName": "SAN VICENTE",
+      "regionCode": "R6",
+      "ineCountyCode": 345,
+      "queryMode": 2,
+      "coverageName": "SAN VICENTE - TOQUIHUA",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "TUAB",
+      "countyName": "SAN VICENTE",
+      "regionCode": "R6",
+      "ineCountyCode": 345,
+      "queryMode": 2,
+      "coverageName": "SAN VICENTE - TUNCA ABAJO",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "TUAR",
+      "countyName": "SAN VICENTE",
+      "regionCode": "R6",
+      "ineCountyCode": 345,
+      "queryMode": 2,
+      "coverageName": "SAN VICENTE - TUNCA ARRIBA",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "TUME",
+      "countyName": "SAN VICENTE",
+      "regionCode": "R6",
+      "ineCountyCode": 345,
+      "queryMode": 2,
+      "coverageName": "SAN VICENTE - TUNCA DEL MEDIO",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "TUMO",
+      "countyName": "SAN VICENTE",
+      "regionCode": "R6",
+      "ineCountyCode": 345,
+      "queryMode": 2,
+      "coverageName": "SAN VICENTE - TUNCA EL MOLINO",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "ZUNI",
+      "countyName": "SAN VICENTE",
+      "regionCode": "R6",
+      "ineCountyCode": 345,
+      "queryMode": 2,
+      "coverageName": "SAN VICENTE - ZUNIGA",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "SCRU",
+      "countyName": "SANTA CRUZ",
+      "regionCode": "R6",
+      "ineCountyCode": 360,
+      "queryMode": 1,
+      "coverageName": "SANTA CRUZ",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "CHOE",
+      "countyName": "SANTA CRUZ",
+      "regionCode": "R6",
+      "ineCountyCode": 360,
+      "queryMode": 2,
+      "coverageName": "SANTA CRUZ - CHOMEDAHUE",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "ELOR",
+      "countyName": "SANTA CRUZ",
+      "regionCode": "R6",
+      "ineCountyCode": 360,
+      "queryMode": 2,
+      "coverageName": "SANTA CRUZ - EL CONDOR",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "ETSC",
+      "countyName": "SANTA CRUZ",
+      "regionCode": "R6",
+      "ineCountyCode": 360,
+      "queryMode": 2,
+      "coverageName": "SANTA CRUZ - EL TAMBO",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "ISYA",
+      "countyName": "SANTA CRUZ",
+      "regionCode": "R6",
+      "ineCountyCode": 360,
+      "queryMode": 2,
+      "coverageName": "SANTA CRUZ - ISLA DE YANQUIL",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "LANA",
+      "countyName": "SANTA CRUZ",
+      "regionCode": "R6",
+      "ineCountyCode": 360,
+      "queryMode": 2,
+      "coverageName": "SANTA CRUZ - LA CARLINA",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "LALA",
+      "countyName": "SANTA CRUZ",
+      "regionCode": "R6",
+      "ineCountyCode": 360,
+      "queryMode": 2,
+      "coverageName": "SANTA CRUZ - LA LAJUELA",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "LAMI",
+      "countyName": "SANTA CRUZ",
+      "regionCode": "R6",
+      "ineCountyCode": 360,
+      "queryMode": 2,
+      "coverageName": "SANTA CRUZ - LA MINA",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "SCLA",
+      "countyName": "SANTA CRUZ",
+      "regionCode": "R6",
+      "ineCountyCode": 360,
+      "queryMode": 2,
+      "coverageName": "SANTA CRUZ - LAGUNILLA",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "LBAR",
+      "countyName": "SANTA CRUZ",
+      "regionCode": "R6",
+      "ineCountyCode": 360,
+      "queryMode": 2,
+      "coverageName": "SANTA CRUZ - LOS BARRIENTOS",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "LOOS",
+      "countyName": "SANTA CRUZ",
+      "regionCode": "R6",
+      "ineCountyCode": 360,
+      "queryMode": 2,
+      "coverageName": "SANTA CRUZ - LOS BOLDOS",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "MILL",
+      "countyName": "SANTA CRUZ",
+      "regionCode": "R6",
+      "ineCountyCode": 360,
+      "queryMode": 2,
+      "coverageName": "SANTA CRUZ - MILLAHUE",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "PANI",
+      "countyName": "SANTA CRUZ",
+      "regionCode": "R6",
+      "ineCountyCode": 360,
+      "queryMode": 2,
+      "coverageName": "SANTA CRUZ - PANIAHUE",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "QHUE",
+      "countyName": "SANTA CRUZ",
+      "regionCode": "R6",
+      "ineCountyCode": 360,
+      "queryMode": 2,
+      "coverageName": "SANTA CRUZ - QUINAHUE",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    }
+  ],
+  "statusCode": 0,
+  "statusDescription": "Extraccion exitosa",
+  "errors": null
+}

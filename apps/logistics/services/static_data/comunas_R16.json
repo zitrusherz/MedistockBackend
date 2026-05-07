@@ -1,0 +1,407 @@
+{
+  "coverageAreas": [
+    {
+      "countyCode": "BULN",
+      "countyName": "BULNES",
+      "regionCode": "R16",
+      "ineCountyCode": 425,
+      "queryMode": 1,
+      "coverageName": "BULNES",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "CHIL",
+      "countyName": "CHILLAN",
+      "regionCode": "R16",
+      "ineCountyCode": 415,
+      "queryMode": 1,
+      "coverageName": "CHILLAN",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "CHIL",
+      "countyName": "NUEVA ALDEA",
+      "regionCode": "R16",
+      "ineCountyCode": 415,
+      "queryMode": 1,
+      "coverageName": "CHILLAN",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "CHVJ",
+      "countyName": "CHILLAN VIEJO",
+      "regionCode": "R16",
+      "ineCountyCode": 435,
+      "queryMode": 1,
+      "coverageName": "CHILLAN VIEJO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "COBQ",
+      "countyName": "COBQUECURA",
+      "regionCode": "R16",
+      "ineCountyCode": 431,
+      "queryMode": 1,
+      "coverageName": "COBQUECURA",
+      "ind_ppd": 0,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "COEL",
+      "countyName": "COELEMU",
+      "regionCode": "R16",
+      "ineCountyCode": 429,
+      "queryMode": 1,
+      "coverageName": "COELEMU",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "RAFA",
+      "countyName": "COELEMU",
+      "regionCode": "R16",
+      "ineCountyCode": 429,
+      "queryMode": 2,
+      "coverageName": "COELEMU - RAFAEL",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "RANG",
+      "countyName": "COELEMU",
+      "regionCode": "R16",
+      "ineCountyCode": 429,
+      "queryMode": 2,
+      "coverageName": "COELEMU - RANGUELMO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "COIC",
+      "countyName": "COIHUECO",
+      "regionCode": "R16",
+      "ineCountyCode": 419,
+      "queryMode": 1,
+      "coverageName": "COIHUECO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "MANT",
+      "countyName": "COIHUECO",
+      "regionCode": "R16",
+      "ineCountyCode": 419,
+      "queryMode": 2,
+      "coverageName": "COIHUECO - BUSTAMANTE",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "ILLO",
+      "countyName": "COIHUECO",
+      "regionCode": "R16",
+      "ineCountyCode": 419,
+      "queryMode": 2,
+      "coverageName": "COIHUECO - CARRIZALILLO",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "CATO",
+      "countyName": "COIHUECO",
+      "regionCode": "R16",
+      "ineCountyCode": 419,
+      "queryMode": 2,
+      "coverageName": "COIHUECO - CATO",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "CULE",
+      "countyName": "COIHUECO",
+      "regionCode": "R16",
+      "ineCountyCode": 419,
+      "queryMode": 2,
+      "coverageName": "COIHUECO - CULENAR",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "RADO",
+      "countyName": "COIHUECO",
+      "regionCode": "R16",
+      "ineCountyCode": 419,
+      "queryMode": 2,
+      "coverageName": "COIHUECO - EL PRADO",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "INTO",
+      "countyName": "COIHUECO",
+      "regionCode": "R16",
+      "ineCountyCode": 419,
+      "queryMode": 2,
+      "coverageName": "COIHUECO - NIBLINTO",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "TANI",
+      "countyName": "COIHUECO",
+      "regionCode": "R16",
+      "ineCountyCode": 419,
+      "queryMode": 2,
+      "coverageName": "COIHUECO - TANILVORO",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "ECAR",
+      "countyName": "EL CARMEN",
+      "regionCode": "R16",
+      "ineCountyCode": 422,
+      "queryMode": 1,
+      "coverageName": "EL CARMEN",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "NINH",
+      "countyName": "NINHUE",
+      "regionCode": "R16",
+      "ineCountyCode": 433,
+      "queryMode": 1,
+      "coverageName": "NINHUE",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "NIQU",
+      "countyName": "NIQUEN",
+      "regionCode": "R16",
+      "ineCountyCode": 417,
+      "queryMode": 1,
+      "coverageName": "NIQUEN",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "NALD",
+      "countyName": "CHILLAN",
+      "regionCode": "R16",
+      "ineCountyCode": 415,
+      "queryMode": 2,
+      "coverageName": "NUEVA ALDEA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "NALD",
+      "countyName": "NUEVA ALDEA",
+      "regionCode": "R16",
+      "ineCountyCode": 415,
+      "queryMode": 2,
+      "coverageName": "NUEVA ALDEA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "PEMU",
+      "countyName": "PEMUCO",
+      "regionCode": "R16",
+      "ineCountyCode": 424,
+      "queryMode": 1,
+      "coverageName": "PEMUCO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "PINT",
+      "countyName": "PINTO",
+      "regionCode": "R16",
+      "ineCountyCode": 420,
+      "queryMode": 1,
+      "coverageName": "PINTO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "TRAN",
+      "countyName": "PINTO",
+      "regionCode": "R16",
+      "ineCountyCode": 420,
+      "queryMode": 2,
+      "coverageName": "PINTO - LAS TRANCAS",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "LOSS",
+      "countyName": "PINTO",
+      "regionCode": "R16",
+      "ineCountyCode": 420,
+      "queryMode": 2,
+      "coverageName": "PINTO - LOS LLEUQUES",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "RECI",
+      "countyName": "PINTO",
+      "regionCode": "R16",
+      "ineCountyCode": 420,
+      "queryMode": 2,
+      "coverageName": "PINTO - RECINTO",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "TCHI",
+      "countyName": "PINTO",
+      "regionCode": "R16",
+      "ineCountyCode": 420,
+      "queryMode": 2,
+      "coverageName": "PINTO - TERMAS DE CHILLAN",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "PORT",
+      "countyName": "PORTEZUELO",
+      "regionCode": "R16",
+      "ineCountyCode": 428,
+      "queryMode": 1,
+      "coverageName": "PORTEZUELO",
+      "ind_ppd": 0,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "PSEC",
+      "countyName": "SAN IGNACIO",
+      "regionCode": "R16",
+      "ineCountyCode": 421,
+      "queryMode": 2,
+      "coverageName": "PUEBLO SECO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "QULL",
+      "countyName": "QUILLON",
+      "regionCode": "R16",
+      "ineCountyCode": 426,
+      "queryMode": 1,
+      "coverageName": "QUILLON",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "QUIR",
+      "countyName": "QUIRIHUE",
+      "regionCode": "R16",
+      "ineCountyCode": 432,
+      "queryMode": 1,
+      "coverageName": "QUIRIHUE",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "QUIQ",
+      "countyName": "SAN IGNACIO",
+      "regionCode": "R16",
+      "ineCountyCode": 421,
+      "queryMode": 2,
+      "coverageName": "QUIRIQUINA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "RANQ",
+      "countyName": "RANQUIL",
+      "regionCode": "R16",
+      "ineCountyCode": 427,
+      "queryMode": 1,
+      "coverageName": "RANQUIL",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "SCAR",
+      "countyName": "SAN CARLOS",
+      "regionCode": "R16",
+      "ineCountyCode": 416,
+      "queryMode": 1,
+      "coverageName": "SAN CARLOS",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "SFAL",
+      "countyName": "SAN FABIAN",
+      "regionCode": "R16",
+      "ineCountyCode": 418,
+      "queryMode": 2,
+      "coverageName": "SAN FABIAN - SAN FABIAN DE ALICO",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "SIGN",
+      "countyName": "SAN IGNACIO",
+      "regionCode": "R16",
+      "ineCountyCode": 421,
+      "queryMode": 1,
+      "coverageName": "SAN IGNACIO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "SNIC",
+      "countyName": "SAN NICOLAS",
+      "regionCode": "R16",
+      "ineCountyCode": 434,
+      "queryMode": 1,
+      "coverageName": "SAN NICOLAS",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "TREG",
+      "countyName": "TREGUACO",
+      "regionCode": "R16",
+      "ineCountyCode": 430,
+      "queryMode": 1,
+      "coverageName": "TREGUACO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "YUNG",
+      "countyName": "YUNGAY",
+      "regionCode": "R16",
+      "ineCountyCode": 423,
+      "queryMode": 1,
+      "coverageName": "YUNGAY",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "CHOL",
+      "countyName": "YUNGAY",
+      "regionCode": "R16",
+      "ineCountyCode": 423,
+      "queryMode": 2,
+      "coverageName": "YUNGAY - CHOLGUAN",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    }
+  ],
+  "statusCode": 0,
+  "statusDescription": "Extraccion exitosa",
+  "errors": null
+}

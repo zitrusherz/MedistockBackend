@@ -1,0 +1,147 @@
+{
+  "coverageAreas": [
+    {
+      "countyCode": "ACAR",
+      "countyName": "ALTO DEL CARMEN",
+      "regionCode": "R3",
+      "ineCountyCode": 248,
+      "queryMode": 1,
+      "coverageName": "ALTO DEL CARMEN",
+      "ind_ppd": 0,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "CALD",
+      "countyName": "CALDERA",
+      "regionCode": "R3",
+      "ineCountyCode": 241,
+      "queryMode": 1,
+      "coverageName": "CALDERA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "CHAN",
+      "countyName": "CHANARAL",
+      "regionCode": "R3",
+      "ineCountyCode": 235,
+      "queryMode": 1,
+      "coverageName": "CHANARAL",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "COPI",
+      "countyName": "COPIAPO",
+      "regionCode": "R3",
+      "ineCountyCode": 240,
+      "queryMode": 1,
+      "coverageName": "COPIAPO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "DIEG",
+      "countyName": "DIEGO DE ALMAGRO",
+      "regionCode": "R3",
+      "ineCountyCode": 236,
+      "queryMode": 1,
+      "coverageName": "DIEGO DE ALMAGRO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "ELSA",
+      "countyName": "DIEGO DE ALMAGRO",
+      "regionCode": "R3",
+      "ineCountyCode": 236,
+      "queryMode": 2,
+      "coverageName": "EL SALVADOR",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "EPAI",
+      "countyName": "COPIAPO",
+      "regionCode": "R3",
+      "ineCountyCode": 240,
+      "queryMode": 2,
+      "coverageName": "ESTACION PAIPOTE",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "FREI",
+      "countyName": "FREIRINA",
+      "regionCode": "R3",
+      "ineCountyCode": 246,
+      "queryMode": 1,
+      "coverageName": "FREIRINA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "HUAS",
+      "countyName": "HUASCO",
+      "regionCode": "R3",
+      "ineCountyCode": 247,
+      "queryMode": 1,
+      "coverageName": "HUASCO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "HUAB",
+      "countyName": "HUASCO",
+      "regionCode": "R3",
+      "ineCountyCode": 247,
+      "queryMode": 2,
+      "coverageName": "HUASCO - HUASCO BAJO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "PAIP",
+      "countyName": "COPIAPO",
+      "regionCode": "R3",
+      "ineCountyCode": 240,
+      "queryMode": 2,
+      "coverageName": "PAIPOTE",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "TAMA",
+      "countyName": "TIERRA AMARILLA",
+      "regionCode": "R3",
+      "ineCountyCode": 242,
+      "queryMode": 1,
+      "coverageName": "TIERRA AMARILLA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "VALL",
+      "countyName": "VALLENAR",
+      "regionCode": "R3",
+      "ineCountyCode": 245,
+      "queryMode": 1,
+      "coverageName": "VALLENAR",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "DOMY",
+      "countyName": "VALLENAR",
+      "regionCode": "R3",
+      "ineCountyCode": 245,
+      "queryMode": 2,
+      "coverageName": "VALLENAR - DOMEYCO",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    }
+  ],
+  "statusCode": 0,
+  "statusDescription": "Extraccion exitosa",
+  "errors": null
+}

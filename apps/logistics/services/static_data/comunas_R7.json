@@ -1,0 +1,717 @@
+{
+  "coverageAreas": [
+    {
+      "countyCode": "CAUQ",
+      "countyName": "CAUQUENES",
+      "regionCode": "R7",
+      "ineCountyCode": 410,
+      "queryMode": 1,
+      "coverageName": "CAUQUENES",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "CHNC",
+      "countyName": "CHANCO",
+      "regionCode": "R7",
+      "ineCountyCode": 412,
+      "queryMode": 1,
+      "coverageName": "CHANCO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "COLB",
+      "countyName": "COLBUN",
+      "regionCode": "R7",
+      "ineCountyCode": 402,
+      "queryMode": 1,
+      "coverageName": "COLBUN",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "LQUE",
+      "countyName": "COLBUN",
+      "regionCode": "R7",
+      "ineCountyCode": 402,
+      "queryMode": 2,
+      "coverageName": "COLBUN - LANCHA DE QUERI",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "LPUN",
+      "countyName": "COLBUN",
+      "regionCode": "R7",
+      "ineCountyCode": 402,
+      "queryMode": 2,
+      "coverageName": "COLBUN - LOMAS DE PUTAGARI",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "VIDA",
+      "countyName": "COLBUN",
+      "regionCode": "R7",
+      "ineCountyCode": 402,
+      "queryMode": 2,
+      "coverageName": "COLBUN - PANIMAVIDA",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "QINA",
+      "countyName": "COLBUN",
+      "regionCode": "R7",
+      "ineCountyCode": 402,
+      "queryMode": 2,
+      "coverageName": "COLBUN - QUINAMAVIDA",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "RARI",
+      "countyName": "COLBUN",
+      "regionCode": "R7",
+      "ineCountyCode": 402,
+      "queryMode": 2,
+      "coverageName": "COLBUN - RARI",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "CONS",
+      "countyName": "CONSTITUCION",
+      "regionCode": "R7",
+      "ineCountyCode": 397,
+      "queryMode": 1,
+      "coverageName": "CONSTITUCION",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "ISCO",
+      "countyName": "CONSTITUCION",
+      "regionCode": "R7",
+      "ineCountyCode": 397,
+      "queryMode": 2,
+      "coverageName": "CONSTITUCION - ISLA DE CONSTITUCION",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "JUNQ",
+      "countyName": "CONSTITUCION",
+      "regionCode": "R7",
+      "ineCountyCode": 397,
+      "queryMode": 2,
+      "coverageName": "CONSTITUCION - JUNQUILLAR",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "LATR",
+      "countyName": "CONSTITUCION",
+      "regionCode": "R7",
+      "ineCountyCode": 397,
+      "queryMode": 2,
+      "coverageName": "CONSTITUCION - LA PITRA",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "CANA",
+      "countyName": "CONSTITUCION",
+      "regionCode": "R7",
+      "ineCountyCode": 397,
+      "queryMode": 2,
+      "coverageName": "CONSTITUCION - LAS CANAS",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "LASC",
+      "countyName": "CONSTITUCION",
+      "regionCode": "R7",
+      "ineCountyCode": 397,
+      "queryMode": 2,
+      "coverageName": "CONSTITUCION - LAS CORRIENTES",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "LOLL",
+      "countyName": "CONSTITUCION",
+      "regionCode": "R7",
+      "ineCountyCode": 397,
+      "queryMode": 2,
+      "coverageName": "CONSTITUCION - LOS PELLINES",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "LOSP",
+      "countyName": "CONSTITUCION",
+      "regionCode": "R7",
+      "ineCountyCode": 397,
+      "queryMode": 2,
+      "coverageName": "CONSTITUCION - LOS PEQUENES",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "PILO",
+      "countyName": "CONSTITUCION",
+      "regionCode": "R7",
+      "ineCountyCode": 397,
+      "queryMode": 2,
+      "coverageName": "CONSTITUCION - PIEDRA DEL LOBO",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "PUTU",
+      "countyName": "CONSTITUCION",
+      "regionCode": "R7",
+      "ineCountyCode": 397,
+      "queryMode": 2,
+      "coverageName": "CONSTITUCION - PUTU",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "QIVO",
+      "countyName": "CONSTITUCION",
+      "regionCode": "R7",
+      "ineCountyCode": 397,
+      "queryMode": 2,
+      "coverageName": "CONSTITUCION - QUIVOLGO",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "RICO",
+      "countyName": "CONSTITUCION",
+      "regionCode": "R7",
+      "ineCountyCode": 397,
+      "queryMode": 2,
+      "coverageName": "CONSTITUCION - RINCONADA",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "RAMO",
+      "countyName": "CONSTITUCION",
+      "regionCode": "R7",
+      "ineCountyCode": 397,
+      "queryMode": 2,
+      "coverageName": "CONSTITUCION - SAN RAMON",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "SAJU",
+      "countyName": "CONSTITUCION",
+      "regionCode": "R7",
+      "ineCountyCode": 397,
+      "queryMode": 2,
+      "coverageName": "CONSTITUCION - SANTA JULIA",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "VAQU",
+      "countyName": "CONSTITUCION",
+      "regionCode": "R7",
+      "ineCountyCode": 397,
+      "queryMode": 2,
+      "coverageName": "CONSTITUCION - VAQUERIA",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "CURE",
+      "countyName": "CUREPTO",
+      "regionCode": "R7",
+      "ineCountyCode": 398,
+      "queryMode": 1,
+      "coverageName": "CUREPTO",
+      "ind_ppd": 0,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "CURI",
+      "countyName": "CURICO",
+      "regionCode": "R7",
+      "ineCountyCode": 380,
+      "queryMode": 1,
+      "coverageName": "CURICO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "LNIC",
+      "countyName": "CURICO",
+      "regionCode": "R7",
+      "ineCountyCode": 380,
+      "queryMode": 2,
+      "coverageName": "CURICO - LOS NICHES",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "EMPE",
+      "countyName": "EMPEDRADO",
+      "regionCode": "R7",
+      "ineCountyCode": 395,
+      "queryMode": 1,
+      "coverageName": "EMPEDRADO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "HUAL",
+      "countyName": "HUALANE",
+      "regionCode": "R7",
+      "ineCountyCode": 385,
+      "queryMode": 1,
+      "coverageName": "HUALANE",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "LICA",
+      "countyName": "LICANTEN",
+      "regionCode": "R7",
+      "ineCountyCode": 386,
+      "queryMode": 1,
+      "coverageName": "LICANTEN",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "LINA",
+      "countyName": "LINARES",
+      "regionCode": "R7",
+      "ineCountyCode": 400,
+      "queryMode": 1,
+      "coverageName": "LINARES",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "ANLI",
+      "countyName": "LINARES",
+      "regionCode": "R7",
+      "ineCountyCode": 400,
+      "queryMode": 2,
+      "coverageName": "LINARES - ACCESO NORTE LINARES",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "SANO",
+      "countyName": "LINARES",
+      "regionCode": "R7",
+      "ineCountyCode": 400,
+      "queryMode": 2,
+      "coverageName": "LINARES - SAN ANTONIO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "SAGU",
+      "countyName": "LINARES",
+      "regionCode": "R7",
+      "ineCountyCode": 400,
+      "queryMode": 2,
+      "coverageName": "LINARES - SANTA ANA DE GUAPI",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "VGRU",
+      "countyName": "LINARES",
+      "regionCode": "R7",
+      "ineCountyCode": 400,
+      "queryMode": 2,
+      "coverageName": "LINARES - VARA GRUESA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "LONG",
+      "countyName": "LONGAVI",
+      "regionCode": "R7",
+      "ineCountyCode": 403,
+      "queryMode": 1,
+      "coverageName": "LONGAVI",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "LROS",
+      "countyName": "LONGAVI",
+      "regionCode": "R7",
+      "ineCountyCode": 403,
+      "queryMode": 2,
+      "coverageName": "LONGAVI - LAS ROSAS",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "MESA",
+      "countyName": "LONGAVI",
+      "regionCode": "R7",
+      "ineCountyCode": 403,
+      "queryMode": 2,
+      "coverageName": "LONGAVI - MESAMAVIDA",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "MIRA",
+      "countyName": "LONGAVI",
+      "regionCode": "R7",
+      "ineCountyCode": 403,
+      "queryMode": 2,
+      "coverageName": "LONGAVI - MIRAFLORES",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "CARL",
+      "countyName": "LONGAVI",
+      "regionCode": "R7",
+      "ineCountyCode": 403,
+      "queryMode": 2,
+      "coverageName": "LONGAVI - SAN CARLOS",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "LONT",
+      "countyName": "MOLINA",
+      "regionCode": "R7",
+      "ineCountyCode": 383,
+      "queryMode": 2,
+      "coverageName": "LONTUE",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "MULE",
+      "countyName": "MAULE",
+      "regionCode": "R7",
+      "ineCountyCode": 394,
+      "queryMode": 1,
+      "coverageName": "MAULE",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "MOLI",
+      "countyName": "MOLINA",
+      "regionCode": "R7",
+      "ineCountyCode": 383,
+      "queryMode": 1,
+      "coverageName": "MOLINA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "ITAH",
+      "countyName": "MOLINA",
+      "regionCode": "R7",
+      "ineCountyCode": 383,
+      "queryMode": 2,
+      "coverageName": "MOLINA - ITAHUE",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "LHOR",
+      "countyName": "MOLINA",
+      "regionCode": "R7",
+      "ineCountyCode": 383,
+      "queryMode": 2,
+      "coverageName": "MOLINA - LOS HORNOS",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "PGAL",
+      "countyName": "MOLINA",
+      "regionCode": "R7",
+      "ineCountyCode": 383,
+      "queryMode": 2,
+      "coverageName": "MOLINA - PICHINGAL",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "ALTO",
+      "countyName": "MOLINA",
+      "regionCode": "R7",
+      "ineCountyCode": 383,
+      "queryMode": 2,
+      "coverageName": "MOLINA - PUENTE ALTO",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "PARR",
+      "countyName": "PARRAL",
+      "regionCode": "R7",
+      "ineCountyCode": 404,
+      "queryMode": 1,
+      "coverageName": "PARRAL",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "PELA",
+      "countyName": "PELARCO",
+      "regionCode": "R7",
+      "ineCountyCode": 391,
+      "queryMode": 1,
+      "coverageName": "PELARCO",
+      "ind_ppd": 0,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "PELL",
+      "countyName": "PELLUHUE",
+      "regionCode": "R7",
+      "ineCountyCode": 411,
+      "queryMode": 1,
+      "coverageName": "PELLUHUE",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "PNCH",
+      "countyName": "PENCAHUE",
+      "regionCode": "R7",
+      "ineCountyCode": 396,
+      "queryMode": 1,
+      "coverageName": "PENCAHUE",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "RAUC",
+      "countyName": "RAUCO",
+      "regionCode": "R7",
+      "ineCountyCode": 388,
+      "queryMode": 1,
+      "coverageName": "RAUCO",
+      "ind_ppd": 0,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "RETI",
+      "countyName": "RETIRO",
+      "regionCode": "R7",
+      "ineCountyCode": 405,
+      "queryMode": 1,
+      "coverageName": "RETIRO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "RCLA",
+      "countyName": "RIO CLARO",
+      "regionCode": "R7",
+      "ineCountyCode": 392,
+      "queryMode": 1,
+      "coverageName": "RIO CLARO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "ROME",
+      "countyName": "ROMERAL",
+      "regionCode": "R7",
+      "ineCountyCode": 382,
+      "queryMode": 1,
+      "coverageName": "ROMERAL",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "SAFA",
+      "countyName": "SAGRADA FAMILIA",
+      "regionCode": "R7",
+      "ineCountyCode": 384,
+      "queryMode": 1,
+      "coverageName": "SAGRADA FAMILIA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "SCLE",
+      "countyName": "SAN CLEMENTE",
+      "regionCode": "R7",
+      "ineCountyCode": 393,
+      "queryMode": 1,
+      "coverageName": "SAN CLEMENTE",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "AURO",
+      "countyName": "SAN CLEMENTE",
+      "regionCode": "R7",
+      "ineCountyCode": 393,
+      "queryMode": 2,
+      "coverageName": "SAN CLEMENTE - AURORA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "MAES",
+      "countyName": "SAN CLEMENTE",
+      "regionCode": "R7",
+      "ineCountyCode": 393,
+      "queryMode": 2,
+      "coverageName": "SAN CLEMENTE - MAITENES",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "ANUE",
+      "countyName": "SAN CLEMENTE",
+      "regionCode": "R7",
+      "ineCountyCode": 393,
+      "queryMode": 2,
+      "coverageName": "SAN CLEMENTE - SAN MANUEL",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "SJAV",
+      "countyName": "SAN JAVIER",
+      "regionCode": "R7",
+      "ineCountyCode": 407,
+      "queryMode": 1,
+      "coverageName": "SAN JAVIER",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "BOBA",
+      "countyName": "SAN JAVIER",
+      "regionCode": "R7",
+      "ineCountyCode": 407,
+      "queryMode": 2,
+      "coverageName": "SAN JAVIER - BOBADILLA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "SRAF",
+      "countyName": "SAN RAFAEL",
+      "regionCode": "R7",
+      "ineCountyCode": 399,
+      "queryMode": 1,
+      "coverageName": "SAN RAFAEL",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "TALC",
+      "countyName": "TALCA",
+      "regionCode": "R7",
+      "ineCountyCode": 390,
+      "queryMode": 1,
+      "coverageName": "TALCA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "TASA",
+      "countyName": "TALCA",
+      "regionCode": "R7",
+      "ineCountyCode": 390,
+      "queryMode": 2,
+      "coverageName": "TALCA - SANTA ANA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "TENO",
+      "countyName": "TENO",
+      "regionCode": "R7",
+      "ineCountyCode": 381,
+      "queryMode": 1,
+      "coverageName": "TENO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "LAMO",
+      "countyName": "TENO",
+      "regionCode": "R7",
+      "ineCountyCode": 381,
+      "queryMode": 2,
+      "coverageName": "TENO - LA MONTANA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "MORZ",
+      "countyName": "TENO",
+      "regionCode": "R7",
+      "ineCountyCode": 381,
+      "queryMode": 2,
+      "coverageName": "TENO - MORZA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "REBE",
+      "countyName": "TENO",
+      "regionCode": "R7",
+      "ineCountyCode": 381,
+      "queryMode": 2,
+      "coverageName": "TENO - REBECA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "VICH",
+      "countyName": "VICHUQUEN",
+      "regionCode": "R7",
+      "ineCountyCode": 387,
+      "queryMode": 1,
+      "coverageName": "VICHUQUEN",
+      "ind_ppd": 0,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "VALG",
+      "countyName": "VILLA ALEGRE",
+      "regionCode": "R7",
+      "ineCountyCode": 406,
+      "queryMode": 1,
+      "coverageName": "VILLA ALEGRE",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "YBNS",
+      "countyName": "YERBAS BUENAS",
+      "regionCode": "R7",
+      "ineCountyCode": 401,
+      "queryMode": 1,
+      "coverageName": "YERBAS BUENAS",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    }
+  ],
+  "statusCode": 0,
+  "statusDescription": "Extraccion exitosa",
+  "errors": null
+}

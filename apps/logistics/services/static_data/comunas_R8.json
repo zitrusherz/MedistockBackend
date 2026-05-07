@@ -1,0 +1,727 @@
+{
+  "coverageAreas": [
+    {
+      "countyCode": "ALBB",
+      "countyName": "ALTO BIOBIO",
+      "regionCode": "R8",
+      "ineCountyCode": 997,
+      "queryMode": 1,
+      "coverageName": "ALTO BIOBIO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "ANTU",
+      "countyName": "ANTUCO",
+      "regionCode": "R8",
+      "ineCountyCode": 443,
+      "queryMode": 1,
+      "coverageName": "ANTUCO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "ARAU",
+      "countyName": "ARAUCO",
+      "regionCode": "R8",
+      "ineCountyCode": 466,
+      "queryMode": 1,
+      "coverageName": "ARAUCO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "CAPA",
+      "countyName": "ARAUCO",
+      "regionCode": "R8",
+      "ineCountyCode": 466,
+      "queryMode": 2,
+      "coverageName": "ARAUCO - CARAMPANGUE",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "CODI",
+      "countyName": "ARAUCO",
+      "regionCode": "R8",
+      "ineCountyCode": 466,
+      "queryMode": 2,
+      "coverageName": "ARAUCO - CODIGUA",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "LARA",
+      "countyName": "ARAUCO",
+      "regionCode": "R8",
+      "ineCountyCode": 466,
+      "queryMode": 2,
+      "coverageName": "ARAUCO - LARAQUETE",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "LASP",
+      "countyName": "ARAUCO",
+      "regionCode": "R8",
+      "ineCountyCode": 466,
+      "queryMode": 2,
+      "coverageName": "ARAUCO - LAS PENAS",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "MMAR",
+      "countyName": "ARAUCO",
+      "regionCode": "R8",
+      "ineCountyCode": 466,
+      "queryMode": 2,
+      "coverageName": "ARAUCO - MIRAMAR",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "RAMA",
+      "countyName": "ARAUCO",
+      "regionCode": "R8",
+      "ineCountyCode": 466,
+      "queryMode": 2,
+      "coverageName": "ARAUCO - RAMADILLA",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "TUBU",
+      "countyName": "ARAUCO",
+      "regionCode": "R8",
+      "ineCountyCode": 466,
+      "queryMode": 2,
+      "coverageName": "ARAUCO - TUBUL",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "CABR",
+      "countyName": "CABRERO",
+      "regionCode": "R8",
+      "ineCountyCode": 441,
+      "queryMode": 1,
+      "coverageName": "CABRERO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "CHAR",
+      "countyName": "CABRERO",
+      "regionCode": "R8",
+      "ineCountyCode": 441,
+      "queryMode": 2,
+      "coverageName": "CABRERO - CHARRUA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "ELCO",
+      "countyName": "CABRERO",
+      "regionCode": "R8",
+      "ineCountyCode": 441,
+      "queryMode": 2,
+      "coverageName": "CABRERO - EL CORTIJO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "MOAG",
+      "countyName": "CABRERO",
+      "regionCode": "R8",
+      "ineCountyCode": 441,
+      "queryMode": 2,
+      "coverageName": "CABRERO - MONTE AGUILA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "CANE",
+      "countyName": "CANETE",
+      "regionCode": "R8",
+      "ineCountyCode": 469,
+      "queryMode": 1,
+      "coverageName": "CANETE",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "CHIG",
+      "countyName": "CHIGUAYANTE",
+      "regionCode": "R8",
+      "ineCountyCode": 474,
+      "queryMode": 1,
+      "coverageName": "CHIGUAYANTE",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "CONC",
+      "countyName": "CONCEPCION",
+      "regionCode": "R8",
+      "ineCountyCode": 455,
+      "queryMode": 1,
+      "coverageName": "CONCEPCION",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "CONT",
+      "countyName": "CONTULMO",
+      "regionCode": "R8",
+      "ineCountyCode": 470,
+      "queryMode": 1,
+      "coverageName": "CONTULMO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "CORO",
+      "countyName": "CORONEL",
+      "regionCode": "R8",
+      "ineCountyCode": 463,
+      "queryMode": 1,
+      "coverageName": "CORONEL",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "CURA",
+      "countyName": "CURANILAHUE",
+      "regionCode": "R8",
+      "ineCountyCode": 467,
+      "queryMode": 1,
+      "coverageName": "CURANILAHUE",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "DCHA",
+      "countyName": "TOME",
+      "regionCode": "R8",
+      "ineCountyCode": 458,
+      "queryMode": 2,
+      "coverageName": "DICHATO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "FLOR",
+      "countyName": "FLORIDA",
+      "regionCode": "R8",
+      "ineCountyCode": 459,
+      "queryMode": 1,
+      "coverageName": "FLORIDA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "HPEN",
+      "countyName": "HUALPEN",
+      "regionCode": "R8",
+      "ineCountyCode": 996,
+      "queryMode": 1,
+      "coverageName": "HUALPEN",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "HAQI",
+      "countyName": "HUALQUI",
+      "regionCode": "R8",
+      "ineCountyCode": 460,
+      "queryMode": 1,
+      "coverageName": "HUALQUI",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "HUEP",
+      "countyName": "LOS ANGELES",
+      "regionCode": "R8",
+      "ineCountyCode": 440,
+      "queryMode": 2,
+      "coverageName": "HUEPIL",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "LAJA",
+      "countyName": "LAJA",
+      "regionCode": "R8",
+      "ineCountyCode": 450,
+      "queryMode": 1,
+      "coverageName": "LAJA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "LCAN",
+      "countyName": "TALCAHUANO",
+      "regionCode": "R8",
+      "ineCountyCode": 456,
+      "queryMode": 2,
+      "coverageName": "LAS CANCHAS",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "LEBU",
+      "countyName": "LEBU",
+      "regionCode": "R8",
+      "ineCountyCode": 465,
+      "queryMode": 1,
+      "coverageName": "LEBU",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "PEHU",
+      "countyName": "LEBU",
+      "regionCode": "R8",
+      "ineCountyCode": 465,
+      "queryMode": 2,
+      "coverageName": "LEBU - PEHUEN",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "LIRQ",
+      "countyName": "PENCO",
+      "regionCode": "R8",
+      "ineCountyCode": 457,
+      "queryMode": 2,
+      "coverageName": "LIRQUEN",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "ALAM",
+      "countyName": "LOS ALAMOS",
+      "regionCode": "R8",
+      "ineCountyCode": 468,
+      "queryMode": 1,
+      "coverageName": "LOS ALAMOS",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "ANTI",
+      "countyName": "LOS ALAMOS",
+      "regionCode": "R8",
+      "ineCountyCode": 468,
+      "queryMode": 2,
+      "coverageName": "LOS ALAMOS - ANTIGUALA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "PINO",
+      "countyName": "LOS ALAMOS",
+      "regionCode": "R8",
+      "ineCountyCode": 468,
+      "queryMode": 2,
+      "coverageName": "LOS ALAMOS - TRES PINOS",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "LANG",
+      "countyName": "LOS ANGELES",
+      "regionCode": "R8",
+      "ineCountyCode": 440,
+      "queryMode": 1,
+      "coverageName": "LOS ANGELES",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "AYAR",
+      "countyName": "LOS ANGELES",
+      "regionCode": "R8",
+      "ineCountyCode": 440,
+      "queryMode": 2,
+      "coverageName": "LOS ANGELES - AGUAS Y ARENAS",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "CUOR",
+      "countyName": "LOS ANGELES",
+      "regionCode": "R8",
+      "ineCountyCode": 440,
+      "queryMode": 2,
+      "coverageName": "LOS ANGELES - CUNIBAL ORIENTE",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "CUCH",
+      "countyName": "LOS ANGELES",
+      "regionCode": "R8",
+      "ineCountyCode": 440,
+      "queryMode": 2,
+      "coverageName": "LOS ANGELES - CURICHE",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "ELAL",
+      "countyName": "LOS ANGELES",
+      "regionCode": "R8",
+      "ineCountyCode": 440,
+      "queryMode": 2,
+      "coverageName": "LOS ANGELES - EL ALAMO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "ELOV",
+      "countyName": "LOS ANGELES",
+      "regionCode": "R8",
+      "ineCountyCode": 440,
+      "queryMode": 2,
+      "coverageName": "LOS ANGELES - EL OLIVAR",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "EPER",
+      "countyName": "LOS ANGELES",
+      "regionCode": "R8",
+      "ineCountyCode": 440,
+      "queryMode": 2,
+      "coverageName": "LOS ANGELES - EL PERAL",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "LAAS",
+      "countyName": "LOS ANGELES",
+      "regionCode": "R8",
+      "ineCountyCode": 440,
+      "queryMode": 2,
+      "coverageName": "LOS ANGELES - LAS QUINTAS",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "NATU",
+      "countyName": "LOS ANGELES",
+      "regionCode": "R8",
+      "ineCountyCode": 440,
+      "queryMode": 2,
+      "coverageName": "LOS ANGELES - MILLNATU",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "SCRI",
+      "countyName": "LOS ANGELES",
+      "regionCode": "R8",
+      "ineCountyCode": 440,
+      "queryMode": 2,
+      "coverageName": "LOS ANGELES - SAN CRISTOBAL",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "SGER",
+      "countyName": "LOS ANGELES",
+      "regionCode": "R8",
+      "ineCountyCode": 440,
+      "queryMode": 2,
+      "coverageName": "LOS ANGELES - SAN GERARDO",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "SJPR",
+      "countyName": "LOS ANGELES",
+      "regionCode": "R8",
+      "ineCountyCode": 440,
+      "queryMode": 2,
+      "coverageName": "LOS ANGELES - SAN JOSE DE PRILLIHUE",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "SACL",
+      "countyName": "LOS ANGELES",
+      "regionCode": "R8",
+      "ineCountyCode": 440,
+      "queryMode": 2,
+      "coverageName": "LOS ANGELES - SANTA CLARA",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "SEMI",
+      "countyName": "LOS ANGELES",
+      "regionCode": "R8",
+      "ineCountyCode": 440,
+      "queryMode": 2,
+      "coverageName": "LOS ANGELES - SANTA EMILIA",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "SERC",
+      "countyName": "LOS ANGELES",
+      "regionCode": "R8",
+      "ineCountyCode": 440,
+      "queryMode": 2,
+      "coverageName": "LOS ANGELES - SANTA ERCILLA",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "SAFE",
+      "countyName": "LOS ANGELES",
+      "regionCode": "R8",
+      "ineCountyCode": 440,
+      "queryMode": 2,
+      "coverageName": "LOS ANGELES - SANTA FE",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "SANI",
+      "countyName": "LOS ANGELES",
+      "regionCode": "R8",
+      "ineCountyCode": 440,
+      "queryMode": 2,
+      "coverageName": "LOS ANGELES - SANTA INES",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "AYAL",
+      "countyName": "LOS ANGELES",
+      "regionCode": "R8",
+      "ineCountyCode": 440,
+      "queryMode": 2,
+      "coverageName": "LOS ANGELES - VINAS CHACAYAL",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "VIQU",
+      "countyName": "LOS ANGELES",
+      "regionCode": "R8",
+      "ineCountyCode": 440,
+      "queryMode": 2,
+      "coverageName": "LOS ANGELES - VIQUENCO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "LOTA",
+      "countyName": "LOTA",
+      "regionCode": "R8",
+      "ineCountyCode": 462,
+      "queryMode": 1,
+      "coverageName": "LOTA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "MULC",
+      "countyName": "MULCHEN",
+      "regionCode": "R8",
+      "ineCountyCode": 447,
+      "queryMode": 1,
+      "coverageName": "MULCHEN",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "NACI",
+      "countyName": "NACIMIENTO",
+      "regionCode": "R8",
+      "ineCountyCode": 449,
+      "queryMode": 1,
+      "coverageName": "NACIMIENTO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "NEGR",
+      "countyName": "NEGRETE",
+      "regionCode": "R8",
+      "ineCountyCode": 448,
+      "queryMode": 1,
+      "coverageName": "NEGRETE",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "PENC",
+      "countyName": "PENCO",
+      "regionCode": "R8",
+      "ineCountyCode": 457,
+      "queryMode": 1,
+      "coverageName": "PENCO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "PLNE",
+      "countyName": "PENCO",
+      "regionCode": "R8",
+      "ineCountyCode": 457,
+      "queryMode": 2,
+      "coverageName": "PENCO - PLAYA NEGRA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "QLAC",
+      "countyName": "QUILACO",
+      "regionCode": "R8",
+      "ineCountyCode": 446,
+      "queryMode": 1,
+      "coverageName": "QUILACO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "QLLC",
+      "countyName": "QUILLECO",
+      "regionCode": "R8",
+      "ineCountyCode": 444,
+      "queryMode": 1,
+      "coverageName": "QUILLECO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "SPED",
+      "countyName": "SAN PEDRO DE LA PAZ",
+      "regionCode": "R8",
+      "ineCountyCode": 464,
+      "queryMode": 1,
+      "coverageName": "SAN PEDRO DE LA PAZ",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "SANR",
+      "countyName": "SAN ROSENDO",
+      "regionCode": "R8",
+      "ineCountyCode": 451,
+      "queryMode": 1,
+      "coverageName": "SAN ROSENDO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "SBAR",
+      "countyName": "SANTA BARBARA",
+      "regionCode": "R8",
+      "ineCountyCode": 445,
+      "queryMode": 1,
+      "coverageName": "SANTA BARBARA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "SJUN",
+      "countyName": "SANTA JUANA",
+      "regionCode": "R8",
+      "ineCountyCode": 461,
+      "queryMode": 1,
+      "coverageName": "SANTA JUANA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "THNO",
+      "countyName": "TALCAHUANO",
+      "regionCode": "R8",
+      "ineCountyCode": 456,
+      "queryMode": 1,
+      "coverageName": "TALCAHUANO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "TIRU",
+      "countyName": "TIRUA",
+      "regionCode": "R8",
+      "ineCountyCode": 471,
+      "queryMode": 1,
+      "coverageName": "TIRUA",
+      "ind_ppd": 0,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "TOME",
+      "countyName": "TOME",
+      "regionCode": "R8",
+      "ineCountyCode": 458,
+      "queryMode": 1,
+      "coverageName": "TOME",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "IUMO",
+      "countyName": "TOME",
+      "regionCode": "R8",
+      "ineCountyCode": 458,
+      "queryMode": 2,
+      "coverageName": "TOME - COLIUMO",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "LMOR",
+      "countyName": "TOME",
+      "regionCode": "R8",
+      "ineCountyCode": 458,
+      "queryMode": 2,
+      "coverageName": "TOME - LOS MORROS",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "PUPA",
+      "countyName": "TOME",
+      "regionCode": "R8",
+      "ineCountyCode": 458,
+      "queryMode": 2,
+      "coverageName": "TOME - PUNTA DE PARRA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "TUCA",
+      "countyName": "TUCAPEL",
+      "regionCode": "R8",
+      "ineCountyCode": 442,
+      "queryMode": 1,
+      "coverageName": "TUCAPEL",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "YUMB",
+      "countyName": "YUMBEL",
+      "regionCode": "R8",
+      "ineCountyCode": 452,
+      "queryMode": 1,
+      "coverageName": "YUMBEL",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    }
+  ],
+  "statusCode": 0,
+  "statusDescription": "Extraccion exitosa",
+  "errors": null
+}

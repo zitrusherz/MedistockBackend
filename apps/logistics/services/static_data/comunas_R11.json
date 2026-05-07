@@ -1,0 +1,167 @@
+{
+  "coverageAreas": [
+    {
+      "countyCode": "BALM",
+      "countyName": "COYHAIQUE",
+      "regionCode": "R11",
+      "ineCountyCode": 565,
+      "queryMode": 2,
+      "coverageName": "BALMACEDA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "CHCH",
+      "countyName": "CHILE CHICO",
+      "regionCode": "R11",
+      "ineCountyCode": 575,
+      "queryMode": 1,
+      "coverageName": "CHILE CHICO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "CISN",
+      "countyName": "CISNES",
+      "regionCode": "R11",
+      "ineCountyCode": 571,
+      "queryMode": 2,
+      "coverageName": "CISNES",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "COCH",
+      "countyName": "COCHRANE",
+      "regionCode": "R11",
+      "ineCountyCode": 580,
+      "queryMode": 1,
+      "coverageName": "COCHRANE",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "COYH",
+      "countyName": "COYHAIQUE",
+      "regionCode": "R11",
+      "ineCountyCode": 565,
+      "queryMode": 1,
+      "coverageName": "COYHAIQUE",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "CATL",
+      "countyName": "COYHAIQUE",
+      "regionCode": "R11",
+      "ineCountyCode": 565,
+      "queryMode": 2,
+      "coverageName": "COYHAIQUE - CALETA TORTEL",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "GUAI",
+      "countyName": "GUAITECAS",
+      "regionCode": "R11",
+      "ineCountyCode": 572,
+      "queryMode": 1,
+      "coverageName": "GUAITECAS",
+      "ind_ppd": 0,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "LAJU",
+      "countyName": "CISNES",
+      "regionCode": "R11",
+      "ineCountyCode": 571,
+      "queryMode": 2,
+      "coverageName": "LA JUNTA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "LAVE",
+      "countyName": "LAGO VERDE",
+      "regionCode": "R11",
+      "ineCountyCode": 566,
+      "queryMode": 1,
+      "coverageName": "LAGO VERDE",
+      "ind_ppd": 0,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "OHIG",
+      "countyName": "O HIGGINS",
+      "regionCode": "R11",
+      "ineCountyCode": 581,
+      "queryMode": 2,
+      "coverageName": "OHIGGINS",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "PAYS",
+      "countyName": "AISEN",
+      "regionCode": "R11",
+      "ineCountyCode": 570,
+      "queryMode": 1,
+      "coverageName": "PUERTO AYSEN",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "PCHA",
+      "countyName": "AISEN",
+      "regionCode": "R11",
+      "ineCountyCode": 570,
+      "queryMode": 2,
+      "coverageName": "PUERTO CHACABUCO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "PCIS",
+      "countyName": "CISNES",
+      "regionCode": "R11",
+      "ineCountyCode": 571,
+      "queryMode": 1,
+      "coverageName": "PUERTO CISNES",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "RIBA",
+      "countyName": "RIO IBANEZ",
+      "regionCode": "R11",
+      "ineCountyCode": 576,
+      "queryMode": 1,
+      "coverageName": "RIO IBANEZ",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "PUIB",
+      "countyName": "RIO IBANEZ",
+      "regionCode": "R11",
+      "ineCountyCode": 576,
+      "queryMode": 2,
+      "coverageName": "RIO IBANEZ - PUERTO ING.IBANEZ",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "TRTL",
+      "countyName": "TORTEL",
+      "regionCode": "R11",
+      "ineCountyCode": 582,
+      "queryMode": 1,
+      "coverageName": "TORTEL",
+      "ind_ppd": 0,
+      "ind_rd": 1
+    }
+  ],
+  "statusCode": 0,
+  "statusDescription": "Extraccion exitosa",
+  "errors": null
+}

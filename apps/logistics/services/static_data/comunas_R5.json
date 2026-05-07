@@ -1,0 +1,887 @@
+{
+  "coverageAreas": [
+    {
+      "countyCode": "ALGA",
+      "countyName": "ALGARROBO",
+      "regionCode": "R5",
+      "ineCountyCode": 324,
+      "queryMode": 1,
+      "coverageName": "ALGARROBO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "ELYE",
+      "countyName": "ALGARROBO",
+      "regionCode": "R5",
+      "ineCountyCode": 324,
+      "queryMode": 2,
+      "coverageName": "ALGARROBO - EL YECO",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "GEMU",
+      "countyName": "ALGARROBO",
+      "regionCode": "R5",
+      "ineCountyCode": 324,
+      "queryMode": 2,
+      "coverageName": "ALGARROBO - GUALLELEMU",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "CAPI",
+      "countyName": "ALGARROBO",
+      "regionCode": "R5",
+      "ineCountyCode": 324,
+      "queryMode": 2,
+      "coverageName": "ALGARROBO - LA CAPILLA",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "MSOL",
+      "countyName": "ALGARROBO",
+      "regionCode": "R5",
+      "ineCountyCode": 324,
+      "queryMode": 2,
+      "coverageName": "ALGARROBO - MIRASOL",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "SJBA",
+      "countyName": "ALGARROBO",
+      "regionCode": "R5",
+      "ineCountyCode": 324,
+      "queryMode": 2,
+      "coverageName": "ALGARROBO - SAN JOSE DE BACHINCHE",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "ARTI",
+      "countyName": "NOGALES",
+      "regionCode": "R5",
+      "ineCountyCode": 303,
+      "queryMode": 2,
+      "coverageName": "ARTIFICIO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "BARR",
+      "countyName": "SAN ANTONIO",
+      "regionCode": "R5",
+      "ineCountyCode": 320,
+      "queryMode": 2,
+      "coverageName": "BARRANCAS",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "BSDO",
+      "countyName": "SANTO DOMINGO",
+      "regionCode": "R5",
+      "ineCountyCode": 325,
+      "queryMode": 2,
+      "coverageName": "BRISAS DE SANTO DOMINGO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "CABI",
+      "countyName": "CABILDO",
+      "regionCode": "R5",
+      "ineCountyCode": 277,
+      "queryMode": 1,
+      "coverageName": "CABILDO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "CACH",
+      "countyName": "ZAPALLAR",
+      "regionCode": "R5",
+      "ineCountyCode": 278,
+      "queryMode": 2,
+      "coverageName": "CACHAGUA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "CALL",
+      "countyName": "CALLE LARGA",
+      "regionCode": "R5",
+      "ineCountyCode": 287,
+      "queryMode": 1,
+      "coverageName": "CALLE LARGA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "CART",
+      "countyName": "CARTAGENA",
+      "regionCode": "R5",
+      "ineCountyCode": 321,
+      "queryMode": 1,
+      "coverageName": "CARTAGENA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "COAZ",
+      "countyName": "CARTAGENA",
+      "regionCode": "R5",
+      "ineCountyCode": 321,
+      "queryMode": 2,
+      "coverageName": "CARTAGENA - COSTA AZUL",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "CASA",
+      "countyName": "CASABLANCA",
+      "regionCode": "R5",
+      "ineCountyCode": 316,
+      "queryMode": 1,
+      "coverageName": "CASABLANCA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "LANI",
+      "countyName": "CASABLANCA",
+      "regionCode": "R5",
+      "ineCountyCode": 316,
+      "queryMode": 2,
+      "coverageName": "CASABLANCA - LAGUNILLAS",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "LOOR",
+      "countyName": "CASABLANCA",
+      "regionCode": "R5",
+      "ineCountyCode": 316,
+      "queryMode": 2,
+      "coverageName": "CASABLANCA - LO OROSCO",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "LOVA",
+      "countyName": "CASABLANCA",
+      "regionCode": "R5",
+      "ineCountyCode": 316,
+      "queryMode": 2,
+      "coverageName": "CASABLANCA - LO VASQUEZ",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "MATE",
+      "countyName": "CASABLANCA",
+      "regionCode": "R5",
+      "ineCountyCode": 316,
+      "queryMode": 2,
+      "coverageName": "CASABLANCA - LOS MAITENES",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "MANZ",
+      "countyName": "CASABLANCA",
+      "regionCode": "R5",
+      "ineCountyCode": 316,
+      "queryMode": 2,
+      "coverageName": "CASABLANCA - MANZANO",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "CATE",
+      "countyName": "CATEMU",
+      "regionCode": "R5",
+      "ineCountyCode": 295,
+      "queryMode": 1,
+      "coverageName": "CATEMU",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "CCON",
+      "countyName": "CONCON",
+      "regionCode": "R5",
+      "ineCountyCode": 318,
+      "queryMode": 1,
+      "coverageName": "CONCON",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "ELBE",
+      "countyName": "QUILPUE",
+      "regionCode": "R5",
+      "ineCountyCode": 314,
+      "queryMode": 2,
+      "coverageName": "EL BELLOTO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "EMEL",
+      "countyName": "NOGALES",
+      "regionCode": "R5",
+      "ineCountyCode": 303,
+      "queryMode": 2,
+      "coverageName": "EL MELON",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "QSCO",
+      "countyName": "EL QUISCO",
+      "regionCode": "R5",
+      "ineCountyCode": 323,
+      "queryMode": 1,
+      "coverageName": "EL QUISCO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "PDTR",
+      "countyName": "EL QUISCO",
+      "regionCode": "R5",
+      "ineCountyCode": 323,
+      "queryMode": 2,
+      "coverageName": "EL QUISCO - PUNTA DE TRALCA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "TABI",
+      "countyName": "EL TABO",
+      "regionCode": "R5",
+      "ineCountyCode": 322,
+      "queryMode": 2,
+      "coverageName": "EL TABITO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "TABO",
+      "countyName": "EL TABO",
+      "regionCode": "R5",
+      "ineCountyCode": 322,
+      "queryMode": 1,
+      "coverageName": "EL TABO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "HIJU",
+      "countyName": "HIJUELAS",
+      "regionCode": "R5",
+      "ineCountyCode": 304,
+      "queryMode": 1,
+      "coverageName": "HIJUELAS",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "PASC",
+      "countyName": "ISLA DE PASCUA",
+      "regionCode": "R5",
+      "ineCountyCode": 330,
+      "queryMode": 1,
+      "coverageName": "ISLA DE PASCUA",
+      "ind_ppd": 0,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "INEG",
+      "countyName": "EL QUISCO",
+      "regionCode": "R5",
+      "ineCountyCode": 323,
+      "queryMode": 2,
+      "coverageName": "ISLA NEGRA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "JFER",
+      "countyName": "JUAN FERNANDEZ",
+      "regionCode": "R5",
+      "ineCountyCode": 317,
+      "queryMode": 1,
+      "coverageName": "JUAN FERNANDEZ",
+      "ind_ppd": 0,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "LACA",
+      "countyName": "LA CALERA",
+      "regionCode": "R5",
+      "ineCountyCode": 302,
+      "queryMode": 1,
+      "coverageName": "LA CALERA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "CASU",
+      "countyName": "LA CALERA",
+      "regionCode": "R5",
+      "ineCountyCode": 302,
+      "queryMode": 2,
+      "coverageName": "LA CALERA - CASUTO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "LACR",
+      "countyName": "LA CRUZ",
+      "regionCode": "R5",
+      "ineCountyCode": 301,
+      "queryMode": 1,
+      "coverageName": "LA CRUZ",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "LALI",
+      "countyName": "LA LIGUA",
+      "regionCode": "R5",
+      "ineCountyCode": 275,
+      "queryMode": 1,
+      "coverageName": "LA LIGUA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "LALL",
+      "countyName": "LA LIGUA",
+      "regionCode": "R5",
+      "ineCountyCode": 275,
+      "queryMode": 2,
+      "coverageName": "LA LIGUA - LA BALLENA",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "LOMA",
+      "countyName": "LA LIGUA",
+      "regionCode": "R5",
+      "ineCountyCode": 275,
+      "queryMode": 2,
+      "coverageName": "LA LIGUA - LONGOTOMA",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "LLES",
+      "countyName": "LA LIGUA",
+      "regionCode": "R5",
+      "ineCountyCode": 275,
+      "queryMode": 2,
+      "coverageName": "LA LIGUA - LOS MOLLES",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "PIUY",
+      "countyName": "LA LIGUA",
+      "regionCode": "R5",
+      "ineCountyCode": 275,
+      "queryMode": 2,
+      "coverageName": "LA LIGUA - PICHICUY",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "LPAL",
+      "countyName": "QUILLOTA",
+      "regionCode": "R5",
+      "ineCountyCode": 300,
+      "queryMode": 2,
+      "coverageName": "LA PALMA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "LCRU",
+      "countyName": "EL TABO",
+      "regionCode": "R5",
+      "ineCountyCode": 322,
+      "queryMode": 2,
+      "coverageName": "LAS CRUCES",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "LIMA",
+      "countyName": "LIMACHE",
+      "regionCode": "R5",
+      "ineCountyCode": 305,
+      "queryMode": 1,
+      "coverageName": "LIMACHE",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "LLAY",
+      "countyName": "LLAY-LLAY",
+      "regionCode": "R5",
+      "ineCountyCode": 294,
+      "queryMode": 1,
+      "coverageName": "LLAY-LLAY",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "LLOL",
+      "countyName": "SAN ANTONIO",
+      "regionCode": "R5",
+      "ineCountyCode": 320,
+      "queryMode": 2,
+      "coverageName": "LLO LLEO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "LAND",
+      "countyName": "LOS ANDES",
+      "regionCode": "R5",
+      "ineCountyCode": 285,
+      "queryMode": 1,
+      "coverageName": "LOS ANDES",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "GVIE",
+      "countyName": "LOS ANDES",
+      "regionCode": "R5",
+      "ineCountyCode": 285,
+      "queryMode": 2,
+      "coverageName": "LOS ANDES - GUARDIA VIEJA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "RBLA",
+      "countyName": "LOS ANDES",
+      "regionCode": "R5",
+      "ineCountyCode": 285,
+      "queryMode": 2,
+      "coverageName": "LOS ANDES - RIO BLANCO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "MAIT",
+      "countyName": "PUCHUNCAVI",
+      "regionCode": "R5",
+      "ineCountyCode": 313,
+      "queryMode": 2,
+      "coverageName": "MAITENCILLO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "NOGA",
+      "countyName": "NOGALES",
+      "regionCode": "R5",
+      "ineCountyCode": 303,
+      "queryMode": 1,
+      "coverageName": "NOGALES",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "OLMU",
+      "countyName": "OLMUE",
+      "regionCode": "R5",
+      "ineCountyCode": 306,
+      "queryMode": 1,
+      "coverageName": "OLMUE",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "GRAO",
+      "countyName": "OLMUE",
+      "regionCode": "R5",
+      "ineCountyCode": 306,
+      "queryMode": 2,
+      "coverageName": "OLMUE - GRANIZO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "PANQ",
+      "countyName": "PANQUEHUE",
+      "regionCode": "R5",
+      "ineCountyCode": 293,
+      "queryMode": 1,
+      "coverageName": "PANQUEHUE",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "PAPU",
+      "countyName": "PAPUDO",
+      "regionCode": "R5",
+      "ineCountyCode": 279,
+      "queryMode": 1,
+      "coverageName": "PAPUDO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "PBLA",
+      "countyName": "VILLA ALEMANA",
+      "regionCode": "R5",
+      "ineCountyCode": 315,
+      "queryMode": 2,
+      "coverageName": "PENABLANCA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "PETO",
+      "countyName": "PETORCA",
+      "regionCode": "R5",
+      "ineCountyCode": 276,
+      "queryMode": 1,
+      "coverageName": "PETORCA",
+      "ind_ppd": 0,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "PLAV",
+      "countyName": "VALPARAISO",
+      "regionCode": "R5",
+      "ineCountyCode": 310,
+      "queryMode": 2,
+      "coverageName": "PLACILLA QUINTA REGION",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "POCO",
+      "countyName": "QUILLOTA",
+      "regionCode": "R5",
+      "ineCountyCode": 300,
+      "queryMode": 2,
+      "coverageName": "POCOCHAY",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "PUCH",
+      "countyName": "PUCHUNCAVI",
+      "regionCode": "R5",
+      "ineCountyCode": 313,
+      "queryMode": 1,
+      "coverageName": "PUCHUNCAVI",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "CHOR",
+      "countyName": "PUCHUNCAVI",
+      "regionCode": "R5",
+      "ineCountyCode": 313,
+      "queryMode": 2,
+      "coverageName": "PUCHUNCAVI - CALETA HORCON",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "PUCA",
+      "countyName": "PUCHUNCAVI",
+      "regionCode": "R5",
+      "ineCountyCode": 313,
+      "queryMode": 2,
+      "coverageName": "PUCHUNCAVI - PUCALAN",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "VENT",
+      "countyName": "PUCHUNCAVI",
+      "regionCode": "R5",
+      "ineCountyCode": 313,
+      "queryMode": 2,
+      "coverageName": "PUCHUNCAVI - VENTANAS",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "PUTA",
+      "countyName": "PUTAENDO",
+      "regionCode": "R5",
+      "ineCountyCode": 291,
+      "queryMode": 1,
+      "coverageName": "PUTAENDO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "RSIL",
+      "countyName": "PUTAENDO",
+      "regionCode": "R5",
+      "ineCountyCode": 291,
+      "queryMode": 2,
+      "coverageName": "PUTAENDO - RINCONADA DE SILVA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "QLTA",
+      "countyName": "QUILLOTA",
+      "regionCode": "R5",
+      "ineCountyCode": 300,
+      "queryMode": 1,
+      "coverageName": "QUILLOTA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "QUIL",
+      "countyName": "QUILPUE",
+      "regionCode": "R5",
+      "ineCountyCode": 314,
+      "queryMode": 1,
+      "coverageName": "QUILPUE",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "QUIN",
+      "countyName": "QUINTERO",
+      "regionCode": "R5",
+      "ineCountyCode": 312,
+      "queryMode": 1,
+      "coverageName": "QUINTERO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "RENA",
+      "countyName": "VINA DEL MAR",
+      "regionCode": "R5",
+      "ineCountyCode": 311,
+      "queryMode": 2,
+      "coverageName": "RENACA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "RINC",
+      "countyName": "RINCONADA",
+      "regionCode": "R5",
+      "ineCountyCode": 288,
+      "queryMode": 1,
+      "coverageName": "RINCONADA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "SANT",
+      "countyName": "SAN ANTONIO",
+      "regionCode": "R5",
+      "ineCountyCode": 320,
+      "queryMode": 1,
+      "coverageName": "SAN ANTONIO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "LOGA",
+      "countyName": "SAN ANTONIO",
+      "regionCode": "R5",
+      "ineCountyCode": 320,
+      "queryMode": 2,
+      "coverageName": "SAN ANTONIO - LO GALLARDO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "SEST",
+      "countyName": "SAN ESTEBAN",
+      "regionCode": "R5",
+      "ineCountyCode": 286,
+      "queryMode": 1,
+      "coverageName": "SAN ESTEBAN",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "SFEL",
+      "countyName": "SAN FELIPE",
+      "regionCode": "R5",
+      "ineCountyCode": 290,
+      "queryMode": 1,
+      "coverageName": "SAN FELIPE",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "CUON",
+      "countyName": "SAN FELIPE",
+      "regionCode": "R5",
+      "ineCountyCode": 290,
+      "queryMode": 2,
+      "coverageName": "SAN FELIPE - CURIMON",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "ELAR",
+      "countyName": "SAN FELIPE",
+      "regionCode": "R5",
+      "ineCountyCode": 290,
+      "queryMode": 2,
+      "coverageName": "SAN FELIPE - EL TARTARO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "GALL",
+      "countyName": "SAN FELIPE",
+      "regionCode": "R5",
+      "ineCountyCode": 290,
+      "queryMode": 2,
+      "coverageName": "SAN FELIPE - GRANALLA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "SFLI",
+      "countyName": "LIMACHE",
+      "regionCode": "R5",
+      "ineCountyCode": 305,
+      "queryMode": 2,
+      "coverageName": "SAN FRANCISCO DE LIMACHE",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "SPDO",
+      "countyName": "QUILLOTA",
+      "regionCode": "R5",
+      "ineCountyCode": 300,
+      "queryMode": 2,
+      "coverageName": "SAN PEDRO QUINTA REGION",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "SSEB",
+      "countyName": "CARTAGENA",
+      "regionCode": "R5",
+      "ineCountyCode": 321,
+      "queryMode": 2,
+      "coverageName": "SAN SEBASTIAN",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "SMAR",
+      "countyName": "SANTA MARIA",
+      "regionCode": "R5",
+      "ineCountyCode": 292,
+      "queryMode": 1,
+      "coverageName": "SANTA MARIA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "SDGO",
+      "countyName": "SANTO DOMINGO",
+      "regionCode": "R5",
+      "ineCountyCode": 325,
+      "queryMode": 1,
+      "coverageName": "SANTO DOMINGO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "VALP",
+      "countyName": "VALPARAISO",
+      "regionCode": "R5",
+      "ineCountyCode": 310,
+      "queryMode": 1,
+      "coverageName": "VALPARAISO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "PLAS",
+      "countyName": "VALPARAISO",
+      "regionCode": "R5",
+      "ineCountyCode": 310,
+      "queryMode": 2,
+      "coverageName": "VALPARAISO - PENUELAS",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "VALE",
+      "countyName": "VILLA ALEMANA",
+      "regionCode": "R5",
+      "ineCountyCode": 315,
+      "queryMode": 1,
+      "coverageName": "VILLA ALEMANA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "VINA",
+      "countyName": "VINA DEL MAR",
+      "regionCode": "R5",
+      "ineCountyCode": 311,
+      "queryMode": 1,
+      "coverageName": "VINA DEL MAR",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "ZAPA",
+      "countyName": "ZAPALLAR",
+      "regionCode": "R5",
+      "ineCountyCode": 278,
+      "queryMode": 1,
+      "coverageName": "ZAPALLAR",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "CATA",
+      "countyName": "ZAPALLAR",
+      "regionCode": "R5",
+      "ineCountyCode": 278,
+      "queryMode": 2,
+      "coverageName": "ZAPALLAR - CATAPILCO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "LAGU",
+      "countyName": "ZAPALLAR",
+      "regionCode": "R5",
+      "ineCountyCode": 278,
+      "queryMode": 2,
+      "coverageName": "ZAPALLAR - LA LAGUNA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    }
+  ],
+  "statusCode": 0,
+  "statusDescription": "Extraccion exitosa",
+  "errors": null
+}

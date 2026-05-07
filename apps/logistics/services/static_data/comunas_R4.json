@@ -1,0 +1,977 @@
+{
+  "coverageAreas": [
+    {
+      "countyCode": "ANDA",
+      "countyName": "ANDACOLLO",
+      "regionCode": "R4",
+      "ineCountyCode": 253,
+      "queryMode": 1,
+      "coverageName": "ANDACOLLO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "ANDH",
+      "countyName": "ANDACOLLO",
+      "regionCode": "R4",
+      "ineCountyCode": 253,
+      "queryMode": 2,
+      "coverageName": "ANDACOLLO HOLDING",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "CANL",
+      "countyName": "CANELA",
+      "regionCode": "R4",
+      "ineCountyCode": 273,
+      "queryMode": 1,
+      "coverageName": "CANELA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "COMB",
+      "countyName": "COMBARBALA",
+      "regionCode": "R4",
+      "ineCountyCode": 263,
+      "queryMode": 1,
+      "coverageName": "COMBARBALA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "COQU",
+      "countyName": "COQUIMBO",
+      "regionCode": "R4",
+      "ineCountyCode": 252,
+      "queryMode": 1,
+      "coverageName": "COQUIMBO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "RRIL",
+      "countyName": "COQUIMBO",
+      "regionCode": "R4",
+      "ineCountyCode": 252,
+      "queryMode": 2,
+      "coverageName": "COQUIMBO - CERRILLOS",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "ELON",
+      "countyName": "COQUIMBO",
+      "regionCode": "R4",
+      "ineCountyCode": 252,
+      "queryMode": 2,
+      "coverageName": "COQUIMBO - EL PENON",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "HUME",
+      "countyName": "COQUIMBO",
+      "regionCode": "R4",
+      "ineCountyCode": 252,
+      "queryMode": 2,
+      "coverageName": "COQUIMBO - HUACHALALUME",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "LHER",
+      "countyName": "COQUIMBO",
+      "regionCode": "R4",
+      "ineCountyCode": 252,
+      "queryMode": 2,
+      "coverageName": "COQUIMBO - LA HERRADURA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "LCAR",
+      "countyName": "COQUIMBO",
+      "regionCode": "R4",
+      "ineCountyCode": 252,
+      "queryMode": 2,
+      "coverageName": "COQUIMBO - LAS CARDAS",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "PARO",
+      "countyName": "COQUIMBO",
+      "regionCode": "R4",
+      "ineCountyCode": 252,
+      "queryMode": 2,
+      "coverageName": "COQUIMBO - PALO NEGRO",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "PENU",
+      "countyName": "COQUIMBO",
+      "regionCode": "R4",
+      "ineCountyCode": 252,
+      "queryMode": 2,
+      "coverageName": "COQUIMBO - PENUELAS",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "TALB",
+      "countyName": "COQUIMBO",
+      "regionCode": "R4",
+      "ineCountyCode": 252,
+      "queryMode": 2,
+      "coverageName": "COQUIMBO - TALBILLO",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "TBLA",
+      "countyName": "COQUIMBO",
+      "regionCode": "R4",
+      "ineCountyCode": 252,
+      "queryMode": 2,
+      "coverageName": "COQUIMBO - TIERRAS BLANCAS",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "TONG",
+      "countyName": "COQUIMBO",
+      "regionCode": "R4",
+      "ineCountyCode": 252,
+      "queryMode": 2,
+      "coverageName": "COQUIMBO - TONGOY",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "TOTO",
+      "countyName": "COQUIMBO",
+      "regionCode": "R4",
+      "ineCountyCode": 252,
+      "queryMode": 2,
+      "coverageName": "COQUIMBO - TOTORALILLO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "GUAN",
+      "countyName": "COQUIMBO",
+      "regionCode": "R4",
+      "ineCountyCode": 252,
+      "queryMode": 2,
+      "coverageName": "GUANAQUEROS",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "ILLA",
+      "countyName": "ILLAPEL",
+      "regionCode": "R4",
+      "ineCountyCode": 270,
+      "queryMode": 1,
+      "coverageName": "ILLAPEL",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "CAAI",
+      "countyName": "ILLAPEL",
+      "regionCode": "R4",
+      "ineCountyCode": 270,
+      "queryMode": 2,
+      "coverageName": "ILLAPEL - CABANAS ALTO ILLAPEL",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "CARC",
+      "countyName": "ILLAPEL",
+      "regionCode": "R4",
+      "ineCountyCode": 270,
+      "queryMode": 2,
+      "coverageName": "ILLAPEL - CARCAMO",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "CHPA",
+      "countyName": "ILLAPEL",
+      "regionCode": "R4",
+      "ineCountyCode": 270,
+      "queryMode": 2,
+      "coverageName": "ILLAPEL - CHOAPA",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "ESAC",
+      "countyName": "ILLAPEL",
+      "regionCode": "R4",
+      "ineCountyCode": 270,
+      "queryMode": 2,
+      "coverageName": "ILLAPEL - EL SACAVON",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "LAPO",
+      "countyName": "ILLAPEL",
+      "regionCode": "R4",
+      "ineCountyCode": 270,
+      "queryMode": 2,
+      "coverageName": "ILLAPEL - LA POSADA",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "LHUI",
+      "countyName": "ILLAPEL",
+      "regionCode": "R4",
+      "ineCountyCode": 270,
+      "queryMode": 2,
+      "coverageName": "ILLAPEL - LIMAHUIDA",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "CRUZ",
+      "countyName": "ILLAPEL",
+      "regionCode": "R4",
+      "ineCountyCode": 270,
+      "queryMode": 2,
+      "coverageName": "ILLAPEL - SANTA CRUZ",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "LAHI",
+      "countyName": "LA HIGUERA",
+      "regionCode": "R4",
+      "ineCountyCode": 251,
+      "queryMode": 1,
+      "coverageName": "LA HIGUERA",
+      "ind_ppd": 0,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "LASE",
+      "countyName": "LA SERENA",
+      "regionCode": "R4",
+      "ineCountyCode": 250,
+      "queryMode": 1,
+      "coverageName": "LA SERENA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "AITO",
+      "countyName": "LA SERENA",
+      "regionCode": "R4",
+      "ineCountyCode": 250,
+      "queryMode": 2,
+      "coverageName": "LA SERENA - ALGARROBITO",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "AVAL",
+      "countyName": "LA SERENA",
+      "regionCode": "R4",
+      "ineCountyCode": 250,
+      "queryMode": 2,
+      "coverageName": "LA SERENA - ALTOVALSOL",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "LSCO",
+      "countyName": "LA SERENA",
+      "regionCode": "R4",
+      "ineCountyCode": 250,
+      "queryMode": 2,
+      "coverageName": "LA SERENA - COQUIMBITO",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "ELRO",
+      "countyName": "LA SERENA",
+      "regionCode": "R4",
+      "ineCountyCode": 250,
+      "queryMode": 2,
+      "coverageName": "LA SERENA - EL ROMERAL",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "ELTO",
+      "countyName": "LA SERENA",
+      "regionCode": "R4",
+      "ineCountyCode": 250,
+      "queryMode": 2,
+      "coverageName": "LA SERENA - EL TOFO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "LMBA",
+      "countyName": "LA SERENA",
+      "regionCode": "R4",
+      "ineCountyCode": 250,
+      "queryMode": 2,
+      "coverageName": "LA SERENA - LA CHIMBA",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "LAIA",
+      "countyName": "LA SERENA",
+      "regionCode": "R4",
+      "ineCountyCode": 250,
+      "queryMode": 2,
+      "coverageName": "LA SERENA - LA COMPANIA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "LSLR",
+      "countyName": "LA SERENA",
+      "regionCode": "R4",
+      "ineCountyCode": 250,
+      "queryMode": 2,
+      "coverageName": "LA SERENA - LAS ROJAS",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "MONA",
+      "countyName": "LA SERENA",
+      "regionCode": "R4",
+      "ineCountyCode": 250,
+      "queryMode": 2,
+      "coverageName": "LA SERENA - MONARDES",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "PAZU",
+      "countyName": "LA SERENA",
+      "regionCode": "R4",
+      "ineCountyCode": 250,
+      "queryMode": 2,
+      "coverageName": "LA SERENA - PAN DE AZUCAR",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "ALCA",
+      "countyName": "LA SERENA",
+      "regionCode": "R4",
+      "ineCountyCode": 250,
+      "queryMode": 2,
+      "coverageName": "LA SERENA - TALCA",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "LTAC",
+      "countyName": "COQUIMBO",
+      "regionCode": "R4",
+      "ineCountyCode": 252,
+      "queryMode": 2,
+      "coverageName": "LAS TACAS",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "LVIL",
+      "countyName": "LOS VILOS",
+      "regionCode": "R4",
+      "ineCountyCode": 272,
+      "queryMode": 1,
+      "coverageName": "LOS VILOS",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "MOPA",
+      "countyName": "MONTE PATRIA",
+      "regionCode": "R4",
+      "ineCountyCode": 262,
+      "queryMode": 1,
+      "coverageName": "MONTE PATRIA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "CREN",
+      "countyName": "MONTE PATRIA",
+      "regionCode": "R4",
+      "ineCountyCode": 262,
+      "queryMode": 2,
+      "coverageName": "MONTE PATRIA - CAREN",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "CERA",
+      "countyName": "MONTE PATRIA",
+      "regionCode": "R4",
+      "ineCountyCode": 262,
+      "queryMode": 2,
+      "coverageName": "MONTE PATRIA - CERRILLOS DE RAPEL",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "CHAG",
+      "countyName": "MONTE PATRIA",
+      "regionCode": "R4",
+      "ineCountyCode": 262,
+      "queryMode": 2,
+      "coverageName": "MONTE PATRIA - CHAGUARAL",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "CALT",
+      "countyName": "MONTE PATRIA",
+      "regionCode": "R4",
+      "ineCountyCode": 262,
+      "queryMode": 2,
+      "coverageName": "MONTE PATRIA - CHANARAL ALTO",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "CHOA",
+      "countyName": "MONTE PATRIA",
+      "regionCode": "R4",
+      "ineCountyCode": 262,
+      "queryMode": 2,
+      "coverageName": "MONTE PATRIA - CHOAPA",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "ELPO",
+      "countyName": "MONTE PATRIA",
+      "regionCode": "R4",
+      "ineCountyCode": 262,
+      "queryMode": 2,
+      "coverageName": "MONTE PATRIA - EL COIPO",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "EPAL",
+      "countyName": "MONTE PATRIA",
+      "regionCode": "R4",
+      "ineCountyCode": 262,
+      "queryMode": 2,
+      "coverageName": "MONTE PATRIA - EL PALQUI",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "GUAT",
+      "countyName": "MONTE PATRIA",
+      "regionCode": "R4",
+      "ineCountyCode": 262,
+      "queryMode": 2,
+      "coverageName": "MONTE PATRIA - GUATULAME",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "LASJ",
+      "countyName": "MONTE PATRIA",
+      "regionCode": "R4",
+      "ineCountyCode": 262,
+      "queryMode": 2,
+      "coverageName": "MONTE PATRIA - LAS JUNTAS",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "LOBU",
+      "countyName": "MONTE PATRIA",
+      "regionCode": "R4",
+      "ineCountyCode": 262,
+      "queryMode": 2,
+      "coverageName": "MONTE PATRIA - LOS BURROS",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "MIAL",
+      "countyName": "MONTE PATRIA",
+      "regionCode": "R4",
+      "ineCountyCode": 262,
+      "queryMode": 2,
+      "coverageName": "MONTE PATRIA - MIALQUI",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "PAMO",
+      "countyName": "MONTE PATRIA",
+      "regionCode": "R4",
+      "ineCountyCode": 262,
+      "queryMode": 2,
+      "coverageName": "MONTE PATRIA - PALERMO",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "RAPE",
+      "countyName": "MONTE PATRIA",
+      "regionCode": "R4",
+      "ineCountyCode": 262,
+      "queryMode": 2,
+      "coverageName": "MONTE PATRIA - RAPEL",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "SETA",
+      "countyName": "MONTE PATRIA",
+      "regionCode": "R4",
+      "ineCountyCode": 262,
+      "queryMode": 2,
+      "coverageName": "MONTE PATRIA - SEMITA",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "TUEN",
+      "countyName": "MONTE PATRIA",
+      "regionCode": "R4",
+      "ineCountyCode": 262,
+      "queryMode": 2,
+      "coverageName": "MONTE PATRIA - TULAHUEN",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "VADO",
+      "countyName": "MONTE PATRIA",
+      "regionCode": "R4",
+      "ineCountyCode": 262,
+      "queryMode": 2,
+      "coverageName": "MONTE PATRIA - VADOHONDO",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "OVAL",
+      "countyName": "OVALLE",
+      "regionCode": "R4",
+      "ineCountyCode": 260,
+      "queryMode": 1,
+      "coverageName": "OVALLE",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "SOTA",
+      "countyName": "OVALLE",
+      "regionCode": "R4",
+      "ineCountyCode": 260,
+      "queryMode": 2,
+      "coverageName": "OVALLE - SOTAQUI",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "PAIG",
+      "countyName": "PAIGUANO",
+      "regionCode": "R4",
+      "ineCountyCode": 255,
+      "queryMode": 1,
+      "coverageName": "PAIHUANO",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "MOGR",
+      "countyName": "LA SERENA",
+      "regionCode": "R4",
+      "ineCountyCode": 250,
+      "queryMode": 2,
+      "coverageName": "PAIHUANO - MONTE GRANDE",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "PDAN",
+      "countyName": "LOS VILOS",
+      "regionCode": "R4",
+      "ineCountyCode": 272,
+      "queryMode": 2,
+      "coverageName": "PICHIDANGUI",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "PUNI",
+      "countyName": "PUNITAQUI",
+      "regionCode": "R4",
+      "ineCountyCode": 264,
+      "queryMode": 1,
+      "coverageName": "PUNITAQUI",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "RHUR",
+      "countyName": "RIO HURTADO",
+      "regionCode": "R4",
+      "ineCountyCode": 261,
+      "queryMode": 1,
+      "coverageName": "RIO HURTADO",
+      "ind_ppd": 0,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "RHHU",
+      "countyName": "RIO HURTADO",
+      "regionCode": "R4",
+      "ineCountyCode": 261,
+      "queryMode": 2,
+      "coverageName": "RIO HURTADO - HURTADO",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "RHPI",
+      "countyName": "RIO HURTADO",
+      "regionCode": "R4",
+      "ineCountyCode": 261,
+      "queryMode": 2,
+      "coverageName": "RIO HURTADO - PICHASCA",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "RHSA",
+      "countyName": "RIO HURTADO",
+      "regionCode": "R4",
+      "ineCountyCode": 261,
+      "queryMode": 2,
+      "coverageName": "RIO HURTADO - SOMO ALTO",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "RHSB",
+      "countyName": "RIO HURTADO",
+      "regionCode": "R4",
+      "ineCountyCode": 261,
+      "queryMode": 2,
+      "coverageName": "RIO HURTADO - SOMO BAJO",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "SALA",
+      "countyName": "SALAMANCA",
+      "regionCode": "R4",
+      "ineCountyCode": 271,
+      "queryMode": 1,
+      "coverageName": "SALAMANCA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "ARGR",
+      "countyName": "SALAMANCA",
+      "regionCode": "R4",
+      "ineCountyCode": 271,
+      "queryMode": 2,
+      "coverageName": "SALAMANCA - ARBOLEDA GRANDE",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "BATO",
+      "countyName": "SALAMANCA",
+      "regionCode": "R4",
+      "ineCountyCode": 271,
+      "queryMode": 2,
+      "coverageName": "SALAMANCA - BATUCO",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "SACH",
+      "countyName": "SALAMANCA",
+      "regionCode": "R4",
+      "ineCountyCode": 271,
+      "queryMode": 2,
+      "coverageName": "SALAMANCA - CHALINGUITA",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "CPIN",
+      "countyName": "SALAMANCA",
+      "regionCode": "R4",
+      "ineCountyCode": 271,
+      "queryMode": 2,
+      "coverageName": "SALAMANCA - CHILLEPIN",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "HINI",
+      "countyName": "SALAMANCA",
+      "regionCode": "R4",
+      "ineCountyCode": 271,
+      "queryMode": 2,
+      "coverageName": "SALAMANCA - CHUCHINI",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "COIR",
+      "countyName": "SALAMANCA",
+      "regionCode": "R4",
+      "ineCountyCode": 271,
+      "queryMode": 2,
+      "coverageName": "SALAMANCA - COIRON",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "CMEN",
+      "countyName": "SALAMANCA",
+      "regionCode": "R4",
+      "ineCountyCode": 271,
+      "queryMode": 2,
+      "coverageName": "SALAMANCA - CUNCUMEN",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "ELDT",
+      "countyName": "SALAMANCA",
+      "regionCode": "R4",
+      "ineCountyCode": 271,
+      "queryMode": 2,
+      "coverageName": "SALAMANCA - EL SENOR DE LA TIERRA",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "ELAM",
+      "countyName": "SALAMANCA",
+      "regionCode": "R4",
+      "ineCountyCode": 271,
+      "queryMode": 2,
+      "coverageName": "SALAMANCA - EL TAMBO",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "HLLA",
+      "countyName": "SALAMANCA",
+      "regionCode": "R4",
+      "ineCountyCode": 271,
+      "queryMode": 2,
+      "coverageName": "SALAMANCA - HIGUERILLA",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "LLIM",
+      "countyName": "SALAMANCA",
+      "regionCode": "R4",
+      "ineCountyCode": 271,
+      "queryMode": 2,
+      "coverageName": "SALAMANCA - LLIMPO",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "PLLO",
+      "countyName": "SALAMANCA",
+      "regionCode": "R4",
+      "ineCountyCode": 271,
+      "queryMode": 2,
+      "coverageName": "SALAMANCA - PANGUESILLO",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "SARO",
+      "countyName": "SALAMANCA",
+      "regionCode": "R4",
+      "ineCountyCode": 271,
+      "queryMode": 2,
+      "coverageName": "SALAMANCA - SANTA ROSA",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "INCO",
+      "countyName": "SALAMANCA",
+      "regionCode": "R4",
+      "ineCountyCode": 271,
+      "queryMode": 2,
+      "coverageName": "SALAMANCA - TAHUINCO",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "TILA",
+      "countyName": "SALAMANCA",
+      "regionCode": "R4",
+      "ineCountyCode": 271,
+      "queryMode": 2,
+      "coverageName": "SALAMANCA - TRANQUILA",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "VICU",
+      "countyName": "VICUNA",
+      "regionCode": "R4",
+      "ineCountyCode": 254,
+      "queryMode": 1,
+      "coverageName": "VICUNA",
+      "ind_ppd": 1,
+      "ind_rd": 1
+    },
+    {
+      "countyCode": "DTAS",
+      "countyName": "VICUNA",
+      "regionCode": "R4",
+      "ineCountyCode": 254,
+      "queryMode": 2,
+      "coverageName": "VICUNA - DIAGUITAS",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "ELLE",
+      "countyName": "VICUNA",
+      "regionCode": "R4",
+      "ineCountyCode": 254,
+      "queryMode": 2,
+      "coverageName": "VICUNA - EL MOLLE",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "ELTA",
+      "countyName": "VICUNA",
+      "regionCode": "R4",
+      "ineCountyCode": 254,
+      "queryMode": 2,
+      "coverageName": "VICUNA - EL TAMBO",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "GUAL",
+      "countyName": "VICUNA",
+      "regionCode": "R4",
+      "ineCountyCode": 254,
+      "queryMode": 2,
+      "coverageName": "VICUNA - GUALLIGUARCA",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "VIGU",
+      "countyName": "VICUNA",
+      "regionCode": "R4",
+      "ineCountyCode": 254,
+      "queryMode": 2,
+      "coverageName": "VICUNA - GUANTA",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "PANA",
+      "countyName": "VICUNA",
+      "regionCode": "R4",
+      "ineCountyCode": 254,
+      "queryMode": 2,
+      "coverageName": "VICUNA - LA CAMPANA",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "VIPE",
+      "countyName": "VICUNA",
+      "regionCode": "R4",
+      "ineCountyCode": 254,
+      "queryMode": 2,
+      "coverageName": "VICUNA - PERALILLO",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "QULE",
+      "countyName": "VICUNA",
+      "regionCode": "R4",
+      "ineCountyCode": 254,
+      "queryMode": 2,
+      "coverageName": "VICUNA - QUEBRADA DE LEIVA",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "RIVA",
+      "countyName": "VICUNA",
+      "regionCode": "R4",
+      "ineCountyCode": 254,
+      "queryMode": 2,
+      "coverageName": "VICUNA - RIVADAVIA",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "SLOS",
+      "countyName": "VICUNA",
+      "regionCode": "R4",
+      "ineCountyCode": 254,
+      "queryMode": 2,
+      "coverageName": "VICUNA - SAN CARLOS",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "VIBA",
+      "countyName": "VICUNA",
+      "regionCode": "R4",
+      "ineCountyCode": 254,
+      "queryMode": 2,
+      "coverageName": "VICUNA - VILLA BADIIAN",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    },
+    {
+      "countyCode": "VIAR",
+      "countyName": "VICUNA",
+      "regionCode": "R4",
+      "ineCountyCode": 254,
+      "queryMode": 2,
+      "coverageName": "VICUNA - VILLA EL ARRAYAN",
+      "ind_ppd": 0,
+      "ind_rd": 0
+    }
+  ],
+  "statusCode": 0,
+  "statusDescription": "Extraccion exitosa",
+  "errors": null
+}
