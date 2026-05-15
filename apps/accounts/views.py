@@ -1,36 +1,58 @@
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework import viewsets, permissions, generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import status
-
-from .serializers import CustomTokenObtainPairSerializer, UsuarioCreateSerializer
-
+from rest_framework_simplejwt.views import TokenObtainPairView
+from .models import PerfilTrabajador, PerfilCliente
+from .serializers import (CustomTokenObtainPairSerializer, PerfilTrabajadorSerializer, TrabajadorCreateSerializer,
+                          PerfilClienteSerializer, ClienteCreateSerializer)
 
 class CustomTokenObtainPairView(TokenObtainPairView):
+    """
+        Vista que recibe usuario/contraseña y devuelve el Token JWT
+        con los datos personalizados (grupos, nombre).
+    """
     serializer_class = CustomTokenObtainPairSerializer
 
 
-class RegisterView(APIView):
-    permission_classes = [AllowAny]
+class RegistroTrabajadorView(generics.CreateAPIView):
 
-    def post(self, request):
-        serializer = UsuarioCreateSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    serializer_class = TrabajadorCreateSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+class RegistroClienteView(generics.CreateAPIView):
+    serializer_class = ClienteCreateSerializer
+    permission_classes = [permissions.AllowAny]
+
+class TrabajadorViewSet(viewsets.ModelViewSet):
+    queryset = PerfilTrabajador.objects.select_related('usuario').all()
+    serializer_class = PerfilTrabajadorSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
 
-class MeView(APIView):
-    permission_classes = [IsAuthenticated]
+class ClienteViewSet(viewsets.ModelViewSet):
+    queryset = PerfilCliente.objects.select_related('usuario', 'institucion').all()
+    serializer_class = PerfilClienteSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+class MiPerfilView(APIView):
+
+    permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request):
-        return Response({
-            'id': request.user.id,
-            'username': request.user.username,
-            'email': request.user.email,
-            'full_name': f'{request.user.first_name} {request.user.last_name}'.strip(),
-            'grupos': list(request.user.groups.values_list('name', flat=True)),
-            'rut': request.user.rut,
-        })
+
+        usuario_actual = request.user
+
+        if hasattr(usuario_actual, 'perfilcliente'):
+            serializer = PerfilClienteSerializer(usuario_actual.perfilcliente)
+            return Response({'Rol': 'CLIENTE',
+                             'datos': serializer.data
+            })
+        elif hasattr(usuario_actual, 'perfiltrabajador'):
+            serializer = PerfilTrabajadorSerializer(usuario_actual.perfiltrabajador)
+            return Response({
+                'rol': 'TRABAJADOR',
+                'datos': serializer.data
+            })
+        return Response(
+            {'detail': 'El usuario no tiene un perfil asociado.'},
+            status=404,)

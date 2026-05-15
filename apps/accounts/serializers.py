@@ -1,10 +1,11 @@
-# apps/accounts/serializers.py
 from django.contrib.auth.models import Group
 from django.contrib.auth.password_validation import validate_password
+from django.db import transaction
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 from .models import Usuario, Institucion, PerfilTrabajador, PerfilCliente, ConvenioInstitucion, DireccionEntrega
+from apps.locations.models import Comuna, Sucursal
 
 
 # ============================================================
@@ -34,49 +35,33 @@ class GroupSerializer(serializers.ModelSerializer):
 
 class UsuarioSerializer(serializers.ModelSerializer):
     grupos = GroupSerializer(source='groups', many=True, read_only=True)
-    grupos_ids = serializers.PrimaryKeyRelatedField(
-        queryset=Group.objects.all(), source='groups',
-        many=True, write_only=True, required=False
-    )
+
 
     class Meta:
         model = Usuario
         fields = [
             'id', 'username', 'email', 'first_name', 'last_name',
-            'rut', 'grupos', 'grupos_ids', 'is_active', 'is_staff', 'date_joined'
+            'rut', 'grupos', 'is_active', 'is_staff', 'date_joined'
         ]
         read_only_fields = ['date_joined']
 
 
-class UsuarioCreateSerializer(serializers.ModelSerializer):
+class UsuarioInternoCreateSerializer(serializers.ModelSerializer):
+    """
+    Serializer auxiliar de uso interno para la creación anidada de usuarios.
+    Evitamos la creación directa y aislada desde el endpoint general.
+    """
     password = serializers.CharField(write_only=True, validators=[validate_password])
-    password2 = serializers.CharField(write_only=True, label='Confirmar contraseña')
-    grupos_ids = serializers.PrimaryKeyRelatedField(
-        queryset=Group.objects.all(), source='groups',
-        many=True, required=False
-    )
+    password2 = serializers.CharField(write_only=True)
 
     class Meta:
         model = Usuario
-        fields = [
-            'id', 'username', 'email', 'first_name', 'last_name',
-            'rut', 'grupos_ids', 'password', 'password2'
-        ]
+        fields = ['username', 'email', 'first_name', 'last_name', 'password', 'password2']
 
     def validate(self, attrs):
         if attrs['password'] != attrs.pop('password2'):
             raise serializers.ValidationError({'password': 'Las contraseñas no coinciden.'})
         return attrs
-
-    def create(self, validated_data):
-        grupos = validated_data.pop('groups', [])
-        user = Usuario(**validated_data)
-        user.set_password(validated_data['password'])
-        user.save()
-        if grupos:
-            user.groups.set(grupos)
-        return user
-
 
 class ChangePasswordSerializer(serializers.Serializer):
     password_actual = serializers.CharField(write_only=True)
@@ -121,16 +106,53 @@ class InstitucionResumenSerializer(serializers.ModelSerializer):
 
 class PerfilTrabajadorSerializer(serializers.ModelSerializer):
     usuario = UsuarioSerializer(read_only=True)
-    usuario_id = serializers.PrimaryKeyRelatedField(
-        queryset=Usuario.objects.all(), source='usuario', write_only=True
-    )
+
 
     class Meta:
         model = PerfilTrabajador
         fields = [
-            'id', 'usuario', 'usuario_id', 'rut', 'telefono',
+            'id', 'usuario', 'rut', 'telefono',
             'direccion', 'comuna', 'sucursal', 'cargo', 'activo'
         ]
+
+class TrabajadorCreateSerializer(serializers.ModelSerializer):
+    usuario = UsuarioInternoCreateSerializer()
+    rut = serializers.CharField(max_length=13)
+    telefono = serializers.CharField(max_length=30, required=False, allow_blank=True)
+    direccion = serializers.CharField(max_length=255, required=False, allow_blank=True)
+    comuna = serializers.PrimaryKeyRelatedField(queryset=Comuna.objects.all(),
+                                                required=False, allow_null=True)
+    sucursal = serializers.PrimaryKeyRelatedField(queryset=Sucursal.objects.all(), required=False, allow_null=True)
+    cargo = serializers.CharField(max_length=120, required=False, allow_blank=True)
+
+    def validate_rut(self, value):
+        # El validador del modelo se ejecuta automáticamente al guardar,
+        # pero podemos asegurar unicidad manual aquí si el perfil no es manejado por Django
+        if PerfilTrabajador.objects.filter(rut=value).exists():
+            raise serializers.ValidationError("Este RUT ya está registrado en un perfil de trabajador.")
+        return value
+
+    def create(self, validated_data):
+        datos_usuario = validated_data.pop('usuario')
+
+        # Usamos una transacción atómica: si falla la creación del perfil,
+        # el usuario no se queda creado a medias en la base de datos.
+        with transaction.atomic():
+            # 1. Crear el usuario base
+            password = datos_usuario.pop('password')
+            usuario = Usuario(**datos_usuario)
+            usuario.set_password(password)
+            # Asignamos el RUT corporativo también al campo rut del usuario si lo requieres
+            usuario.rut = validated_data.get('rut')
+            usuario.save()
+
+            # Asignar grupo de trabajadores si existe en tu BD
+            grupo_trabajador, _ = Group.objects.get_or_create(name='Trabajadores')
+            usuario.groups.add(grupo_trabajador)
+
+            # 2. Crear el perfil asociado
+            perfil = PerfilTrabajador.objects.create(usuario=usuario, **validated_data)
+            return perfil
 
 
 class PerfilTrabajadorResumenSerializer(serializers.ModelSerializer):
@@ -150,29 +172,69 @@ class PerfilTrabajadorResumenSerializer(serializers.ModelSerializer):
 
 class PerfilClienteSerializer(serializers.ModelSerializer):
     usuario = UsuarioSerializer(read_only=True)
-    usuario_id = serializers.PrimaryKeyRelatedField(
-        queryset=Usuario.objects.all(), source='usuario', write_only=True
-    )
     institucion = InstitucionResumenSerializer(read_only=True)
-    institucion_id = serializers.PrimaryKeyRelatedField(
-        queryset=Institucion.objects.all(), source='institucion',
-        write_only=True, required=False, allow_null=True
-    )
 
     class Meta:
         model = PerfilCliente
-        fields = [
-            'id', 'usuario', 'usuario_id', 'rut_o_pasaporte',
-            'tipo_cliente', 'telefono', 'institucion', 'institucion_id', 'activo'
-        ]
+        fields = ['id', 'usuario', 'rut', 'pasaporte', 'tipo_cliente', 'telefono', 'institucion', 'activo']
 
+
+class ClienteCreateSerializer(serializers.Serializer):
+    """
+    Serializer Compuesto para registrar un Cliente con la nueva separación de RUT/Pasaporte.
+    """
+    usuario = UsuarioInternoCreateSerializer()
+    rut = serializers.CharField(max_length=20, required=False, allow_null=True, allow_blank=True)
+    pasaporte = serializers.CharField(max_length=30, required=False, allow_null=True, allow_blank=True)
+    tipo_cliente = serializers.ChoiceField(choices=PerfilCliente.TIPO_CHOICES)
+    telefono = serializers.CharField(max_length=30, required=False, allow_blank=True)
+    institucion_id = serializers.PrimaryKeyRelatedField(
+        queryset=Institucion.objects.all(), source='institucion', required=False, allow_null=True
+    )
+
+    def validate(self, attrs):
+        rut = attrs.get('rut')
+        pasaporte = attrs.get('pasaporte')
+        tipo_cliente = attrs.get('tipo_cliente')
+
+        # Acoplamos las reglas de negocio del Clean del modelo aquí para el Frontend
+        if not rut and not pasaporte:
+            raise serializers.ValidationError("Debe proporcionar al menos un documento (RUT o Pasaporte).")
+
+        if rut and pasaporte:
+            raise serializers.ValidationError("No se pueden registrar ambos documentos simultáneamente.")
+
+        if tipo_cliente == 'INSTITUCIONAL' and not rut:
+            raise serializers.ValidationError(
+                {'rut': "Los clientes institucionales requieren obligatoriamente un RUT."})
+
+        return attrs
+
+    def create(self, validated_data):
+        datos_usuario = validated_data.pop('usuario')
+
+        with transaction.atomic():
+            # 1. Crear el usuario
+            password = datos_usuario.pop('password')
+            usuario = Usuario(**datos_usuario)
+            usuario.set_password(password)
+            if validated_data.get('rut'):
+                usuario.rut = validated_data.get('rut')
+            usuario.save()
+
+            grupo_cliente, _ = Group.objects.get_or_create(name='Clientes')
+            usuario.groups.add(grupo_cliente)
+
+            # 2. Crear el perfil de cliente
+            perfil = PerfilCliente.objects.create(usuario=usuario, **validated_data)
+            return perfil
 
 class PerfilClienteResumenSerializer(serializers.ModelSerializer):
     nombre_completo = serializers.SerializerMethodField()
 
     class Meta:
         model = PerfilCliente
-        fields = ['id', 'rut_o_pasaporte', 'tipo_cliente', 'nombre_completo']
+        fields = ['id', 'rut', 'pasaporte', 'tipo_cliente', 'nombre_completo']
 
     def get_nombre_completo(self, obj):
         return f'{obj.usuario.first_name} {obj.usuario.last_name}'.strip()
