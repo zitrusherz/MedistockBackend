@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from django.db.models import F, Sum
 from .models import (
     Categoria, Marca, Producto, CategoriaProducto,
     Lote, Inventario, MovimientoInventario,
@@ -303,3 +304,43 @@ class TrasladoInventarioSerializer(serializers.ModelSerializer):
             )
         return traslado
 
+
+class ProductoStockSucursalSerializer(serializers.Serializer):
+    """Stock agregado por sucursal para un producto."""
+    sucursal_id = serializers.IntegerField()
+    sucursal_nombre = serializers.CharField()
+    stock_neto = serializers.IntegerField()
+
+
+class ProductoCatalogoSerializer(serializers.ModelSerializer):
+    """Serializer para catálogo frontend con info de marca, categorías y stock por sucursal.
+
+    Para evitar N+1, es recomendable prefetch en la vista si se lista en volumen.
+    """
+    marca = MarcaSerializer(read_only=True)
+    categorias = serializers.SerializerMethodField()
+    stock_por_sucursal = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Producto
+        fields = [
+            'id', 'sku', 'nombre', 'descripcion', 'valor_unitario',
+            'marca', 'unidad_medida',
+            'largo_mm', 'ancho_mm', 'alto_mm', 'peso_mg', 'volumen_ml',
+            'requiere_control_vencimiento', 'registro_sanitario', 'activo', 'es_caja',
+            'categorias', 'stock_por_sucursal'
+        ]
+
+    def get_categorias(self, obj):
+        return list(
+            obj.categoriaproducto_set.values_list('categoria__nombre', flat=True)
+        )
+
+    def get_stock_por_sucursal(self, obj):
+        stock_qs = (
+            Inventario.objects.filter(lote__producto=obj)
+            .values('sucursal_id', sucursal_nombre=F('sucursal__nombre'))
+            .annotate(stock_neto=Sum(F('cantidad_disponible') - F('cantidad_reservada')))
+            .order_by('sucursal__nombre')
+        )
+        return ProductoStockSucursalSerializer(stock_qs, many=True).data
