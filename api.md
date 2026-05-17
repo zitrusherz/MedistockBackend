@@ -2,9 +2,15 @@
 
 ## Base
 - Base URL: `/api/`
-- Auth: JWT (Bearer)
+- Auth: JWT Bearer en header `Authorization: Bearer <access>`
 
-### Autenticacion JWT
+## Autenticacion JWT
+
+### Endpoints globales (SimpleJWT default)
+- `POST /api/token/` (publico)
+- `POST /api/token/refresh/` (publico)
+
+### Endpoints de cuentas
 - `POST /api/accounts/login/` (publico)
   - Body:
     ```json
@@ -13,16 +19,13 @@
       "password": "tu_password"
     }
     ```
-  - Respuesta: `access`, `refresh`, y claims adicionales del token: `username`, `email`, `grupos`, `full_name`.
+  - Respuesta: `access`, `refresh` (el access incluye claims: `username`, `email`, `grupos`, `full_name`).
 
 - `POST /api/accounts/login/refresh/` (publico)
   - Body:
     ```json
     {"refresh": "<refresh_token>"}
     ```
-
-- `POST /api/token/` (publico, JWT default)
-- `POST /api/token/refresh/` (publico, JWT default)
 
 ---
 
@@ -33,8 +36,8 @@
   - Respuesta:
     ```json
     {
-      "Rol": "CLIENTE",
-      "datos": { /* PerfilClienteSerializer */ }
+      "rol": "CLIENTE",
+      "datos": { /* MiPerfilClienteSerializer */ }
     }
     ```
     o
@@ -44,6 +47,12 @@
       "datos": { /* PerfilTrabajadorSerializer */ }
     }
     ```
+
+- `PATCH /api/accounts/perfil/me/` (auth requerida, solo clientes)
+  - Campos editables (parciales): `rut`, `pasaporte`, `telefono`, `email`, `first_name`, `last_name`.
+  - Validaciones:
+    - No permite vaciar campos que ya estaban informados.
+    - `email`, `first_name`, `last_name` no pueden ir vacios si se envian.
 
 ### Registro (publico)
 - `POST /api/accounts/registro/trabajador/`
@@ -86,12 +95,20 @@
       "institucion_id": null
     }
     ```
+  - Reglas:
+    - Se requiere `rut` o `pasaporte` (no ambos).
+    - Para `tipo_cliente=INSTITUCIONAL`, `rut` es obligatorio.
 
 ### CRUD perfiles (auth requerida)
-- `GET/POST /api/accounts/trabajadores/`
-- `GET/PUT/PATCH/DELETE /api/accounts/trabajadores/<id>/`
-- `GET/POST /api/accounts/clientes/`
-- `GET/PUT/PATCH/DELETE /api/accounts/clientes/<id>/`
+- Trabajadores:
+  - `GET/POST /api/accounts/trabajadores/`
+  - `GET/PUT/PATCH/DELETE /api/accounts/trabajadores/<id>/`
+  - Respuesta: `PerfilTrabajadorSerializer`
+
+- Clientes:
+  - `GET/POST /api/accounts/clientes/`
+  - `GET/PUT/PATCH/DELETE /api/accounts/clientes/<id>/`
+  - Respuesta: `PerfilClienteSerializer`
 
 ---
 
@@ -142,58 +159,97 @@
 - Categorias:
   - `GET/POST /api/inventory/categorias/`
   - `GET/PUT/PATCH/DELETE /api/inventory/categorias/<id>/`
+  - Body/Response: `CategoriaSerializer`
+
 - Marcas:
   - `GET/POST /api/inventory/marcas/`
   - `GET/PUT/PATCH/DELETE /api/inventory/marcas/<id>/`
+  - Body/Response: `MarcaSerializer`
+
 - Productos:
   - `GET/POST /api/inventory/productos/`
   - `GET/PUT/PATCH/DELETE /api/inventory/productos/<id>/`
+  - Body/Response: `ProductoSerializer`
+  - Nota: `marca_id` es write-only; `categorias` se lee via `categoriaproducto_set`.
+
 - Lotes:
   - `GET/POST /api/inventory/lotes/`
   - `GET/PUT/PATCH/DELETE /api/inventory/lotes/<id>/`
+  - Body/Response: `LoteSerializer`
+  - Nota: `producto_id` es write-only; `producto` se entrega resumido.
+
 - Inventarios:
   - `GET/POST /api/inventory/inventarios/`
   - `GET/PUT/PATCH/DELETE /api/inventory/inventarios/<id>/`
-- Movimientos:
+  - Body/Response: `InventarioSerializer`
+  - Nota: `lote_id` es write-only; `lote` se entrega con detalle.
+
+- Movimientos de inventario:
   - `GET/POST /api/inventory/movimientos/`
   - `GET /api/inventory/movimientos/<id>/`
-- Traslados:
+  - Body: `MovimientoInventarioSerializer` (el `usuario` se toma del request)
+
+- Traslados de inventario:
   - `GET/POST /api/inventory/traslados/`
   - `GET/PUT/PATCH/DELETE /api/inventory/traslados/<id>/`
+  - Body/Response: `TrasladoInventarioSerializer`
+  - Nota: crear requiere `detalles_write` (lista de `{lote_id, cantidad}`) y setea `solicitado_por` desde el usuario.
 
 ---
 
 ## Orders (`/api/orders/`) (auth requerida)
+
 - `POST /api/orders/pedidos/`
+  - Crea pedido desde usuario autenticado (cliente).
   - Body (ejemplo):
     ```json
     {
       "sucursal_origen_id": 1,
       "direccion_entrega_id": 3,
       "tipo_venta": "WEBPAY",
+      "tipo_despacho": "NORMAL",
+      "prioridad_medica": "NORMAL",
+      "fecha_requerida_entrega": "2026-05-17T10:00:00Z",
+      "observacion": "...",
       "detalles": [
         {"producto_id": 5, "cantidad": 2},
         {"producto_id": 8, "cantidad": 1, "lote_id": 12}
       ]
     }
     ```
+  - Respuesta: `PedidoOutputSerializer`.
 
 - `GET /api/orders/pedidos/<pedido_id>/`
+  - Respuesta: `PedidoOutputSerializer`.
+  - Permisos: cliente dueno del pedido o trabajador interno.
+
+- `PATCH /api/orders/pedidos/<pedido_id>/`
+  - Solo clientes (pedido en estado `PENDIENTE` o `APROBADO`).
+  - Body: `PedidoClienteUpdateSerializer`.
+  - Respuesta: `PedidoOutputSerializer`.
+
 - `POST /api/orders/pedidos/<pedido_id>/aprobar/`
+  - Solo ejecutivos (grupo `Ejecutivo`/`Administrador`) o `is_staff`.
   - Body:
     ```json
     {"accion": "APROBADO" | "RECHAZADO", "comentario": "..."}
+    ```
+  - Respuesta:
+    ```json
+    {"pedido_id": 1, "estado_pedido": "APROBADO", "comentario": "..."}
     ```
 
 ---
 
 ## Logistics (`/api/logistics/`) (publico actualmente)
+
 - `POST /api/logistics/cotizar/`
-  - Body:
+  - Modos:
+    1) Con pedido existente:
     ```json
     {"pedido_id": 42, "county_code_destino": "PROV"}
     ```
-    o
+    2) Sin pedido (consulta libre):
     ```json
     {
       "sucursal_id": 1,
@@ -203,8 +259,10 @@
       ]
     }
     ```
+  - Respuesta: `CotizacionOutputSerializer`.
 
 - `POST /api/logistics/envios/`
+  - Crea OT en Chilexpress para un pedido aprobado.
   - Body:
     ```json
     {
@@ -216,17 +274,38 @@
       "contacto_email": "..."
     }
     ```
+  - Respuesta:
+    ```json
+    {
+      "despacho": { /* DespachoSerializer */ },
+      "numero_ot": 123,
+      "num_cajas": 1,
+      "etiqueta_disponible": true,
+      "service_description": "..."
+    }
+    ```
 
 - `GET /api/logistics/envios/<pedido_id>/tracking/`
   - Query param opcional: `?historial=true`
+  - Respuesta: payload de Chilexpress (tracking).
 
 ---
 
 ## Locations (`/api/locations/`) (publico)
+
 - `GET /api/locations/regions/`
+  - Respuesta: `RegionSerializer`.
+
 - `GET /api/locations/regions-with-comunas/`
+  - Respuesta: `RegionWithComunasSerializer`.
+
 - `GET /api/locations/comunas/`
   - Filtro opcional: `region_id`
+  - Respuesta: `ComunaPublicSerializer` (incluye `chilexpress` cuando hay cobertura).
+
 - `GET /api/locations/comunas-chilexpress/`
   - Filtros opcionales: `retorna_respuesta`, `comuna_id`
+  - Respuesta: `ComunaChilexpressSerializer`.
+
 - `GET /api/locations/sucursales/<id>/`
+  - Respuesta: `SucursalPublicSerializer` (incluye `comuna` y `county_code`).

@@ -1,4 +1,3 @@
-# apps/orders/serializers.py
 from rest_framework import serializers
 from apps.orders.models import Pedido, DetallePedido
 from apps.inventory.models import Producto, Inventario
@@ -20,7 +19,6 @@ class DetallePedidoInputSerializer(serializers.Serializer):
     producto_id = serializers.IntegerField()
     cantidad    = serializers.IntegerField(min_value=1)
     lote_id     = serializers.IntegerField(required=False, allow_null=True)
-    descuento   = serializers.IntegerField(min_value=0, default=0)
     observacion = serializers.CharField(max_length=255, required=False, allow_blank=True)
 
     def validate_producto_id(self, value):
@@ -171,3 +169,83 @@ class PedidoOutputSerializer(serializers.ModelSerializer):
             "observacion", "detalles",
         ]
         read_only_fields = fields
+
+class PedidoClienteOutputSerializer(serializers.ModelSerializer):
+    detalles = DetallePedidoOutputSerializer(
+        many=True,
+        source="detallepedido_set",
+        read_only=True
+    )
+    sucursal_nombre = serializers.CharField(source="sucursal_origen.nombre", read_only=True)
+
+    class Meta:
+        model = Pedido
+        fields = [
+            "id",
+            "sucursal_nombre",
+            "direccion_entrega_id",
+            "estado_pedido",
+            "tipo_venta",
+            "tipo_despacho",
+            "prioridad_medica",
+            "fecha_creacion",
+            "fecha_actualizacion",
+            "fecha_requerida_entrega",
+            "subtotal",
+            "descuento_total",
+            "monto_neto",
+            "monto_iva",
+            "total",
+            "observacion",
+            "detalles",
+        ]
+        read_only_fields = fields
+
+
+#==============================================================
+#
+#Edicion de pedido
+#
+#==============================================================
+
+class PedidoClienteUpdateSerializer(serializers.ModelSerializer):
+    direccion_entrega_id = serializers.PrimaryKeyRelatedField(
+        queryset=DireccionEntrega.objects.all(),
+        source="direccion_entrega",
+        required=False,
+    )
+
+    class Meta:
+        model = Pedido
+        fields = [
+            "direccion_entrega",
+            "tipo_despacho",
+            "prioridad_medica",
+            "fecha_requerida_entrega",
+            "observacion",
+        ]
+
+    def validate_direccion_entrega(self, value):
+        request = self.context.get("request")
+
+        if not request or not request.user.is_authenticated:
+            raise serializers.ValidationError("Usuario no autenticado.")
+
+        if not hasattr(request.user, "perfilcliente"):
+            raise serializers.ValidationError("El usuario no tiene perfil de cliente.")
+
+        if value.cliente_id != request.user.perfilcliente.id:
+            raise serializers.ValidationError("La dirección no pertenece al cliente autenticado.")
+
+        return value
+
+    def validate(self, attrs):
+        pedido = self.instance
+
+        if pedido.estado_pedido not in ["PENDIENTE", "APROBADO"]:
+            raise serializers.ValidationError(
+                "Este pedido ya no puede ser modificado por el cliente."
+            )
+
+        return attrs
+

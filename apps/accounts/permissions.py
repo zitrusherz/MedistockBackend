@@ -1,4 +1,4 @@
-from rest_framework.permissions import BasePermission
+from rest_framework.permissions import BasePermission, SAFE_METHODS
 
 
 def tiene_rol(user, *roles):
@@ -37,3 +37,27 @@ class EsEjecutivoOAdministrador(BasePermission):
         return request.user.is_authenticated and tiene_rol(
             request.user, 'Ejecutivo', 'Administrador'
         )
+
+class EsDuennoDelPedidoYEditableHastaAprobado(BasePermission):
+    estados_editables =  ['PENDIENTE', 'APROBADO']
+
+    def has_object_permission(self, request, view, obj):
+        usuario = request.user
+
+        if not usuario or not usuario.is_authenticated:
+            return False
+
+        # Admin puede todo
+        if usuario.is_staff or usuario.groups.filter(name='Administrador').exists():
+            return True
+
+        # El pedido debe pertenecer al cliente autenticado
+        if obj.cliente.usuario != usuario:
+            return False
+
+        # Puede ver sus pedidos siempre
+        if request.method in SAFE_METHODS:
+            return True
+
+        # Puede editar solo hasta APROBADO incluido
+        return obj.estado in self.estados_editables

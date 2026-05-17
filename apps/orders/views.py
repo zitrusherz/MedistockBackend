@@ -1,13 +1,19 @@
+from django.utils import timezone
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
+from apps.orders.permissions import (
+    EsPedidoPropioOTrabajador,
+    ClientePuedeEditarPedidoHastaAprobado,
+)
 from django.db import transaction
 
 from apps.orders.models import Pedido, DetallePedido, AprobacionPedido
 from apps.orders.serializers import (
     CrearPedidoInputSerializer,
     PedidoOutputSerializer,
+PedidoClienteUpdateSerializer
 )
 from apps.inventory.models import Inventario
 from apps.accounts.models import PerfilTrabajador
@@ -171,9 +177,10 @@ class DetallePedidoView(APIView):
     Retorna el detalle completo de un pedido, incluyendo sus líneas.
     Solo el cliente dueño del pedido o un trabajador interno puede verlo.
     """
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated,EsPedidoPropioOTrabajador,
+        ClientePuedeEditarPedidoHastaAprobado, ]
 
-    def get(self, request, pedido_id):
+    def get_object(self, request, pedido_id):
         try:
             pedido = Pedido.objects.prefetch_related(
                 "detallepedido_set__producto",
@@ -183,22 +190,53 @@ class DetallePedidoView(APIView):
                 "sucursal_origen",
             ).get(pk=pedido_id)
         except Pedido.DoesNotExist:
+            return None
+
+        self.check_object_permissions(request, pedido)
+        return pedido
+
+    def get(self, request, pedido_id):
+        pedido = self.get_object(request, pedido_id)
+
+        if pedido is None:
             return Response(
                 {"error": f"No existe un pedido con id={pedido_id}."},
                 status=status.HTTP_404_NOT_FOUND,
             )
 
-        # Solo el dueño o un trabajador puede ver el pedido
-        es_trabajador = PerfilTrabajador.objects.filter(usuario=request.user).exists()
-        es_dueno = pedido.cliente.usuario_id == request.user.pk
+        return Response(PedidoOutputSerializer(pedido).data, status=status.HTTP_200_OK)
 
-        if not es_trabajador and not es_dueno:
+    def patch(self, request, pedido_id):
+        pedido = self.get_object(request, pedido_id)
+
+        if pedido is None:
             return Response(
-                {"error": "No tienes permiso para ver este pedido."},
+                {"error": f"No existe un pedido con id={pedido_id}."},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+
+        if hasattr(request.user, "perfilcliente"):
+            serializer = PedidoClienteUpdateSerializer(
+                pedido,
+                data=request.data,
+                partial=True,
+                context={"request": request},
+            )
+        else:
+            return Response(
+                {"error": "Este endpoint de edición está pensado para clientes."},
                 status=status.HTTP_403_FORBIDDEN,
             )
 
-        return Response(PedidoOutputSerializer(pedido).data, status=status.HTTP_200_OK)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
+        pedido.refresh_from_db()
+
+        return Response(
+            PedidoOutputSerializer(pedido).data,
+            status=status.HTTP_200_OK,
+        )
 
 
 class AprobarPedidoView(APIView):
@@ -218,14 +256,20 @@ class AprobarPedidoView(APIView):
     @transaction.atomic
     def post(self, request, pedido_id):
         # Verificar que es un trabajador (ejecutivo)
-        try:
-            perfil_trabajador = PerfilTrabajador.objects.get(usuario=request.user)
-        except PerfilTrabajador.DoesNotExist:
+        if not request.user.groups.filter(
+                name__in=["Ejecutivo", "Administrador"]).exists() and not request.user.is_staff:
             return Response(
                 {"error": "Solo los ejecutivos pueden aprobar pedidos."},
                 status=status.HTTP_403_FORBIDDEN,
             )
 
+        try:
+            perfil_trabajador = PerfilTrabajador.objects.get(usuario=request.user)
+        except PerfilTrabajador.DoesNotExist:
+            return Response(
+                {"error": "El usuario no tiene perfil de trabajador asociado."},
+                status=status.HTTP_403_FORBIDDEN,
+            )
         try:
             pedido = Pedido.objects.get(pk=pedido_id)
         except Pedido.DoesNotExist:
@@ -251,7 +295,12 @@ class AprobarPedidoView(APIView):
             )
 
         # Actualizar el pedido
-        pedido.estado_pedido = accion
+        if accion == "APROBADO":
+            nuevo_estado_pedido = "APROBADO"
+        else:
+            nuevo_estado_pedido = "CANCELADO"
+
+        pedido.estado_pedido = nuevo_estado_pedido
         pedido.save(update_fields=["estado_pedido"])
 
         # Registrar la aprobación
@@ -261,7 +310,7 @@ class AprobarPedidoView(APIView):
                 "ejecutivo": perfil_trabajador,
                 "estado_aprobacion": accion,
                 "comentario": comentario,
-                "fecha_aprobacion": __import__("django.utils.timezone", fromlist=["now"]).now(),
+                "fecha_aprobacion": timezone.now(),
             }
         )
 
@@ -274,5 +323,26 @@ class AprobarPedidoView(APIView):
             status=status.HTTP_200_OK,
         )
 
+class MisPedidosView(APIView):
+    permission_classes = [IsAuthenticated]
 
+    def get(self, request):
+        if not hasattr(request.user, "perfilcliente"):
+            return Response(
+                {"error": "Solo los clientes pueden ver sus pedidos desde este endpoint."},
+                status=status.HTTP_403_FORBIDDEN,
+            )
+
+        pedidos = Pedido.objects.filter(
+            cliente=request.user.perfilcliente
+        ).select_related(
+            "cliente__usuario",
+            "sucursal_origen",
+        ).prefetch_related(
+            "detallepedido_set__producto",
+            "detallepedido_set__lote",
+        ).order_by("-fecha_creacion")
+
+        serializer = PedidoOutputSerializer(pedidos, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
