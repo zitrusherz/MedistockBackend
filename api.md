@@ -27,32 +27,12 @@
     {"refresh": "<refresh_token>"}
     ```
 
----
-
-## Accounts (`/api/accounts/`)
-
-### Perfil propio
-- `GET /api/accounts/perfil/me/` (auth requerida)
-  - Respuesta:
+- `POST /api/accounts/logout/` (auth requerida)
+  - Body:
     ```json
-    {
-      "rol": "CLIENTE",
-      "datos": { /* MiPerfilClienteSerializer */ }
-    }
+    {"refresh": "<refresh_token>"}
     ```
-    o
-    ```json
-    {
-      "rol": "TRABAJADOR",
-      "datos": { /* PerfilTrabajadorSerializer */ }
-    }
-    ```
-
-- `PATCH /api/accounts/perfil/me/` (auth requerida, solo clientes)
-  - Campos editables (parciales): `rut`, `pasaporte`, `telefono`, `email`, `first_name`, `last_name`.
-  - Validaciones:
-    - No permite vaciar campos que ya estaban informados.
-    - `email`, `first_name`, `last_name` no pueden ir vacios si se envian.
+  - Respuesta: `205 RESET_CONTENT` si el refresh se invalida.
 
 ### Registro (publico)
 - `POST /api/accounts/registro/trabajador/`
@@ -92,12 +72,27 @@
       "pasaporte": null,
       "tipo_cliente": "PARTICULAR",
       "telefono": "...",
-      "institucion_id": null
+      "institucion_id": null,
+      "datos_institucion": null,
+      "direccion_entrega": {
+        "direccion": "Calle 123",
+        "num_direccion": "10",
+        "detalle_direccion": "Depto 201",
+        "comuna": 5,
+        "referencia": "...",
+        "nombre_receptor": "...",
+        "telefono_receptor": "...",
+        "es_principal": true
+      }
     }
     ```
   - Reglas:
     - Se requiere `rut` o `pasaporte` (no ambos).
-    - Para `tipo_cliente=INSTITUCIONAL`, `rut` es obligatorio.
+    - `direccion_entrega` es obligatoria.
+    - Para `tipo_cliente=INSTITUCIONAL`:
+      - `rut` es obligatorio.
+      - Debes enviar `institucion_id` o `datos_institucion` (no ambos).
+    - Para `tipo_cliente=PARTICULAR`: no enviar `institucion_id` ni `datos_institucion`.
 
 ### CRUD perfiles (auth requerida)
 - Trabajadores:
@@ -109,6 +104,33 @@
   - `GET/POST /api/accounts/clientes/`
   - `GET/PUT/PATCH/DELETE /api/accounts/clientes/<id>/`
   - Respuesta: `PerfilClienteSerializer`
+
+---
+
+## Accounts (`/api/accounts/`)
+
+### Perfil propio
+- `GET /api/accounts/perfil/me/` (auth requerida)
+  - Respuesta:
+    ```json
+    {
+      "rol": "CLIENTE",
+      "datos": { /* MiPerfilClienteSerializer */ }
+    }
+    ```
+    o
+    ```json
+    {
+      "rol": "TRABAJADOR",
+      "datos": { /* PerfilTrabajadorSerializer */ }
+    }
+    ```
+
+- `PATCH /api/accounts/perfil/me/` (auth requerida, solo clientes)
+  - Campos editables (parciales): `rut`, `pasaporte`, `telefono`, `email`, `first_name`, `last_name`.
+  - Validaciones:
+    - No permite vaciar campos que ya estaban informados.
+    - `email`, `first_name`, `last_name` no pueden ir vacios si se envian.
 
 ---
 
