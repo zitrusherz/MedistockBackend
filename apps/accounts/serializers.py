@@ -3,7 +3,6 @@ from django.contrib.auth.password_validation import validate_password
 from django.db import transaction
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-
 from .models import Usuario, Institucion, PerfilTrabajador, PerfilCliente, ConvenioInstitucion, DireccionEntrega
 from apps.locations.models import Comuna, Sucursal
 
@@ -13,6 +12,9 @@ from apps.locations.models import Comuna, Sucursal
 # ============================================================
 
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
+
+
+
     @classmethod
     def get_token(cls, user):
         token = super().get_token(user)
@@ -51,6 +53,13 @@ class UsuarioInternoCreateSerializer(serializers.ModelSerializer):
     Serializer auxiliar de uso interno para la creación anidada de usuarios.
     Evitamos la creación directa y aislada desde el endpoint general.
     """
+    username = serializers.EmailField(
+        required=True,
+        error_messages={
+            'invalid': 'Por favor, ingrese una dirección de correo electrónico válida.'
+        }
+    )
+
     password = serializers.CharField(write_only=True, validators=[validate_password])
     password2 = serializers.CharField(write_only=True)
 
@@ -115,7 +124,7 @@ class PerfilTrabajadorSerializer(serializers.ModelSerializer):
             'direccion', 'comuna', 'sucursal', 'cargo', 'activo'
         ]
 
-class TrabajadorCreateSerializer(serializers.ModelSerializer):
+class TrabajadorCreateSerializer(serializers.Serializer):
     usuario = UsuarioInternoCreateSerializer()
     rut = serializers.CharField(max_length=13)
     telefono = serializers.CharField(max_length=30, required=False, allow_blank=True)
@@ -124,6 +133,8 @@ class TrabajadorCreateSerializer(serializers.ModelSerializer):
                                                 required=False, allow_null=True)
     sucursal = serializers.PrimaryKeyRelatedField(queryset=Sucursal.objects.all(), required=False, allow_null=True)
     cargo = serializers.CharField(max_length=120, required=False, allow_blank=True)
+
+
 
     def validate_rut(self, value):
         # El validador del modelo se ejecuta automáticamente al guardar,
@@ -177,6 +188,89 @@ class PerfilClienteSerializer(serializers.ModelSerializer):
     class Meta:
         model = PerfilCliente
         fields = ['id', 'usuario', 'rut', 'pasaporte', 'tipo_cliente', 'telefono', 'institucion', 'activo']
+
+class MiPerfilClienteSerializer(serializers.ModelSerializer):
+    email = serializers.EmailField(source='usuario.email', required=False, allow_blank=False)
+    first_name = serializers.CharField(source='usuario.first_name', required=False, allow_blank=False)
+    last_name = serializers.CharField(source='usuario.last_name', required=False, allow_blank=False)
+
+    class Meta:
+        model = PerfilCliente
+        fields = [
+            'id',
+            'rut',
+            'pasaporte',
+            'telefono',
+            'email',
+            'first_name',
+            'last_name',
+            'institucion',
+        ]
+
+        read_only_fields = ['id', 'institucion']
+
+        def validate(self, attrs):
+            instance = self.instance
+
+            usuario_data = attrs.get('usuario', {})
+
+            # Campos que nunca deberían aceptar null o blank si vienen en el request
+            campos_no_vacios_perfil = ['rut']
+            campos_no_vacios_usuario = ['email', 'first_name', 'last_name']
+
+            for campo in campos_no_vacios_perfil:
+                if campo in attrs and attrs[campo] in [None, '']:
+                    raise serializers.ValidationError({
+                        campo: 'Este campo no puede quedar vacío.'
+                    })
+
+            for campo in campos_no_vacios_usuario:
+                if campo in usuario_data and usuario_data[campo] in [None, '']:
+                    raise serializers.ValidationError({
+                        campo: 'Este campo no puede quedar vacío.'
+                    })
+
+            # Evitar borrar información que ya existía
+            if instance:
+                for campo, valor_nuevo in attrs.items():
+                    if campo == 'usuario':
+                        continue
+
+                    valor_actual = getattr(instance, campo, None)
+
+                    if valor_actual not in [None, ''] and valor_nuevo in [None, '']:
+                        raise serializers.ValidationError({
+                            campo: 'No puedes borrar información que ya estaba registrada.'
+                        })
+
+                for campo, valor_nuevo in usuario_data.items():
+                    valor_actual = getattr(instance.usuario, campo, None)
+
+                    if valor_actual not in [None, ''] and valor_nuevo in [None, '']:
+                        raise serializers.ValidationError({
+                            campo: 'No puedes borrar información que ya estaba registrada.'
+                        })
+
+            return attrs
+
+        def update(self, instance, validated_data):
+            usuario_data = validated_data.pop('usuario', {})
+
+            usuario = instance.usuario
+
+            for attr, value in usuario_data.items():
+                setattr(usuario, attr, value)
+
+            usuario.save()
+
+            for attr, value in validated_data.items():
+                setattr(instance, attr, value)
+
+            instance.full_clean()
+            instance.save()
+
+            return instance
+
 
 
 class ClienteCreateSerializer(serializers.Serializer):
@@ -287,4 +381,42 @@ class DireccionEntregaSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError(
                 'La dirección no puede pertenecer a un cliente y a una institución simultáneamente.'
             )
+        return attrs
+
+class MiDireccionEntregaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DireccionEntrega
+        fields = [
+            'id',
+            'direccion',
+            'num_direccion',
+            'detalle_direccion',
+            'comuna',
+            'referencia',
+            'nombre_receptor',
+            'telefono_receptor',
+            'es_principal',
+        ]
+        read_only_fields = ['id']
+
+    def validate(self, attrs):
+        instance = self.instance
+
+        campos_obligatorios = ['direccion', 'comuna']
+
+        for campo in campos_obligatorios:
+            if campo in attrs and attrs[campo] in [None, '']:
+                raise serializers.ValidationError({
+                    campo: 'Este campo no puede quedar vacío.'
+                })
+
+        if instance:
+            for campo, valor_nuevo in attrs.items():
+                valor_actual = getattr(instance, campo, None)
+
+                if valor_actual not in [None, ''] and valor_nuevo in [None, '']:
+                    raise serializers.ValidationError({
+                        campo: 'No puedes borrar información que ya estaba registrada.'
+                    })
+
         return attrs
