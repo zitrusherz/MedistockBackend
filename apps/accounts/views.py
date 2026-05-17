@@ -1,6 +1,7 @@
 from rest_framework import viewsets, permissions, generics, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenObtainPairView
 from .models import PerfilTrabajador, PerfilCliente, DireccionEntrega
 from .serializers import (CustomTokenObtainPairSerializer, PerfilTrabajadorSerializer, TrabajadorCreateSerializer,
@@ -98,3 +99,30 @@ class MisDireccionesViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(cliente=self.request.user.perfilcliente)
+
+class LogoutView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request):
+        refresh_token = request.data.get("refresh")
+
+        if not refresh_token:
+            return Response(
+                {"error": "Debes enviar el refresh token."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        try:
+            token = RefreshToken(refresh_token)
+            token.blacklist()
+
+            return Response(
+                {"detail": "Logout realizado correctamente."},
+                status=status.HTTP_205_RESET_CONTENT,
+            )
+
+        except Exception:
+            return Response(
+                {"error": "Token inválido o ya cerrado."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )

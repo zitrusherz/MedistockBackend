@@ -4,7 +4,7 @@ from .views import (
     CustomTokenObtainPairView,
     RegistroTrabajadorView, RegistroClienteView,
     TrabajadorViewSet, ClienteViewSet,
-    MiPerfilView
+    MiPerfilView, LogoutView
 )
 from rest_framework_simplejwt.views import TokenRefreshView
 
@@ -16,6 +16,7 @@ urlpatterns = [
     # 🔑 Rutas para Autenticación JWT
     path('login/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('login/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path("logout/", LogoutView.as_view(), name="logout"),
 
     # 👤 Ruta para obtener el perfil propio
     path('perfil/me/', MiPerfilView.as_view(), name='mi_perfil'),
