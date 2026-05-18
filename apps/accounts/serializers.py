@@ -1,6 +1,6 @@
 from django.contrib.auth.models import Group
 from django.contrib.auth.password_validation import validate_password
-from django.db import transaction
+from django.db import transaction, IntegrityError
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from .models import Usuario, Institucion, PerfilTrabajador, PerfilCliente, ConvenioInstitucion, DireccionEntrega
@@ -313,16 +313,44 @@ class ClienteCreateSerializer(serializers.Serializer):
         allow_null=True
     )
 
-    datos_institucion = InstitucionRegistroSerializer(required=False)
+    datos_institucion = InstitucionRegistroSerializer(required=False, allow_null=True )
 
-    direccion_entrega = DireccionRegistroClienteSerializer(required=True)
+    direccion_entrega = DireccionRegistroClienteSerializer(required=True, write_only= True)
 
     def validate(self, attrs):
+        usuario_data = attrs.get("usuario", {})
+        username = usuario_data.get("username")
+        email = usuario_data.get("email")
+
         rut = attrs.get("rut")
         pasaporte = attrs.get("pasaporte")
         tipo_cliente = attrs.get("tipo_cliente")
         institucion_id = attrs.get("institucion_id")
         datos_institucion = attrs.get("datos_institucion")
+
+        if username and Usuario.objects.filter(username=username).exists():
+            raise serializers.ValidationError({
+                "usuario": {
+                    "username": "Ya existe un usuario registrado con este correo."
+                }
+            })
+
+        if email and Usuario.objects.filter(email=email).exists():
+            raise serializers.ValidationError({
+                "usuario": {
+                    "email": "Ya existe un usuario registrado con este email."
+                }
+            })
+
+        if rut and PerfilCliente.objects.filter(rut=rut).exists():
+            raise serializers.ValidationError({
+                "rut": "Ya existe un cliente registrado con este RUT."
+            })
+
+        if pasaporte and PerfilCliente.objects.filter(pasaporte=pasaporte).exists():
+            raise serializers.ValidationError({
+                "pasaporte": "Ya existe un cliente registrado con este pasaporte."
+            })
 
         if not rut and not pasaporte:
             raise serializers.ValidationError(
@@ -366,61 +394,107 @@ class ClienteCreateSerializer(serializers.Serializer):
 
         tipo_cliente = validated_data.get("tipo_cliente")
 
-        with transaction.atomic():
-            password = datos_usuario.pop("password")
+        try:
+            with transaction.atomic():
+                password = datos_usuario.pop("password")
 
-            usuario = Usuario(**datos_usuario)
-            usuario.set_password(password)
+                usuario = Usuario(**datos_usuario)
+                usuario.set_password(password)
 
-            if validated_data.get("rut"):
-                usuario.rut = validated_data.get("rut")
+                if validated_data.get("rut"):
+                    usuario.rut = validated_data.get("rut")
 
-            usuario.save()
+                usuario.save()
 
-            if tipo_cliente == "INSTITUCIONAL":
-                if datos_institucion:
-                    institucion, _ = Institucion.objects.get_or_create(
-                        rut_empresa=datos_institucion["rut_empresa"],
-                        defaults={
-                            "razon_social": datos_institucion["razon_social"],
-                            "giro": datos_institucion.get("giro"),
-                            "direccion_comercial": datos_institucion.get("direccion_comercial"),
-                            "comuna": datos_institucion.get("comuna"),
-                            "telefono": datos_institucion.get("telefono"),
-                            "email_contacto": datos_institucion.get("email_contacto"),
-                            "activo": True,
-                        }
-                    )
+                if tipo_cliente == "INSTITUCIONAL":
+                    if datos_institucion:
+                        institucion, _ = Institucion.objects.get_or_create(
+                            rut_empresa=datos_institucion["rut_empresa"],
+                            defaults={
+                                "razon_social": datos_institucion["razon_social"],
+                                "giro": datos_institucion.get("giro"),
+                                "direccion_comercial": datos_institucion.get("direccion_comercial"),
+                                "comuna": datos_institucion.get("comuna"),
+                                "telefono": datos_institucion.get("telefono"),
+                                "email_contacto": datos_institucion.get("email_contacto"),
+                                "activo": True,
+                            }
+                        )
 
-                grupo_cliente, _ = Group.objects.get_or_create(name="ClienteInstitucional")
+                    grupo_cliente, _ = Group.objects.get_or_create(name="ClienteInstitucional")
 
-            else:
-                institucion = None
-                grupo_cliente, _ = Group.objects.get_or_create(name="ClienteParticular")
+                else:
+                    institucion = None
+                    grupo_cliente, _ = Group.objects.get_or_create(name="ClienteParticular")
 
-            usuario.groups.add(grupo_cliente)
+                usuario.groups.add(grupo_cliente)
 
-            perfil = PerfilCliente.objects.create(
-                usuario=usuario,
-                institucion=institucion,
-                **validated_data
-            )
+                perfil = PerfilCliente.objects.create(
+                    usuario=usuario,
+                    institucion=institucion,
+                    **validated_data
+                )
 
-            DireccionEntrega.objects.create(
-                cliente=perfil,
-                institucion=institucion if tipo_cliente == "INSTITUCIONAL" else None,
-                direccion=datos_direccion["direccion"],
-                num_direccion=datos_direccion.get("num_direccion"),
-                detalle_direccion=datos_direccion.get("detalle_direccion"),
-                comuna=datos_direccion["comuna"],
-                referencia=datos_direccion.get("referencia"),
-                nombre_receptor=datos_direccion.get("nombre_receptor"),
-                telefono_receptor=datos_direccion.get("telefono_receptor"),
-                es_principal=datos_direccion.get("es_principal", True),
-                activo=True,
-            )
+                DireccionEntrega.objects.create(
+                    cliente=perfil,
+                    institucion=institucion if tipo_cliente == "INSTITUCIONAL" else None,
+                    direccion=datos_direccion["direccion"],
+                    num_direccion=datos_direccion.get("num_direccion"),
+                    detalle_direccion=datos_direccion.get("detalle_direccion"),
+                    comuna=datos_direccion["comuna"],
+                    referencia=datos_direccion.get("referencia"),
+                    nombre_receptor=datos_direccion.get("nombre_receptor"),
+                    telefono_receptor=datos_direccion.get("telefono_receptor"),
+                    es_principal=datos_direccion.get("es_principal", True),
+                    activo=True,
+                )
 
-            return perfil
+                return perfil
+
+        except IntegrityError as e:
+            error = str(e)
+
+            if "username" in error:
+                raise serializers.ValidationError({
+                    "usuario": {
+                        "username": "Ya existe un usuario registrado con este correo."
+                    }
+                })
+
+            if "email" in error:
+                raise serializers.ValidationError({
+                    "usuario": {
+                        "email": "Ya existe un usuario registrado con este email."
+                    }
+                })
+
+            if "rut" in error:
+                raise serializers.ValidationError({
+                    "rut": "Ya existe un registro con este RUT."
+                })
+
+            raise serializers.ValidationError({
+                "detail": "No se pudo completar el registro porque algunos datos ya existen."
+            })
+
+    def to_representation(self, instance):
+        return {
+            "id": instance.id,
+            "usuario": {
+                "id": instance.usuario.id,
+                "username": instance.usuario.username,
+                "email": instance.usuario.email,
+                "first_name": instance.usuario.first_name,
+                "last_name": instance.usuario.last_name,
+            },
+            "rut": instance.rut,
+            "pasaporte": instance.pasaporte,
+            "tipo_cliente": instance.tipo_cliente,
+            "telefono": instance.telefono,
+            "institucion": instance.institucion.id if instance.institucion else None,
+            "activo": instance.activo,
+            "mensaje": "Cliente registrado correctamente."
+        }
 
 class PerfilClienteResumenSerializer(serializers.ModelSerializer):
     nombre_completo = serializers.SerializerMethodField()

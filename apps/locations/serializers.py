@@ -56,7 +56,7 @@ class RegionWithComunasSerializer(serializers.ModelSerializer):
 	`comunas_chilexpress__retorna_respuesta=True` para que aquí sólo se devuelvan
 	las comunas con cobertura. El campo `comunas` usa el serializer público
 	para no exponer `nombre_alt`.
-	"""
+	 """
 	comunas = ComunaPublicSerializer(many=True, source='comuna_set', read_only=True)
 
 	class Meta:
@@ -82,6 +82,7 @@ class SucursalPublicSerializer(serializers.ModelSerializer):
 	`retorna_respuesta=True`.
 	"""
 	comuna = serializers.SerializerMethodField()
+	region = serializers.SerializerMethodField()
 	county_code = serializers.SerializerMethodField()
 
 	def get_comuna(self, obj):
@@ -89,13 +90,23 @@ class SucursalPublicSerializer(serializers.ModelSerializer):
 			return None
 		return {"id": obj.comuna.id, "nombre": obj.comuna.nombre}
 
+	def get_region(self, obj):
+		if not obj.comuna or not obj.comuna.region:
+			return None
+		return {"id": obj.comuna.region.id, "nombre": obj.comuna.region.nombre}
+
 	def get_county_code(self, obj):
+		if not obj.comuna:
+			return None
 		entry = obj.comuna.comunas_chilexpress.filter(retorna_respuesta=True).first()
 		return entry.county_code if entry else None
 
 	class Meta:
 		model = Sucursal
-		fields = ['id', 'nombre', 'direccion', 'num_direccion', 'telefono', 'comuna', 'county_code', 'activo']
+		fields = [
+			'id', 'nombre', 'direccion', 'num_direccion', 'telefono',
+			'comuna', 'region', 'county_code', 'activo'
+		]
 
 
 class SucursalResumenSerializer(serializers.ModelSerializer):

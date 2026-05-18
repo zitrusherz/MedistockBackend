@@ -27,6 +27,14 @@ CHILEXPRESS_API_KEY_COTIZADOR = os.getenv("CHILEXPRESS_API_KEY_COTIZADOR")
 MEDISTOCK_RUT      = os.getenv("MEDISTOCK_RUT")
 MEDISTOCK_TELEFONO = os.getenv("MEDISTOCK_TELEFONO")
 MEDISTOCK_EMAIL    = os.getenv("MEDISTOCK_EMAIL")
+
+FRONTEND_BASE_URL = "http://localhost:5173"
+BACKEND_BASE_URL = "http://localhost:8000"
+TRANSBANK_ENVIRONMENT = os.getenv("TRANSBANK_ENVIRONMENT")
+
+TRANSBANK_WEBPAY_COMMERCE_CODE = os.getenv("TRANSBANK_WEBPAY_COMMERCE_CODE")
+TRANSBANK_WEBPAY_API_KEY = os.getenv("TRANSBANK_WEBPAY_API_KEY")
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
@@ -167,7 +175,7 @@ REST_FRAMEWORK = {
 
 from datetime import timedelta
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
     "ROTATE_REFRESH_TOKENS": True,
     "BLACKLIST_AFTER_ROTATION": True,

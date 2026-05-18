@@ -3,6 +3,7 @@ from django.conf import settings
 from django.db import models
 
 
+
 class TransaccionPago(models.Model):
     METODO_CHOICES = [
         ('WEBPAY', 'WebPay'),
@@ -10,23 +11,125 @@ class TransaccionPago(models.Model):
         ('TRANSFERENCIA', 'Transferencia'),
         ('CREDITO_INSTITUCIONAL', 'Crédito institucional'),
     ]
+
     ESTADO_CHOICES = [
         ('PENDIENTE', 'Pendiente'),
+        ('INICIADO', 'Iniciado'),
         ('AUTORIZADO', 'Autorizado'),
         ('CONFIRMADO', 'Confirmado'),
         ('RECHAZADO', 'Rechazado'),
         ('ANULADO', 'Anulado'),
         ('REEMBOLSADO', 'Reembolsado'),
+        ('ERROR', 'Error'),
     ]
 
     pedido = models.ForeignKey('orders.Pedido', on_delete=models.CASCADE)
-    id_transaccion_externa = models.CharField(max_length=180, blank=True, null=True)
-    metodo_pago = models.CharField(max_length=30, choices=METODO_CHOICES)
-    estado_pago = models.CharField(max_length=15, choices=ESTADO_CHOICES, default='PENDIENTE')
+
+    metodo_pago = models.CharField(
+        max_length=30,
+        choices=METODO_CHOICES
+    )
+
+    estado_pago = models.CharField(
+        max_length=20,
+        choices=ESTADO_CHOICES,
+        default='PENDIENTE'
+    )
+
     monto_confirmado = models.IntegerField(default=0)
+
+    # ============================================================
+    # CAMPOS WEBPAY / PASARELA EXTERNA
+    # ============================================================
+
+    buy_order = models.CharField(
+        max_length=100,
+        blank=True,
+        null=True,
+        help_text='Orden de compra enviada a Webpay.'
+    )
+
+    session_id = models.CharField(
+        max_length=100,
+        blank=True,
+        null=True,
+        help_text='Identificador de sesión enviado a Webpay.'
+    )
+
+    token_ws = models.CharField(
+        max_length=255,
+        blank=True,
+        null=True,
+        help_text='Token entregado por Webpay al crear o confirmar la transacción.'
+    )
+
+    id_transaccion_externa = models.CharField(
+        max_length=180,
+        blank=True,
+        null=True,
+        help_text='Identificador externo de la transacción, si la pasarela lo entrega.'
+    )
+
+    authorization_code = models.CharField(
+        max_length=50,
+        blank=True,
+        null=True,
+        help_text='Código de autorización entregado por Webpay.'
+    )
+
+    response_code = models.IntegerField(
+        blank=True,
+        null=True,
+        help_text='Código de respuesta de Webpay. Normalmente 0 indica aprobación.'
+    )
+
+    payment_type_code = models.CharField(
+        max_length=10,
+        blank=True,
+        null=True,
+        help_text='Tipo de pago informado por Webpay.'
+    )
+
+    installments_number = models.IntegerField(
+        blank=True,
+        null=True,
+        help_text='Cantidad de cuotas informadas por Webpay.'
+    )
+
+    card_last_digits = models.CharField(
+        max_length=4,
+        blank=True,
+        null=True,
+        help_text='Últimos cuatro dígitos de la tarjeta.'
+    )
+
+    webpay_status = models.CharField(
+        max_length=50,
+        blank=True,
+        null=True,
+        help_text='Estado técnico devuelto por Webpay. Ej: AUTHORIZED.'
+    )
+
+    transaction_date = models.DateTimeField(
+        blank=True,
+        null=True,
+        help_text='Fecha de transacción informada por Webpay.'
+    )
+
+    raw_response = models.JSONField(
+        blank=True,
+        null=True,
+        help_text='Respuesta completa devuelta por Webpay.'
+    )
+
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     fecha_confirmacion = models.DateTimeField(blank=True, null=True)
-    observacion = models.CharField(max_length=255, blank=True, null=True)
+
+    observacion = models.CharField(
+        max_length=255,
+        blank=True,
+        null=True
+    )
 
     class Meta:
         db_table = 'transaccion_pago'

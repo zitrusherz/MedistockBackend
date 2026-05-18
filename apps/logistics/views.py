@@ -1,3 +1,4 @@
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -39,9 +40,9 @@ class CotizarEnvioView(APIView):
             ]
         }
     """
-    #permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
-    permission_classes = []
+
 
     def post(self, request):
         serializer = CotizacionInputSerializer(data=request.data)
@@ -99,8 +100,8 @@ class CrearEnvioView(APIView):
             "contacto_email": "bodega@clinica.cl"    // opcional
         }
     """
-    #permission_classes = [IsAuthenticated]
-    permission_classes = []
+    permission_classes = [IsAuthenticated]
+
 
     def post(self, request):
         serializer = CrearEnvioInputSerializer(data=request.data)
@@ -247,7 +248,7 @@ class TrackingView(APIView):
     Consulta el estado actual de un envío en Chilexpress.
     Query param: ?historial=true para ver todos los eventos.
     """
-    #permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
     def get(self, request, pedido_id):
         try:

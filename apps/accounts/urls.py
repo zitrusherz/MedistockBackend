@@ -4,14 +4,14 @@ from .views import (
     CustomTokenObtainPairView,
     RegistroTrabajadorView, RegistroClienteView,
     TrabajadorViewSet, ClienteViewSet,
-    MiPerfilView, LogoutView
+    MiPerfilView, LogoutView, MisDireccionesViewSet
 )
 from rest_framework_simplejwt.views import TokenRefreshView
 
 router = DefaultRouter()
 router.register(r'trabajadores', TrabajadorViewSet, basename='trabajador')
 router.register(r'clientes', ClienteViewSet, basename='cliente')
-
+router.register(r'mis-direcciones', MisDireccionesViewSet, basename='mis-direcciones')
 urlpatterns = [
     # 🔑 Rutas para Autenticación JWT
     path('login/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),

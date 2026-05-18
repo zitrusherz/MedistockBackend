@@ -1,4 +1,5 @@
 from rest_framework import generics
+from rest_framework.exceptions import ValidationError
 from rest_framework.permissions import AllowAny
 from django.db.models import Prefetch
 
@@ -20,18 +21,30 @@ class RegionListView(generics.ListAPIView):
 
 
 class ComunaListView(generics.ListAPIView):
-	"""Lista comunas que tienen una entrada en ComunaChilexpress con
-	`retorna_respuesta=True`. Se puede filtrar por `region_id` query param.
-	"""
-	serializer_class = ComunaPublicSerializer
-	permission_classes = [AllowAny]
+    """Lista comunas que tienen una entrada en ComunaChilexpress con
+    `retorna_respuesta=True`. Se puede filtrar por `region_id` query param.
+    """
+    serializer_class = ComunaPublicSerializer
+    permission_classes = [AllowAny]
 
-	def get_queryset(self):
-		qs = Comuna.objects.filter(comunas_chilexpress__retorna_respuesta=True).distinct().select_related('region')
-		region_id = self.request.query_params.get('region_id')
-		if region_id:
-			qs = qs.filter(region_id=region_id)
-		return qs.order_by('nombre')
+    def get_queryset(self):
+        qs = Comuna.objects.filter(
+            comunas_chilexpress__retorna_respuesta=True
+        ).distinct().select_related('region')
+
+        region_id = self.request.query_params.get('region_id')
+
+        if region_id in [None, '', 'undefined', 'null']:
+            return qs.order_by('nombre')
+
+        if not str(region_id).isdigit():
+            raise ValidationError({
+                'region_id': 'El parámetro region_id debe ser un número válido.'
+            })
+
+        qs = qs.filter(region_id=int(region_id))
+
+        return qs.order_by('nombre')
 
 
 class ComunaChilexpressListView(generics.ListAPIView):

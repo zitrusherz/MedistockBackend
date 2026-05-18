@@ -1,4 +1,6 @@
 from rest_framework import viewsets, permissions, generics, status
+from rest_framework.decorators import action
+from rest_framework.exceptions import PermissionDenied
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -92,13 +94,39 @@ class MisDireccionesViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
+        if not hasattr(self.request.user, 'perfilcliente'):
+            return DireccionEntrega.objects.none()
+
         return DireccionEntrega.objects.filter(
-            cliente__usuario=self.request.user,
+            cliente=self.request.user.perfilcliente,
             activo=True
-        )
+        ).select_related('comuna')
 
     def perform_create(self, serializer):
+        if not hasattr(self.request.user, 'perfilcliente'):
+            raise PermissionDenied(
+                'Solo los clientes pueden registrar direcciones de entrega.'
+            )
+
         serializer.save(cliente=self.request.user.perfilcliente)
+
+    @action(detail=False, methods=['get'], url_path='principal')
+    def principal(self, request):
+        if not hasattr(request.user, 'perfilcliente'):
+            raise PermissionDenied(
+                'Solo los clientes pueden consultar direcciones de entrega.'
+            )
+
+        direccion = self.get_queryset().filter(es_principal=True).first()
+
+        if not direccion:
+            return Response(
+                {'detail': 'El cliente no tiene una dirección principal registrada.'},
+                status=status.HTTP_404_NOT_FOUND
+            )
+
+        serializer = self.get_serializer(direccion)
+        return Response(serializer.data)
 
 class LogoutView(APIView):
     permission_classes = [permissions.IsAuthenticated]
