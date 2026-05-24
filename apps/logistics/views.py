@@ -18,6 +18,8 @@ from apps.logistics.models import Despacho
 from apps.orders.models import DetallePedido
 from apps.logistics.utils import calcular_caja_optima, dimensiones_a_chilexpress
 from apps.locations.models import ComunaChilexpress
+from rest_framework.exceptions import ValidationError
+from apps.orders.services.inventario import consumir_reserva_pedido
 
 
 class CotizarEnvioView(APIView):
@@ -228,6 +230,15 @@ class CrearEnvioView(APIView):
 
         pedido.estado_pedido = "EN_PICKING"
         pedido.save(update_fields=["estado_pedido"])
+
+        try:
+            consumir_reserva_pedido(
+                pedido,
+                usuario=request.user,
+                motivo="Pedido en picking",
+            )
+        except ValidationError as exc:
+            return Response(exc.detail, status=status.HTTP_409_CONFLICT)
 
         return Response(
             {

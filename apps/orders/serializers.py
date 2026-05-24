@@ -102,23 +102,27 @@ class CrearPedidoInputSerializer(serializers.Serializer):
                     errores_stock.append(
                         f"Producto id={producto_id}: lote id={lote_id} no existe en la sucursal indicada."
                     )
-                elif inventario.cantidad_disponible < cantidad:
-                    errores_stock.append(
+                else:
+                    disponible_neto = (
+                        inventario.cantidad_disponible - inventario.cantidad_reservada
+                    )
+                    if disponible_neto < cantidad:
+                        errores_stock.append(
                         f"Producto id={producto_id}: stock insuficiente en lote id={lote_id}. "
-                        f"Disponible: {inventario.cantidad_disponible}, solicitado: {cantidad}."
+                        f"Disponible neto: {disponible_neto}, solicitado: {cantidad}."
                     )
             else:
                 stock_total = Inventario.objects.filter(
                     lote__producto_id=producto_id,
                     sucursal_id=sucursal_id,
                     lote__activo=True,
-                ).values_list("cantidad_disponible", flat=True)
-                stock_total = sum(stock_total)
+                ).values_list("cantidad_disponible", "cantidad_reservada")
+                stock_total = sum((d - r) for d, r in stock_total)
 
                 if stock_total < cantidad:
                     errores_stock.append(
                         f"Producto id={producto_id}: stock insuficiente en la sucursal. "
-                        f"Disponible: {stock_total}, solicitado: {cantidad}."
+                        f"Disponible neto: {stock_total}, solicitado: {cantidad}."
                     )
 
         if errores_stock:

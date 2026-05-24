@@ -61,3 +61,18 @@ class EsDuennoDelPedidoYEditableHastaAprobado(BasePermission):
 
         # Puede editar solo hasta APROBADO incluido
         return obj.estado in self.estados_editables
+
+
+class EsTrabajador(BasePermission):
+    """
+    Permite acceso solo a usuarios autenticados que tengan un PerfilTrabajador asociado.
+    """
+    message = "Solo los trabajadores de MEDISTOCK pueden realizar esta acción."
+
+    def has_permission(self, request, view):
+        return (
+                request.user
+                and request.user.is_authenticated
+                and hasattr(request.user, 'perfiltrabajador')
+                and request.user.perfiltrabajador.activo
+            )

@@ -1,1 +1,3 @@
 .venv/
+.env
+usuarios_cockpit.txt

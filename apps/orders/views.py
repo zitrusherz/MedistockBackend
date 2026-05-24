@@ -8,6 +8,8 @@ from apps.orders.permissions import (
     ClientePuedeEditarPedidoHastaAprobado,
 )
 from django.db import transaction
+from django.db.models import F
+from rest_framework.exceptions import ValidationError
 
 from apps.orders.models import Pedido, DetallePedido, AprobacionPedido
 from apps.orders.serializers import (
@@ -16,6 +18,7 @@ from apps.orders.serializers import (
 PedidoClienteUpdateSerializer
 )
 from apps.inventory.models import Inventario
+from apps.orders.services.inventario import reservar_stock_pedido, consumir_reserva_pedido
 from apps.accounts.models import PerfilTrabajador
 
 IVA = 0.19
@@ -62,7 +65,7 @@ def _elegir_lote(producto_id: int, sucursal_id: int, cantidad: int):
         lote__producto_id=producto_id,
         sucursal_id=sucursal_id,
         lote__activo=True,
-        cantidad_disponible__gte=cantidad,
+        cantidad_disponible__gte=F("cantidad_reservada") + cantidad,
     ).order_by("lote__fecha_vencimiento").select_related("lote").first()
 
 
@@ -163,6 +166,12 @@ class CrearPedidoView(APIView):
                 subtotal=subtotal,
                 observacion=detalle.get("observacion", ""),
             )
+
+        try:
+            reservar_stock_pedido(pedido, request.user)
+        except ValidationError as exc:
+            transaction.set_rollback(True)
+            return Response(exc.detail, status=status.HTTP_409_CONFLICT)
 
         return Response(
             PedidoOutputSerializer(pedido).data,
@@ -303,6 +312,17 @@ class AprobarPedidoView(APIView):
         pedido.estado_pedido = nuevo_estado_pedido
         pedido.save(update_fields=["estado_pedido"])
 
+        if accion == "APROBADO":
+            try:
+                consumir_reserva_pedido(
+                    pedido,
+                    usuario=request.user,
+                    motivo="Aprobacion de pedido",
+                )
+            except ValidationError as exc:
+                transaction.set_rollback(True)
+                return Response(exc.detail, status=status.HTTP_409_CONFLICT)
+
         # Registrar la aprobación
         AprobacionPedido.objects.update_or_create(
             pedido=pedido,
@@ -346,3 +366,36 @@ class MisPedidosView(APIView):
         serializer = PedidoOutputSerializer(pedidos, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+class ListarPedidosView(APIView):
+    """
+    GET /api/orders/pedidos/todos/
+
+    Lista todos los pedidos.
+    Solo Administrador, Ejecutivo o usuarios staff pueden acceder.
+    """
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        es_trabajador_autorizado = request.user.groups.filter(
+            name__in=["Ejecutivo", "Administrador"]
+        ).exists()
+
+        if not es_trabajador_autorizado and not request.user.is_staff:
+            return Response(
+                {"error": "No tienes permiso para ver todos los pedidos."},
+                status=status.HTTP_403_FORBIDDEN,
+            )
+
+        pedidos = Pedido.objects.select_related(
+            "cliente__usuario",
+            "institucion",
+            "sucursal_origen",
+            "direccion_entrega",
+            "operador_asignado",
+        ).prefetch_related(
+            "detallepedido_set__producto",
+            "detallepedido_set__lote",
+        ).order_by("-fecha_creacion")
+
+        serializer = PedidoOutputSerializer(pedidos, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)

@@ -193,6 +193,14 @@ class MiPerfilClienteSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(source='usuario.email', required=False, allow_blank=False)
     first_name = serializers.CharField(source='usuario.first_name', required=False, allow_blank=False)
     last_name = serializers.CharField(source='usuario.last_name', required=False, allow_blank=False)
+    direccion_principal = serializers.SerializerMethodField()
+
+    direccion = serializers.CharField(write_only=True, required=False, allow_blank=False)
+    num_direccion = serializers.CharField(write_only=True, required=False, allow_blank=True, allow_null=True)
+    detalle_direccion = serializers.CharField(write_only=True, required=False, allow_blank=True, allow_null=True)
+    comuna = serializers.PrimaryKeyRelatedField(
+        queryset=Comuna.objects.all(), write_only=True, required=False
+    )
 
     class Meta:
         model = PerfilCliente
@@ -205,71 +213,110 @@ class MiPerfilClienteSerializer(serializers.ModelSerializer):
             'first_name',
             'last_name',
             'institucion',
+            'direccion_principal',
+            'direccion',
+            'num_direccion',
+            'detalle_direccion',
+            'comuna',
         ]
 
         read_only_fields = ['id', 'institucion']
 
-        def validate(self, attrs):
-            instance = self.instance
+    def validate(self, attrs):
+        instance = self.instance
 
-            usuario_data = attrs.get('usuario', {})
+        usuario_data = attrs.get('usuario', {})
 
-            # Campos que nunca deberían aceptar null o blank si vienen en el request
-            campos_no_vacios_perfil = ['rut']
-            campos_no_vacios_usuario = ['email', 'first_name', 'last_name']
+        # Campos que nunca deberían aceptar null o blank si vienen en el request
+        campos_no_vacios_perfil = ['rut']
+        campos_no_vacios_usuario = ['email', 'first_name', 'last_name']
 
-            for campo in campos_no_vacios_perfil:
-                if campo in attrs and attrs[campo] in [None, '']:
+        for campo in campos_no_vacios_perfil:
+            if campo in attrs and attrs[campo] in [None, '']:
+                raise serializers.ValidationError({
+                    campo: 'Este campo no puede quedar vacío.'
+                })
+
+        for campo in campos_no_vacios_usuario:
+            if campo in usuario_data and usuario_data[campo] in [None, '']:
+                raise serializers.ValidationError({
+                    campo: 'Este campo no puede quedar vacío.'
+                })
+
+        # Evitar borrar información que ya existía
+        if instance:
+            for campo, valor_nuevo in attrs.items():
+                if campo == 'usuario':
+                    continue
+
+                valor_actual = getattr(instance, campo, None)
+
+                if valor_actual not in [None, ''] and valor_nuevo in [None, '']:
                     raise serializers.ValidationError({
-                        campo: 'Este campo no puede quedar vacío.'
+                        campo: 'No puedes borrar información que ya estaba registrada.'
                     })
 
-            for campo in campos_no_vacios_usuario:
-                if campo in usuario_data and usuario_data[campo] in [None, '']:
+            for campo, valor_nuevo in usuario_data.items():
+                valor_actual = getattr(instance.usuario, campo, None)
+
+                if valor_actual not in [None, ''] and valor_nuevo in [None, '']:
                     raise serializers.ValidationError({
-                        campo: 'Este campo no puede quedar vacío.'
+                        campo: 'No puedes borrar información que ya estaba registrada.'
                     })
 
-            # Evitar borrar información que ya existía
-            if instance:
-                for campo, valor_nuevo in attrs.items():
-                    if campo == 'usuario':
-                        continue
+        return attrs
 
-                    valor_actual = getattr(instance, campo, None)
+    def update(self, instance, validated_data):
+        usuario_data = validated_data.pop('usuario', {})
 
-                    if valor_actual not in [None, ''] and valor_nuevo in [None, '']:
-                        raise serializers.ValidationError({
-                            campo: 'No puedes borrar información que ya estaba registrada.'
-                        })
+        direccion_data = {}
+        for campo in ['direccion', 'num_direccion', 'detalle_direccion', 'comuna']:
+            if campo in validated_data:
+                direccion_data[campo] = validated_data.pop(campo)
 
-                for campo, valor_nuevo in usuario_data.items():
-                    valor_actual = getattr(instance.usuario, campo, None)
+        usuario = instance.usuario
+        if 'email' in usuario_data:
+            usuario_data['username'] = usuario_data['email']
 
-                    if valor_actual not in [None, ''] and valor_nuevo in [None, '']:
-                        raise serializers.ValidationError({
-                            campo: 'No puedes borrar información que ya estaba registrada.'
-                        })
+        for attr, value in usuario_data.items():
+            setattr(usuario, attr, value)
+        usuario.save()
 
-            return attrs
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+        instance.full_clean()
+        instance.save()
 
-        def update(self, instance, validated_data):
-            usuario_data = validated_data.pop('usuario', {})
+        if direccion_data:
+            direccion = DireccionEntrega.objects.filter(
+                cliente=instance, activo=True, es_principal=True
+            ).first()
+            if direccion:
+                for attr, value in direccion_data.items():
+                    setattr(direccion, attr, value)
+                direccion.full_clean()
+                direccion.save()
 
-            usuario = instance.usuario
+        return instance
 
-            for attr, value in usuario_data.items():
-                setattr(usuario, attr, value)
+    def get_direccion_principal(self, obj):
+        direccion = (
+            DireccionEntrega.objects
+            .filter(cliente=obj, activo=True, es_principal=True)
+            .select_related('comuna')
+            .first()
+        )
+        if not direccion:
+            direccion = (
+                DireccionEntrega.objects
+                .filter(cliente=obj, activo=True)
+                .select_related('comuna')
+                .first()
+            )
+        if not direccion:
+            return None
+        return MiDireccionEntregaSerializer(direccion).data
 
-            usuario.save()
-
-            for attr, value in validated_data.items():
-                setattr(instance, attr, value)
-
-            instance.full_clean()
-            instance.save()
-
-            return instance
 
 class DireccionRegistroClienteSerializer(serializers.Serializer):
     direccion = serializers.CharField(max_length=255, allow_blank=False)
@@ -557,6 +604,9 @@ class DireccionEntregaSerializer(serializers.ModelSerializer):
         return attrs
 
 class MiDireccionEntregaSerializer(serializers.ModelSerializer):
+    comuna_detalle = serializers.SerializerMethodField()
+    region = serializers.SerializerMethodField()
+
     class Meta:
         model = DireccionEntrega
         fields = [
@@ -565,12 +615,24 @@ class MiDireccionEntregaSerializer(serializers.ModelSerializer):
             'num_direccion',
             'detalle_direccion',
             'comuna',
+            'comuna_detalle',
+            'region',
             'referencia',
             'nombre_receptor',
             'telefono_receptor',
             'es_principal',
         ]
         read_only_fields = ['id']
+
+    def get_comuna_detalle(self, obj):
+        if not obj.comuna:
+            return None
+        return {'id': obj.comuna.id, 'nombre': obj.comuna.nombre}
+
+    def get_region(self, obj):
+        if not obj.comuna or not obj.comuna.region:
+            return None
+        return {'id': obj.comuna.region.id, 'nombre': obj.comuna.region.nombre}
 
     def validate(self, attrs):
         instance = self.instance

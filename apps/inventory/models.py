@@ -99,6 +99,7 @@ class MovimientoInventario(models.Model):
         ('MERMA', 'Merma'),
         ('DEVOLUCION', 'Devolución'),
         ('TRASLADO', 'Traslado'),
+        ('RESERVA', 'Reserva'),
     ]
 
     inventario = models.ForeignKey(Inventario, on_delete=models.RESTRICT)

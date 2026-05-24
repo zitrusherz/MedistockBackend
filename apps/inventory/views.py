@@ -1,6 +1,7 @@
-from rest_framework import generics
+from rest_framework import generics, status
 from rest_framework.permissions import IsAuthenticated, AllowAny
-
+from rest_framework.views import APIView
+from rest_framework.response import Response
 from .models import (
 	Categoria,
 	Marca,
@@ -19,8 +20,9 @@ from .serializers import (
 	MovimientoInventarioSerializer,
 	TrasladoInventarioSerializer,
 	ProductoCatalogoSerializer,
+	IngresoProductoSerializer
 )
-
+from apps.accounts.permissions import EsTrabajador
 
 class CategoriaListCreateView(generics.ListCreateAPIView):
 	queryset = Categoria.objects.all().order_by('nombre')
@@ -201,3 +203,44 @@ class ProductoPublicDetailView(generics.RetrieveAPIView):
 	queryset = Producto.objects.filter(activo=True).select_related('marca')
 	serializer_class = ProductoSerializer
 	permission_classes = [AllowAny]
+
+
+class IngresoProductoView(APIView):
+    """
+    POST /api/v1/inventory/ingresar-producto/
+
+    Crea (o recupera) un producto con su lote, lo asigna a una sucursal
+    con el stock indicado y registra el movimiento de ENTRADA.
+    Solo accesible para trabajadores activos.
+    """
+    permission_classes = [EsTrabajador]
+
+    def post(self, request):
+        serializer = IngresoProductoSerializer(
+            data=request.data,
+            context={'request': request},
+        )
+        serializer.is_valid(raise_exception=True)
+        result = serializer.save()
+
+        producto = result['producto']
+        inventario = result['inventario']
+
+        return Response(
+            {
+                'mensaje': (
+                    'Producto creado e ingresado al inventario.'
+                    if result['producto_creado']
+                    else 'Producto existente. Stock actualizado.'
+                ),
+                'producto_id':    producto.id,
+                'sku':            producto.sku,
+                'lote_id':        result['lote'].id,
+                'codigo_lote':    result['lote'].codigo_lote,
+                'inventario_id':  inventario.id,
+                'sucursal_id':    inventario.sucursal_id,
+                'stock_actual':   inventario.cantidad_disponible,
+                'movimiento_id':  result['movimiento'].id,
+            },
+            status=status.HTTP_201_CREATED,
+        )

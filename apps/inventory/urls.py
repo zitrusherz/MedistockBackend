@@ -20,6 +20,7 @@ from .views import (
 	TrasladoInventarioDetailView,
 	CatalogoProductosView,
 	CatalogoCajasView,
+	IngresoProductoView
 )
 
 app_name = 'inventory'
@@ -44,4 +45,5 @@ urlpatterns = [
 	path('traslados/<int:pk>/', TrasladoInventarioDetailView.as_view(), name='traslados-detail'),
 	path('catalogo/', CatalogoProductosView.as_view(), name='catalogo-list'),
 	path('catalogo-cajas/', CatalogoCajasView.as_view(), name='catalogo-cajas-list'),
+	path('ingresar-producto/', IngresoProductoView.as_view(), name='ingreso-producto'),
 ]

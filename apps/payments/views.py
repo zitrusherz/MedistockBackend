@@ -1,8 +1,9 @@
 from django.conf import settings
+from django.db import transaction
 from django.shortcuts import redirect
 from django.utils import timezone
 from django.utils.dateparse import parse_datetime
-
+from apps.payments.services.pedido_post_pago import aprobar_pedido_y_crear_despacho_pendiente
 from rest_framework import permissions, status
 from rest_framework.exceptions import NotFound, PermissionDenied, ValidationError
 from rest_framework.response import Response
@@ -116,6 +117,11 @@ class WebpayCommitView(APIView):
     Webpay puede enviar:
     - token_ws por query param
     - token_ws por POST
+
+    Flujo cuando el pago es aprobado:
+    1. Confirma TransaccionPago.
+    2. Cambia Pedido.estado_pedido a APROBADO.
+    3. Crea o mantiene Despacho.estado_envio en PENDIENTE.
     """
 
     permission_classes = [permissions.AllowAny]
@@ -126,6 +132,7 @@ class WebpayCommitView(APIView):
     def post(self, request):
         return self._commit(request)
 
+    @transaction.atomic
     def _commit(self, request):
         token_ws = request.query_params.get("token_ws") or request.data.get("token_ws")
 
@@ -136,29 +143,48 @@ class WebpayCommitView(APIView):
 
         resultado = WebpayService.confirmar_transaccion(token_ws)
 
-        transaccion = TransaccionPago.objects.filter(token_ws=token_ws).select_related("pedido").first()
+        transaccion = (
+            TransaccionPago.objects
+            .select_for_update()
+            .select_related("pedido")
+            .filter(token_ws=token_ws)
+            .first()
+        )
 
         if not transaccion:
             raise NotFound("No se encontró una transacción local asociada al token_ws recibido.")
 
         pedido = transaccion.pedido
 
-        # Validaciones recomendadas: el monto y la orden deben coincidir.
+        # Validar que la orden de compra coincida.
         if str(resultado.get("buy_order")) != str(transaccion.buy_order):
             transaccion.estado_pago = "ERROR"
             transaccion.observacion = "La orden de compra devuelta por Webpay no coincide."
             transaccion.raw_response = resultado.get("raw", resultado)
-            transaccion.save()
+            transaccion.fecha_confirmacion = timezone.now()
+            transaccion.save(update_fields=[
+                "estado_pago",
+                "observacion",
+                "raw_response",
+                "fecha_confirmacion",
+            ])
 
             raise ValidationError({
                 "buy_order": "La orden de compra devuelta por Webpay no coincide con la transacción local."
             })
 
+        # Validar que el monto coincida.
         if int(resultado.get("amount") or 0) != int(transaccion.monto_confirmado):
             transaccion.estado_pago = "ERROR"
             transaccion.observacion = "El monto devuelto por Webpay no coincide."
             transaccion.raw_response = resultado.get("raw", resultado)
-            transaccion.save()
+            transaccion.fecha_confirmacion = timezone.now()
+            transaccion.save(update_fields=[
+                "estado_pago",
+                "observacion",
+                "raw_response",
+                "fecha_confirmacion",
+            ])
 
             raise ValidationError({
                 "amount": "El monto devuelto por Webpay no coincide con la transacción local."
@@ -182,24 +208,50 @@ class WebpayCommitView(APIView):
             if parsed_date:
                 transaccion.transaction_date = parsed_date
 
+        despacho_creado = False
+
         if aprobada:
             transaccion.estado_pago = "CONFIRMADO"
             transaccion.fecha_confirmacion = timezone.now()
             transaccion.observacion = "Pago confirmado correctamente por Webpay."
+            transaccion.save(update_fields=[
+                "response_code",
+                "webpay_status",
+                "authorization_code",
+                "payment_type_code",
+                "installments_number",
+                "raw_response",
+                "card_last_digits",
+                "transaction_date",
+                "estado_pago",
+                "fecha_confirmacion",
+                "observacion",
+            ])
+
+            # Actualiza Pedido y Despacho en apps distintas:
+            # - Pedido.estado_pedido = APROBADO
+            # - Despacho.estado_envio = PENDIENTE
+            pedido, despacho, despacho_creado = aprobar_pedido_y_crear_despacho_pendiente(
+                transaccion
+            )
+
         else:
             transaccion.estado_pago = "RECHAZADO"
             transaccion.fecha_confirmacion = timezone.now()
             transaccion.observacion = "Pago rechazado o no autorizado por Webpay."
-
-        transaccion.save()
-
-        # Opcional: si tu modelo Pedido tiene un campo para pago, puedes actualizarlo aquí.
-        # No lo dejo fijo porque no tengo confirmado el nombre exacto del campo.
-        #
-        # Ejemplo posible:
-        # if aprobada and hasattr(pedido, "estado_pago"):
-        #     pedido.estado_pago = "PAGADO"
-        #     pedido.save(update_fields=["estado_pago"])
+            transaccion.save(update_fields=[
+                "response_code",
+                "webpay_status",
+                "authorization_code",
+                "payment_type_code",
+                "installments_number",
+                "raw_response",
+                "card_last_digits",
+                "transaction_date",
+                "estado_pago",
+                "fecha_confirmacion",
+                "observacion",
+            ])
 
         frontend_base_url = getattr(settings, "FRONTEND_BASE_URL", None)
 
@@ -212,14 +264,23 @@ class WebpayCommitView(APIView):
             )
             return redirect(resultado_path)
 
-        return Response({
+        response_data = {
             "transaccion_pago_id": transaccion.id,
             "pedido_id": pedido.id,
             "aprobada": aprobada,
             "estado_pago": transaccion.estado_pago,
+            "estado_pedido": pedido.estado_pedido,
             "webpay": resultado,
-        }, status=status.HTTP_200_OK)
+        }
 
+        if aprobada:
+            response_data["despacho"] = {
+                "id": despacho.id,
+                "estado_envio": despacho.estado_envio,
+                "creado": despacho_creado,
+            }
+
+        return Response(response_data, status=status.HTTP_200_OK)
 
 class WebpayEstadoView(APIView):
     """
