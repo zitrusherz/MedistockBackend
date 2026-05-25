@@ -24,7 +24,7 @@ from apps.orders.services.inventario import consumir_reserva_pedido
 
 class CotizarEnvioView(APIView):
     """
-    POST /api/v1/logistics/cotizar/
+    POST /api/logistics/cotizar/
 
     Cotiza un envío con Chilexpress. No requiere que exista un pedido.
 
@@ -87,7 +87,7 @@ class CotizarEnvioView(APIView):
 
 class CrearEnvioView(APIView):
     """
-    POST /api/v1/logistics/envios/
+    POST /api/logistics/envios/
 
     Crea una Orden de Transporte (OT) en Chilexpress para un pedido aprobado.
     Requiere haber cotizado previamente para obtener el serviceTypeCode.
@@ -254,7 +254,7 @@ class CrearEnvioView(APIView):
 
 class TrackingView(APIView):
     """
-    GET /api/v1/logistics/envios/{pedido_id}/tracking/
+    GET /api/logistics/envios/{pedido_id}/tracking/
 
     Consulta el estado actual de un envío en Chilexpress.
     Query param: ?historial=true para ver todos los eventos.

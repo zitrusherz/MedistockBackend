@@ -207,7 +207,7 @@ class ProductoPublicDetailView(generics.RetrieveAPIView):
 
 class IngresoProductoView(APIView):
     """
-    POST /api/v1/inventory/ingresar-producto/
+    POST /api/inventory/ingresar-producto/
 
     Crea (o recupera) un producto con su lote, lo asigna a una sucursal
     con el stock indicado y registra el movimiento de ENTRADA.

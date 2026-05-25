@@ -4481,6 +4481,165 @@ const data = await res.json();
 
 ---
 
+# Integraciones
+
+---
+
+### POST Crear pedido B2B (ERP clinicas)
+
+Crea un pedido directamente desde un ERP institucional usando API Key.
+
+**URL:** `POST /api/integrations/pedidos/`
+**Autenticacion:** Requerida (API Key en `X-Api-Key`)
+**Permisos:** Solo clientes API activos (instituciones con ApiClient activo)
+
+#### Headers requeridos
+
+| Header         | Valor                     |
+|----------------|---------------------------|
+| `X-Api-Key`    | `<tu_api_key>`            |
+| `Content-Type` | `application/json`        |
+
+#### Body (Request)
+
+```json
+{
+  "sucursal_id": 1,
+  "tipo_venta": "CREDITO_INSTITUCIONAL",
+  "tipo_despacho": "NORMAL",
+  "prioridad_medica": "ALTA",
+  "fecha_requerida_entrega": "2025-08-15T10:00:00Z",
+  "referencia_erp": "OC-2025-00847",
+  "observacion": "Entregar en bodega",
+  "lineas": [
+    { "producto_sku": "JER-5ML-001", "cantidad": 200 },
+    { "producto_sku": "GUA-LAT-M", "cantidad": 500, "lote_id": 3 }
+  ]
+}
+```
+
+**Descripcion de campos:**
+
+| Campo                    | Tipo      | Requerido | Default | Descripcion |
+|--------------------------|-----------|-----------|---------|-------------|
+| `sucursal_id`            | `integer` | Si        | -       | Sucursal desde donde se despacha |
+| `direccion_entrega_id`   | `integer` | No        | -       | Direccion de entrega de la institucion; si se omite se usa la principal |
+| `tipo_venta`             | `string`  | No        | `CREDITO_INSTITUCIONAL` | Solo `TRANSFERENCIA` o `CREDITO_INSTITUCIONAL` |
+| `tipo_despacho`          | `string`  | No        | `NORMAL` | `NORMAL` o `EXPRESS` |
+| `prioridad_medica`       | `string`  | No        | `NORMAL` | `NORMAL`, `ALTA` o `CRITICA` |
+| `fecha_requerida_entrega`| `datetime`| No        | -       | ISO 8601. Fecha estimada requerida |
+| `referencia_erp`         | `string`  | No        | -       | Orden interna del ERP para trazabilidad |
+| `observacion`            | `string`  | No        | `""`    | Observacion del pedido |
+| `lineas`                 | `array`   | Si        | -       | Lista de lineas del pedido |
+
+**Estructura de cada objeto en `lineas`:**
+
+| Campo           | Tipo      | Requerido | Default | Descripcion |
+|-----------------|-----------|-----------|---------|-------------|
+| `producto_sku`  | `string`  | Si        | -       | SKU del producto (catalogo) |
+| `cantidad`      | `integer` | Si        | -       | Cantidad solicitada (min 1) |
+| `lote_id`       | `integer` | No        | -       | Lote especifico; si no se envia se aplica FEFO |
+| `observacion`   | `string`  | No        | `""`    | Observacion por linea |
+
+**Valores permitidos para `tipo_venta`:**
+
+| Valor                   | Descripcion |
+|-------------------------|-------------|
+| `TRANSFERENCIA`         | Transferencia bancaria |
+| `CREDITO_INSTITUCIONAL` | Credito de convenio |
+
+#### Parametros de URL / Query params
+
+No aplica.
+
+#### Respuestas
+
+**`201 Created` — Pedido creado**
+
+```json
+{
+  "pedido_id": 87,
+  "referencia_erp": "OC-2025-00847",
+  "estado": "PENDIENTE",
+  "institucion": "Clinica Bio-Bio SpA",
+  "total": 95200,
+  "monto_neto": 80000,
+  "monto_iva": 15200,
+  "lineas": [
+    {
+      "producto_sku": "JER-5ML-001",
+      "producto_nombre": "Jeringa 5ml c/aguja",
+      "lote_id": 9,
+      "cantidad": 200,
+      "precio_unitario": 350,
+      "subtotal": 70000
+    }
+  ],
+  "fecha_creacion": "2025-07-10T14:32:00Z",
+  "mensaje": "Pedido creado correctamente. Quedara en estado PENDIENTE hasta aprobacion."
+}
+```
+
+**`400 Bad Request` — Error de validacion**
+
+```json
+{
+  "stock": [
+    "SKU 'JER-5ML-001': stock insuficiente en la sucursal. Disponible: 10, solicitado: 200."
+  ]
+}
+```
+
+**`401 Unauthorized` — API Key ausente o invalida**
+
+```json
+{
+  "detail": "Authentication credentials were not provided."
+}
+```
+
+**`403 Forbidden` — ApiClient inactivo**
+
+```json
+{
+  "detail": "No tiene permiso para realizar esta accion."
+}
+```
+
+**`409 Conflict` — Conflicto de stock (race condition)**
+
+```json
+{
+  "error": "Sin stock para SKU 'JER-5ML-001'. Intenta de nuevo."
+}
+```
+
+#### Ejemplo completo
+
+```javascript
+const res = await fetch('/api/integrations/pedidos/', {
+  method: 'POST',
+  headers: {
+    'X-Api-Key': apiKey,
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    sucursal_id: 1,
+    tipo_venta: 'CREDITO_INSTITUCIONAL',
+    prioridad_medica: 'ALTA',
+    referencia_erp: 'OC-2025-00847',
+    lineas: [
+      { producto_sku: 'JER-5ML-001', cantidad: 200 },
+      { producto_sku: 'GUA-LAT-M', cantidad: 500, lote_id: 3 }
+    ]
+  })
+});
+
+const data = await res.json();
+```
+
+---
+
 # Pagos
 
 ---

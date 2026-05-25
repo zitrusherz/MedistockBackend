@@ -71,7 +71,7 @@ def _elegir_lote(producto_id: int, sucursal_id: int, cantidad: int):
 
 class CrearPedidoView(APIView):
     """
-    POST /api/v1/orders/pedidos/
+    POST /api/orders/pedidos/
 
     Crea un pedido con sus detalles. El cliente se toma del usuario autenticado.
     Los montos se calculan en el backend usando el precio actual del producto.
@@ -181,7 +181,7 @@ class CrearPedidoView(APIView):
 
 class DetallePedidoView(APIView):
     """
-    GET /api/v1/orders/pedidos/{pedido_id}/
+    GET /api/orders/pedidos/{pedido_id}/
 
     Retorna el detalle completo de un pedido, incluyendo sus líneas.
     Solo el cliente dueño del pedido o un trabajador interno puede verlo.
@@ -250,7 +250,7 @@ class DetallePedidoView(APIView):
 
 class AprobarPedidoView(APIView):
     """
-    POST /api/v1/orders/pedidos/{pedido_id}/aprobar/
+    POST /api/orders/pedidos/{pedido_id}/aprobar/
 
     Aprueba o rechaza un pedido. Solo ejecutivos pueden hacer esto.
 

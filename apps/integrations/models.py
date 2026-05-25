@@ -1,10 +1,10 @@
-# apps/integrations/models.py
-from django.db import models
 
+from django.db import models
+import hashlib
 
 class ApiClient(models.Model):
     institucion = models.ForeignKey('accounts.Institucion', on_delete=models.CASCADE)
-    nombre_cliente_api = models.CharField(max_length=150)
+    nombre_cliente_api = models.CharField(max_length=255)
     api_key_hash = models.CharField(max_length=255)
     activo = models.BooleanField(default=True)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
@@ -15,6 +15,21 @@ class ApiClient(models.Model):
         db_table = 'api_client'
         managed = False
 
+    @classmethod
+    def verificar_key(cls, raw_key: str):
+        """
+        Recibe la API key en crudo, la hashea y busca el ApiClient activo.
+        Retorna el ApiClient o None.
+        """
+        from django.utils import timezone
+        key_hash = hashlib.sha256(raw_key.encode()).hexdigest()
+        return cls.objects.filter(
+            api_key_hash=key_hash,
+            activo=True,
+        ).filter(
+            models.Q(fecha_expiracion__isnull=True) |
+            models.Q(fecha_expiracion__gt=timezone.now())
+        ).select_related('institucion').first()
 
 class IntegracionExterna(models.Model):
     TIPO_CHOICES = [
@@ -40,9 +55,18 @@ class RegistroIntegracion(models.Model):
         ('REQUEST_SALIENTE', 'Request saliente'),
     ]
 
-    api_client = models.ForeignKey(ApiClient, on_delete=models.SET_NULL, null=True, blank=True)
-    integracion_externa = models.ForeignKey(IntegracionExterna, on_delete=models.SET_NULL, null=True, blank=True)
-    pedido = models.ForeignKey('orders.Pedido', on_delete=models.SET_NULL, null=True, blank=True)
+    api_client = models.ForeignKey(ApiClient,
+                                   on_delete=models.SET_NULL,
+                                   null=True, blank=True)
+
+    integracion_externa = models.ForeignKey(IntegracionExterna,
+                                            on_delete=models.SET_NULL,
+                                            null=True, blank=True)
+
+    pedido = models.ForeignKey('orders.Pedido',
+                               on_delete=models.SET_NULL,
+                               null=True, blank=True)
+    
     documento_tributario = models.ForeignKey('billing.DocumentoTributario', on_delete=models.SET_NULL, null=True, blank=True)
     tipo_evento = models.CharField(max_length=20, choices=TIPO_EVENTO_CHOICES)
     endpoint = models.CharField(max_length=255, blank=True, null=True)
