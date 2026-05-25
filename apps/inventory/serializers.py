@@ -82,6 +82,8 @@ class ProductoResumenSerializer(serializers.ModelSerializer):
         model = Producto
         fields = ['id', 'sku', 'nombre', 'valor_unitario', 'precio_con_iva', 'marca_nombre', 'unidad_medida']
 
+    def get_precio_con_iva(self, obj):
+        return round(obj.valor_unitario * (1 + IVA))
 
 class ProductoStockSerializer(serializers.ModelSerializer):
     """Para el endpoint de catálogo en tiempo real — incluye stock agregado."""

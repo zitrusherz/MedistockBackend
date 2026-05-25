@@ -325,7 +325,7 @@ class MisTransaccionesPagoView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request):
-        if not hasattr(request.user, "perfilcliente"):
+        if not hasattr(request.user, "perfilcliente") or not hasattr(request.user, "administrador"):
             raise PermissionDenied("Solo los clientes pueden consultar sus pagos.")
 
         transacciones = TransaccionPago.objects.filter(
