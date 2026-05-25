@@ -4640,6 +4640,421 @@ const data = await res.json();
 
 ---
 
+### POST Crear API Key para institucion
+
+Genera una API Key para una institución cliente. La key se muestra **una sola vez** en la respuesta — si se pierde, debe generarse una nueva. Solo trabajadores activos de MEDISTOCK pueden usar este endpoint.
+
+**URL:** `POST /api/integrations/api-clients/crear/`
+**Autenticacion:** Requerida (JWT)
+**Permisos:** Solo trabajadores activos (`EsTrabajador`)
+
+#### Headers requeridos
+
+| Header          | Valor              |
+|-----------------|--------------------|
+| `Authorization` | `Bearer <token>`   |
+| `Content-Type`  | `application/json` |
+
+#### Body (Request)
+
+```json
+{
+  "institucion_id": 5,
+  "nombre_cliente_api": "ERP Clinica Bio-Bio",
+  "limite_requests_diario": 500,
+  "fecha_expiracion": "2026-12-31T23:59:59Z"
+}
+```
+
+**Descripcion de campos:**
+
+| Campo                    | Tipo       | Requerido | Default | Descripcion |
+|--------------------------|------------|-----------|---------|-------------|
+| `institucion_id`         | `integer`  | Si        | -       | ID de la institucion a la que pertenece la key |
+| `nombre_cliente_api`     | `string`   | Si        | -       | Nombre descriptivo. Ej: `"ERP Clinica Bio-Bio"` |
+| `limite_requests_diario` | `integer`  | No        | `1000`  | Limite de requests diarios para este cliente |
+| `fecha_expiracion`       | `datetime` | No        | `null`  | ISO 8601. Si se omite, la key no expira |
+
+#### Parametros de URL / Query params
+
+No aplica.
+
+#### Respuestas
+
+**`201 Created` — API Key creada**
+
+```json
+{
+  "id": 3,
+  "institucion": "Clinica Bio-Bio SpA",
+  "nombre_cliente_api": "ERP Clinica Bio-Bio",
+  "api_key": "a3f8c2d1e9b047a56f1230cde4891bfa2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f",
+  "activo": true,
+  "limite_requests_diario": 500,
+  "fecha_expiracion": "2026-12-31T23:59:59Z",
+  "fecha_creacion": "2025-07-10T14:32:00Z",
+  "advertencia": "Guarda esta API Key ahora. No se puede recuperar despues — si se pierde, deberas generar una nueva."
+}
+```
+
+> **Importante:** El campo `api_key` solo aparece en esta respuesta. Despues de este momento, no existe forma de recuperarla — ni desde la BD ni desde otro endpoint.
+
+**`400 Bad Request` — Campos faltantes**
+
+```json
+{
+  "error": "El campo institucion_id es requerido."
+}
+```
+
+**`401 Unauthorized`**
+
+```json
+{
+  "detail": "Authentication credentials were not provided."
+}
+```
+
+**`403 Forbidden` — No es trabajador**
+
+```json
+{
+  "detail": "Solo los trabajadores de MEDISTOCK pueden realizar esta accion."
+}
+```
+
+**`404 Not Found` — Institucion no existe**
+
+```json
+{
+  "error": "No existe una institucion activa con id=5."
+}
+```
+
+#### Ejemplo completo
+
+```javascript
+const res = await fetch('/api/integrations/api-clients/crear/', {
+  method: 'POST',
+  headers: {
+    'Authorization': `Bearer ${token}`,
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    institucion_id: 5,
+    nombre_cliente_api: 'ERP Clinica Bio-Bio',
+    limite_requests_diario: 500
+  })
+});
+
+const data = await res.json();
+// Guardar data.api_key en un lugar seguro — no se puede recuperar despues
+console.log(data.api_key);
+```
+
+---
+
+### GET Listar API Clients
+
+Lista todos los clientes API registrados. No expone las keys — solo metadata.
+
+**URL:** `GET /api/integrations/api-clients/`
+**Autenticacion:** Requerida (JWT)
+**Permisos:** Solo trabajadores activos (`EsTrabajador`)
+
+#### Headers requeridos
+
+| Header          | Valor            |
+|-----------------|------------------|
+| `Authorization` | `Bearer <token>` |
+
+#### Body (Request)
+
+No aplica.
+
+#### Parametros de URL / Query params
+
+No aplica.
+
+#### Respuestas
+
+**`200 OK`**
+
+```json
+[
+  {
+    "id": 3,
+    "institucion": "Clinica Bio-Bio SpA",
+    "institucion_id": 5,
+    "nombre_cliente_api": "ERP Clinica Bio-Bio",
+    "activo": true,
+    "limite_requests_diario": 500,
+    "fecha_creacion": "2025-07-10T14:32:00Z",
+    "fecha_expiracion": "2026-12-31T23:59:59Z",
+    "vencida": false
+  }
+]
+```
+
+**Descripcion de campos de respuesta:**
+
+| Campo                    | Tipo       | Descripcion |
+|--------------------------|------------|-------------|
+| `id`                     | `integer`  | ID del ApiClient |
+| `institucion`            | `string`   | Nombre de la institucion |
+| `institucion_id`         | `integer`  | ID de la institucion |
+| `nombre_cliente_api`     | `string`   | Nombre descriptivo |
+| `activo`                 | `boolean`  | Si puede autenticarse actualmente |
+| `limite_requests_diario` | `integer`  | Limite de requests por dia |
+| `fecha_creacion`         | `datetime` | Cuando se creo la key |
+| `fecha_expiracion`       | `datetime` | Cuando expira (`null` si no expira) |
+| `vencida`                | `boolean`  | `true` si `fecha_expiracion` ya paso |
+
+**`403 Forbidden`**
+
+```json
+{
+  "detail": "Solo los trabajadores de MEDISTOCK pueden realizar esta accion."
+}
+```
+
+#### Ejemplo completo
+
+```javascript
+const res = await fetch('/api/integrations/api-clients/', {
+  headers: { 'Authorization': `Bearer ${token}` }
+});
+const data = await res.json();
+```
+
+---
+
+### GET Detalle de API Client
+
+Retorna la metadata de un ApiClient especifico. No expone la key.
+
+**URL:** `GET /api/integrations/api-clients/{id}/`
+**Autenticacion:** Requerida (JWT)
+**Permisos:** Solo trabajadores activos (`EsTrabajador`)
+
+#### Headers requeridos
+
+| Header          | Valor            |
+|-----------------|------------------|
+| `Authorization` | `Bearer <token>` |
+
+#### Body (Request)
+
+No aplica.
+
+#### Parametros de URL / Query params
+
+| Parametro | Tipo      | Descripcion |
+|-----------|-----------|-------------|
+| `id`      | `integer` | ID del ApiClient |
+
+#### Respuestas
+
+**`200 OK`**
+
+```json
+{
+  "id": 3,
+  "institucion": "Clinica Bio-Bio SpA",
+  "nombre_cliente_api": "ERP Clinica Bio-Bio",
+  "activo": true,
+  "limite_requests_diario": 500,
+  "fecha_creacion": "2025-07-10T14:32:00Z",
+  "fecha_expiracion": "2026-12-31T23:59:59Z"
+}
+```
+
+**`404 Not Found`**
+
+```json
+{
+  "error": "ApiClient no encontrado."
+}
+```
+
+#### Ejemplo completo
+
+```javascript
+const res = await fetch('/api/integrations/api-clients/3/', {
+  headers: { 'Authorization': `Bearer ${token}` }
+});
+const data = await res.json();
+```
+
+---
+
+### PATCH Actualizar API Client / Rotar Key
+
+Permite activar, desactivar, cambiar el limite de requests, actualizar la fecha de expiracion o rotar la API Key de un cliente. Si se rota la key, la anterior queda invalida de inmediato.
+
+**URL:** `PATCH /api/integrations/api-clients/{id}/`
+**Autenticacion:** Requerida (JWT)
+**Permisos:** Solo trabajadores activos (`EsTrabajador`)
+
+#### Headers requeridos
+
+| Header          | Valor              |
+|-----------------|--------------------|
+| `Authorization` | `Bearer <token>`   |
+| `Content-Type`  | `application/json` |
+
+#### Body (Request)
+
+Todos los campos son opcionales — envia solo lo que quieres cambiar.
+
+```json
+{
+  "activo": false,
+  "limite_requests_diario": 200,
+  "fecha_expiracion": "2027-06-30T23:59:59Z",
+  "rotar_key": true
+}
+```
+
+**Descripcion de campos:**
+
+| Campo                    | Tipo       | Requerido | Descripcion |
+|--------------------------|------------|-----------|-------------|
+| `activo`                 | `boolean`  | No        | `false` bloquea inmediatamente al cliente |
+| `limite_requests_diario` | `integer`  | No        | Nuevo limite de requests diarios |
+| `fecha_expiracion`       | `datetime` | No        | Nueva fecha de expiracion (ISO 8601) |
+| `rotar_key`              | `boolean`  | No        | Si `true`, genera una nueva key. La antigua queda invalida al instante |
+
+#### Parametros de URL / Query params
+
+| Parametro | Tipo      | Descripcion |
+|-----------|-----------|-------------|
+| `id`      | `integer` | ID del ApiClient |
+
+#### Respuestas
+
+**`200 OK` — Sin rotacion de key**
+
+```json
+{
+  "id": 3,
+  "institucion": "Clinica Bio-Bio SpA",
+  "activo": false,
+  "limite_requests_diario": 200,
+  "fecha_expiracion": "2027-06-30T23:59:59Z",
+  "mensaje": "ApiClient actualizado correctamente."
+}
+```
+
+**`200 OK` — Con rotacion de key (`rotar_key: true`)**
+
+```json
+{
+  "id": 3,
+  "institucion": "Clinica Bio-Bio SpA",
+  "activo": true,
+  "limite_requests_diario": 500,
+  "fecha_expiracion": null,
+  "mensaje": "ApiClient actualizado correctamente.",
+  "nueva_api_key": "b9e1d4f2a0c856e7f3421bcd9078ef3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e",
+  "advertencia": "La key anterior queda invalida inmediatamente. Actualiza el ERP de la clinica ahora."
+}
+```
+
+> **Importante:** Si `rotar_key` es `true`, el campo `nueva_api_key` solo aparece en esta respuesta. Guardala antes de cerrar.
+
+**`404 Not Found`**
+
+```json
+{
+  "error": "ApiClient no encontrado."
+}
+```
+
+#### Ejemplo completo
+
+```javascript
+// Desactivar un cliente (bloquear acceso)
+const res = await fetch('/api/integrations/api-clients/3/', {
+  method: 'PATCH',
+  headers: {
+    'Authorization': `Bearer ${token}`,
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({ activo: false })
+});
+const data = await res.json();
+```
+
+```javascript
+// Rotar la key (la clinica perdio la anterior)
+const res = await fetch('/api/integrations/api-clients/3/', {
+  method: 'PATCH',
+  headers: {
+    'Authorization': `Bearer ${token}`,
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({ rotar_key: true })
+});
+const data = await res.json();
+// Entregar data.nueva_api_key a la clinica por canal seguro
+```
+
+---
+
+### DELETE Eliminar API Client
+
+Elimina permanentemente un ApiClient. La key asociada queda invalida de inmediato.
+
+**URL:** `DELETE /api/integrations/api-clients/{id}/`
+**Autenticacion:** Requerida (JWT)
+**Permisos:** Solo trabajadores activos (`EsTrabajador`)
+
+#### Headers requeridos
+
+| Header          | Valor            |
+|-----------------|------------------|
+| `Authorization` | `Bearer <token>` |
+
+#### Body (Request)
+
+No aplica.
+
+#### Parametros de URL / Query params
+
+| Parametro | Tipo      | Descripcion |
+|-----------|-----------|-------------|
+| `id`      | `integer` | ID del ApiClient a eliminar |
+
+#### Respuestas
+
+**`204 No Content` — Eliminado correctamente**
+
+Sin body.
+
+**`404 Not Found`**
+
+```json
+{
+  "error": "ApiClient no encontrado."
+}
+```
+
+#### Ejemplo completo
+
+```javascript
+const res = await fetch('/api/integrations/api-clients/3/', {
+  method: 'DELETE',
+  headers: { 'Authorization': `Bearer ${token}` }
+});
+
+if (res.status === 204) {
+  console.log('ApiClient eliminado correctamente.');
+}
+```
+
+---
+
 # Pagos
 
 ---
