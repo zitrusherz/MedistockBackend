@@ -353,3 +353,74 @@ class PagoAseguradoraSerializer(serializers.ModelSerializer):
                 'El monto cubierto no puede ser negativo.'
             )
         return value
+
+
+
+class TransaccionPagoAdminSerializer(serializers.ModelSerializer):
+    """
+    Serializer enriquecido para trabajadores (Administrador, Ejecutivo, Analista).
+    Incluye datos del cliente y del pedido.
+    """
+    pedido_id = serializers.IntegerField(source='pedido.id', read_only=True)
+    pedido_total = serializers.IntegerField(source='pedido.total', read_only=True)
+
+    cliente_id = serializers.SerializerMethodField()
+    cliente_nombre = serializers.SerializerMethodField()
+    cliente_rut = serializers.SerializerMethodField()
+    cliente_email = serializers.SerializerMethodField()
+
+    def get_cliente_id(self, obj):
+        try:
+            return obj.pedido.cliente.id
+        except Exception:
+            return None
+
+    def get_cliente_nombre(self, obj):
+        try:
+            usuario = obj.pedido.cliente.usuario
+            return f"{usuario.first_name} {usuario.last_name}".strip() or usuario.username
+        except Exception:
+            return None
+
+    def get_cliente_rut(self, obj):
+        try:
+            return obj.pedido.cliente.rut
+        except Exception:
+            return None
+
+    def get_cliente_email(self, obj):
+        try:
+            return obj.pedido.cliente.usuario.email
+        except Exception:
+            return None
+
+    class Meta:
+        model = TransaccionPago
+        fields = [
+            'id',
+            'pedido_id',
+            'pedido_total',
+
+            # Datos del cliente
+            'cliente_id',
+            'cliente_nombre',
+            'cliente_rut',
+            'cliente_email',
+
+            # Datos del pago
+            'metodo_pago',
+            'estado_pago',
+            'monto_confirmado',
+            'buy_order',
+            'authorization_code',
+            'response_code',
+            'payment_type_code',
+            'installments_number',
+            'card_last_digits',
+            'webpay_status',
+            'transaction_date',
+
+            'fecha_creacion',
+            'fecha_confirmacion',
+            'observacion',
+        ]

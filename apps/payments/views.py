@@ -325,7 +325,7 @@ class MisTransaccionesPagoView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request):
-        if not hasattr(request.user, "perfilcliente") or not hasattr(request.user, "administrador"):
+        if not hasattr(request.user, "perfilcliente"):
             raise PermissionDenied("Solo los clientes pueden consultar sus pagos.")
 
         transacciones = TransaccionPago.objects.filter(
@@ -334,4 +334,72 @@ class MisTransaccionesPagoView(APIView):
 
         serializer = TransaccionPagoSerializer(transacciones, many=True)
 
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+# Reemplazar MisTransaccionesPagoView completo:
+
+class MisTransaccionesPagoView(APIView):
+    """
+    GET /api/payments/mis-pagos/
+    Solo clientes: lista sus propias transacciones.
+    """
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request):
+        if not hasattr(request.user, 'perfilcliente'):
+            raise PermissionDenied("Solo los clientes pueden consultar sus pagos.")
+
+        transacciones = TransaccionPago.objects.filter(
+            pedido__cliente=request.user.perfilcliente
+        ).select_related('pedido').order_by('-fecha_creacion')
+
+        serializer = TransaccionPagoSerializer(transacciones, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+# Agregar nueva vista:
+
+class TodosLosPagosView(APIView):
+    """
+    GET /api/payments/todos/
+    Solo Administrador, Ejecutivo y Analista pueden acceder.
+    Devuelve todos los pagos con datos del cliente y pedido.
+    """
+    permission_classes = [permissions.IsAuthenticated]
+
+    ROLES_PERMITIDOS = ['Administrador', 'Ejecutivo', 'Analista']
+
+    def get(self, request):
+        tiene_permiso = (
+            request.user.is_staff
+            or request.user.groups.filter(name__in=self.ROLES_PERMITIDOS).exists()
+        )
+
+        if not tiene_permiso:
+            raise PermissionDenied(
+                "Solo Administrador, Ejecutivo o Analista pueden ver todos los pagos."
+            )
+
+        transacciones = (
+            TransaccionPago.objects
+            .select_related(
+                'pedido',
+                'pedido__cliente',
+                'pedido__cliente__usuario',
+            )
+            .order_by('-fecha_creacion')
+        )
+
+        # Filtros opcionales por query params
+        estado = request.query_params.get('estado_pago')
+        if estado:
+            transacciones = transacciones.filter(estado_pago=estado)
+
+        metodo = request.query_params.get('metodo_pago')
+        if metodo:
+            transacciones = transacciones.filter(metodo_pago=metodo)
+
+        from .serializers import TransaccionPagoAdminSerializer
+        serializer = TransaccionPagoAdminSerializer(transacciones, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
