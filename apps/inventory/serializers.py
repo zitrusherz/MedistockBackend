@@ -8,6 +8,21 @@ from .models import (
 from apps.locations.models import Sucursal
 
 IVA = 0.19
+
+
+# ============================================================
+# HELPER — URL absoluta de imagen
+# ============================================================
+
+def get_imagen_url(obj, request):
+    """Devuelve la URL absoluta de la imagen del producto, o None si no tiene."""
+    if obj.imagen:
+        if request:
+            return request.build_absolute_uri(obj.imagen.url)
+        return obj.imagen.url
+    return None
+
+
 # ============================================================
 # CATEGORÍA
 # ============================================================
@@ -53,15 +68,25 @@ class ProductoSerializer(serializers.ModelSerializer):
         source='categoriaproducto_set', many=True, read_only=True
     )
     precio_con_iva = serializers.SerializerMethodField()
+    imagen_url = serializers.SerializerMethodField()
     class Meta:
         model = Producto
         fields = [
-            'id', 'sku', 'nombre', 'descripcion', 'valor_unitario',
-            'precio_con_iva',
-            'marca', 'marca_id', 'categorias', 'unidad_medida',
+            'id', 'sku',
+            'nombre', 'descripcion',
+            'valor_unitario','precio_con_iva',
+            'marca', 'marca_id',
+            'categorias',
+            'unidad_medida',
             'largo_mm', 'ancho_mm', 'alto_mm', 'peso_mg', 'volumen_ml',
-            'requiere_control_vencimiento', 'registro_sanitario', 'activo', 'es_caja'
+            'requiere_control_vencimiento', 'registro_sanitario',
+            'activo',
+            'es_caja',
+            'imagen_url',
         ]
+
+    def get_imagen_url(self, obj):
+        return get_imagen_url(obj, self.context.get('request'))
 
     def get_precio_con_iva(self, obj):
         return round(obj.valor_unitario * (1 + IVA))
@@ -72,15 +97,34 @@ class ProductoSerializer(serializers.ModelSerializer):
         return value
 
 
+class ProductoImagenSerializer(serializers.ModelSerializer):
+    """Serializer exclusivo para subir/reemplazar la imagen de un producto."""
+    imagen = serializers.ImageField(required=True)
+    imagen_url = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Producto
+        fields = ['id', 'nombre', 'imagen', 'imagen_url']
+
+    def get_imagen_url(self, obj):
+        return get_imagen_url(obj, self.context.get('request'))
+
+
 class ProductoResumenSerializer(serializers.ModelSerializer):
     """Versión liviana para usar como campo anidado en lotes, pedidos, etc."""
     marca_nombre = serializers.CharField(source='marca.nombre', read_only=True)
     precio_con_iva = serializers.SerializerMethodField()
-
+    imagen_url = serializers.SerializerMethodField()
 
     class Meta:
         model = Producto
-        fields = ['id', 'sku', 'nombre', 'valor_unitario', 'precio_con_iva', 'marca_nombre', 'unidad_medida']
+        fields = [
+            'id', 'sku', 'nombre', 'valor_unitario', 'precio_con_iva',
+            'marca_nombre', 'unidad_medida', 'imagen_url',
+        ]
+
+    def get_imagen_url(self, obj):
+        return get_imagen_url(obj, self.context.get('request'))
 
     def get_precio_con_iva(self, obj):
         return round(obj.valor_unitario * (1 + IVA))
@@ -89,14 +133,16 @@ class ProductoStockSerializer(serializers.ModelSerializer):
     """Para el endpoint de catálogo en tiempo real — incluye stock agregado."""
     marca_nombre = serializers.CharField(source='marca.nombre', read_only=True)
     categorias = serializers.SerializerMethodField()
-    stock_total = serializers.IntegerField(read_only=True)  # anotado en la query
+    stock_total = serializers.IntegerField(read_only=True)
     precio_con_iva = serializers.SerializerMethodField()
+    imagen_url = serializers.SerializerMethodField()
+
     class Meta:
         model = Producto
         fields = [
             'id', 'sku', 'nombre', 'descripcion', 'valor_unitario', 'precio_con_iva', 'categorias', 'unidad_medida',
             'largo_mm', 'ancho_mm', 'alto_mm', 'peso_mg', 'volumen_ml',
-            'registro_sanitario', 'stock_total', 'es_caja'
+            'registro_sanitario', 'stock_total', 'es_caja',   'imagen_url',
         ]
 
     def get_precio_con_iva(self, obj):
@@ -106,6 +152,9 @@ class ProductoStockSerializer(serializers.ModelSerializer):
             obj.categoriaproducto_set.values_list('categoria__nombre', flat=True)
         )
 
+
+    def get_imagen_url(self, obj):
+        return get_imagen_url(obj, self.context.get('request'))
 
 # ============================================================
 # LOTE
@@ -331,6 +380,7 @@ class ProductoCatalogoSerializer(serializers.ModelSerializer):
     categorias = serializers.SerializerMethodField()
     stock_por_sucursal = serializers.SerializerMethodField()
     precio_con_iva = serializers.SerializerMethodField()
+    imagen_url = serializers.SerializerMethodField()
 
     class Meta:
         model = Producto
@@ -339,7 +389,9 @@ class ProductoCatalogoSerializer(serializers.ModelSerializer):
             'marca', 'unidad_medida',
             'largo_mm', 'ancho_mm', 'alto_mm', 'peso_mg', 'volumen_ml',
             'requiere_control_vencimiento', 'registro_sanitario', 'activo', 'es_caja',
-            'categorias', 'stock_por_sucursal'
+            'categorias', 'stock_por_sucursal',
+            'imagen_url',
+
         ]
 
     def get_precio_con_iva(self, obj):
@@ -358,6 +410,9 @@ class ProductoCatalogoSerializer(serializers.ModelSerializer):
             .order_by('sucursal__nombre')
         )
         return ProductoStockSucursalSerializer(stock_qs, many=True).data
+
+    def get_imagen_url(self, obj):
+        return get_imagen_url(obj, self.context.get('request'))
 
 
 class IngresoProductoSerializer(serializers.Serializer):

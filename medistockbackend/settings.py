@@ -113,6 +113,15 @@ WSGI_APPLICATION = 'medistockbackend.wsgi.application'
 
 DATABASES = {
     'default': {
+        'NAME': os.getenv('DB_NAME_REMOTE', 'medistock_db'),
+        'ENGINE': os.getenv('DB_ENGINE_REMOTE', 'django.db.backends.mysql'),
+        'HOST': os.getenv('DB_HOST_REMOTE', '127.0.0.1'),
+        'PORT': int(os.getenv('DB_PORT_REMOTE', '3306')),
+        'USER': os.getenv('DB_USER_REMOTE', 'postgres'),
+        'PASSWORD': os.getenv('DB_PASSWORD_REMOTE', ''),
+        'CERT': os.getenv('DB_CERT_REMOTE', ''),
+    },
+    'local': {
         'NAME': os.getenv('DB_NAME', 'medistock_db'),
         'ENGINE': os.getenv('DB_ENGINE', 'django.db.backends.mysql'),
         'HOST': os.getenv('DB_HOST', '127.0.0.1'),
@@ -125,6 +134,7 @@ DATABASES = {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
         },
     }
+
 }
 
 # Password validation
@@ -162,6 +172,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+MEDIA_URL  = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
