@@ -4997,3 +4997,87 @@ const res = await fetch('/api/payments/mis-pagos/', {
 const data = await res.json();
 ```
 
+---
+
+### GET Todos los pagos (trabajadores)
+
+Lista todas las transacciones de pago del sistema, enriquecidas con datos del cliente y del pedido asociado. Permite filtrar por estado o método de pago mediante query params.
+
+**URL:** `GET /api/payments/todos/`
+**Autenticacion:** Requerida (JWT)
+**Permisos:** Solo Administrador, Ejecutivo o Analista
+
+#### Headers requeridos
+
+| Header          | Valor            |
+|-----------------|------------------|
+| `Authorization` | `Bearer <token>` |
+
+#### Body (Request)
+
+No aplica.
+
+#### Parametros de URL / Query params
+
+| Parametro      | Tipo     | Requerido | Descripcion |
+|----------------|----------|-----------|-------------|
+| `estado_pago`  | `string` | No        | Filtra por estado. Valores: `PENDIENTE`, `INICIADO`, `AUTORIZADO`, `CONFIRMADO`, `RECHAZADO`, `ANULADO`, `REEMBOLSADO`, `ERROR` |
+| `metodo_pago`  | `string` | No        | Filtra por metodo. Valores: `WEBPAY`, `MERCADOPAGO`, `TRANSFERENCIA`, `CREDITO_INSTITUCIONAL` |
+
+#### Respuestas
+
+**`200 OK`**
+
+```json
+[
+  {
+    "id": 15,
+    "pedido_id": 42,
+    "pedido_total": 59500,
+    "cliente_id": 7,
+    "cliente_nombre": "Juan Perez",
+    "cliente_rut": "12345678-9",
+    "cliente_email": "cliente@medistock.cl",
+    "metodo_pago": "WEBPAY",
+    "estado_pago": "CONFIRMADO",
+    "monto_confirmado": 59500,
+    "buy_order": "PED-42",
+    "authorization_code": "123456",
+    "response_code": 0,
+    "payment_type_code": "VD",
+    "installments_number": 0,
+    "card_last_digits": "1234",
+    "webpay_status": "AUTHORIZED",
+    "transaction_date": "2025-07-10T14:40:00Z",
+    "fecha_creacion": "2025-07-10T14:32:00Z",
+    "fecha_confirmacion": "2025-07-10T14:40:00Z",
+    "observacion": "Pago confirmado correctamente por Webpay."
+  }
+]
+```
+
+**`403 Forbidden`**
+
+```json
+{
+  "detail": "Solo Administrador, Ejecutivo o Analista pueden ver todos los pagos."
+}
+```
+
+#### Ejemplo completo
+
+```javascript
+// Listar todos los pagos confirmados
+const res = await fetch('/api/payments/todos/?estado_pago=CONFIRMADO', {
+  headers: { 'Authorization': `Bearer ${token}` }
+});
+const data = await res.json();
+```
+
+```javascript
+// Listar todos los pagos sin filtro
+const res = await fetch('/api/payments/todos/', {
+  headers: { 'Authorization': `Bearer ${token}` }
+});
+const data = await res.json();
+```
