@@ -2,6 +2,7 @@ from rest_framework import generics, status
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.parsers import MultiPartParser, FormParser
 from .models import (
 	Categoria,
 	Marca,
@@ -58,6 +59,57 @@ class ProductoDetailView(generics.RetrieveUpdateDestroyAPIView):
 	queryset = Producto.objects.all()
 	serializer_class = ProductoSerializer
 	permission_classes = [IsAuthenticated]
+
+
+class ProductoImagenView(APIView):
+	"""
+    PATCH /api/inventory/productos/<pk>/imagen/
+
+    Sube o reemplaza la imagen de un producto existente.
+    Acepta multipart/form-data con el campo 'imagen'.
+    Solo accesible para usuarios autenticados.
+
+    Ejemplo con fetch:
+        const form = new FormData();
+        form.append('imagen', archivoFile);
+        fetch(`/api/inventory/productos/${id}/imagen/`, {
+            method: 'PATCH',
+            headers: { 'Authorization': `Bearer ${token}` },
+            body: form,
+        });
+    """
+	permission_classes = [IsAuthenticated]
+	parser_classes = [MultiPartParser, FormParser]
+
+	def patch(self, request, pk):
+		producto = generics.get_object_or_404(Producto, pk=pk)
+
+		serializer = ProductoImagenSerializer(
+			producto,
+			data=request.data,
+			partial=True,
+			context={'request': request},
+		)
+		serializer.is_valid(raise_exception=True)
+		serializer.save()
+
+		return Response(serializer.data, status=status.HTTP_200_OK)
+
+	def delete(self, request, pk):
+		"""Elimina la imagen del producto dejando el campo vacío."""
+		producto = generics.get_object_or_404(Producto, pk=pk)
+
+		if not producto.imagen:
+			return Response(
+				{'detail': 'Este producto no tiene imagen.'},
+				status=status.HTTP_404_NOT_FOUND,
+			)
+
+		producto.imagen.delete(save=True)  # borra el archivo físico y guarda el modelo
+		return Response(
+			{'detail': 'Imagen eliminada correctamente.'},
+			status=status.HTTP_200_OK,
+		)
 
 
 class LoteListCreateView(generics.ListCreateAPIView):

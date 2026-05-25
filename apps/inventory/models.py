@@ -42,6 +42,7 @@ class Producto(models.Model):
     registro_sanitario = models.CharField(max_length=120, blank=True, null=True)
     activo = models.BooleanField(default=True)
     es_caja = models.BooleanField(default=False)
+    imagen = models.ImageField(upload_to='productos/', null=True, blank=True)
 
     class Meta:
         db_table = 'producto'
@@ -49,6 +50,12 @@ class Producto(models.Model):
 
     def __str__(self):
         return f'{self.sku} - {self.nombre}'
+
+    @property
+    def imagen_url(self):
+        if self.imagen:
+            return self.imagen.url
+        return None
 
 
 class CategoriaProducto(models.Model):
