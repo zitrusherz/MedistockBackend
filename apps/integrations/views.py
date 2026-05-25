@@ -1,10 +1,13 @@
 import time
+import secrets
+import hashlib
 from django.db import transaction
 from django.db.models import F
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-
+from apps.accounts.permissions import EsTrabajador
+from apps.accounts.models import Institucion
 from .authentication import ApiKeyAuthentication
 from .permissions import EsApiClientActivo
 from .models import RegistroIntegracion
@@ -13,6 +16,8 @@ from apps.inventory.models import Producto, Inventario
 from apps.orders.models import Pedido, DetallePedido
 from apps.orders.services.inventario import reservar_stock_pedido
 from rest_framework.exceptions import ValidationError
+from .models import ApiClient
+from django.utils import timezone
 
 IVA = 0.19
 
@@ -181,4 +186,183 @@ class PedidoB2BView(APIView):
                 mensaje_error=error,
             )
         except Exception:
-            pass  
+            pass
+
+
+class CrearApiClientView(APIView):
+    """
+    POST /api/v1/integrations/api-clients/
+
+    Crea una API Key para una institución cliente.
+    Solo trabajadores activos de MEDISTOCK pueden hacerlo.
+
+    La key en crudo se muestra UNA SOLA VEZ en la respuesta.
+    En la BD solo se guarda el hash SHA-256.
+    """
+    permission_classes = [EsTrabajador]
+
+    def post(self, request):
+        institucion_id  = request.data.get('institucion_id')
+        nombre          = request.data.get('nombre_cliente_api', '')
+        limite          = request.data.get('limite_requests_diario', 1000)
+        fecha_expiracion = request.data.get('fecha_expiracion', None)
+
+        # Validaciones básicas
+        if not institucion_id:
+            return Response(
+                {'error': 'El campo institucion_id es requerido.'},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        if not nombre:
+            return Response(
+                {'error': 'El campo nombre_cliente_api es requerido.'},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        try:
+            institucion = Institucion.objects.get(pk=institucion_id, activo=True)
+        except Institucion.DoesNotExist:
+            return Response(
+                {'error': f'No existe una institución activa con id={institucion_id}.'},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+
+        # Generar key criptográficamente segura
+        raw_key  = secrets.token_hex(32)          # 64 caracteres hex
+        key_hash = hashlib.sha256(raw_key.encode()).hexdigest()
+
+        api_client = ApiClient.objects.create(
+            institucion=institucion,
+            nombre_cliente_api=nombre,
+            api_key_hash=key_hash,
+            activo=True,
+            limite_requests_diario=limite,
+            fecha_expiracion=fecha_expiracion,
+        )
+
+        return Response(
+            {
+                'id':                    api_client.id,
+                'institucion':           institucion.razon_social,
+                'nombre_cliente_api':    api_client.nombre_cliente_api,
+                'api_key':               raw_key,   # ← ÚNICA VEZ que se muestra
+                'activo':                api_client.activo,
+                'limite_requests_diario': api_client.limite_requests_diario,
+                'fecha_expiracion':      api_client.fecha_expiracion,
+                'fecha_creacion':        api_client.fecha_creacion,
+                'advertencia': (
+                    'Guarda esta API Key ahora. No se puede recuperar después — '
+                    'si se pierde, deberás generar una nueva.'
+                ),
+            },
+            status=status.HTTP_201_CREATED,
+        )
+
+
+class GestionarApiClientView(APIView):
+    """
+    GET    /api/v1/integrations/api-clients/{id}/   — ver estado del cliente
+    PATCH  /api/v1/integrations/api-clients/{id}/   — activar/desactivar o rotar key
+    DELETE /api/v1/integrations/api-clients/{id}/   — eliminar
+    """
+    permission_classes = [EsTrabajador]
+
+    def _get_client(self, pk):
+        try:
+            return ApiClient.objects.select_related('institucion').get(pk=pk)
+        except ApiClient.DoesNotExist:
+            return None
+
+    def get(self, request, pk):
+        cliente = self._get_client(pk)
+        if not cliente:
+            return Response({'error': 'ApiClient no encontrado.'}, status=status.HTTP_404_NOT_FOUND)
+
+        return Response({
+            'id':                    cliente.id,
+            'institucion':           cliente.institucion.razon_social,
+            'nombre_cliente_api':    cliente.nombre_cliente_api,
+            'activo':                cliente.activo,
+            'limite_requests_diario': cliente.limite_requests_diario,
+            'fecha_creacion':        cliente.fecha_creacion,
+            'fecha_expiracion':      cliente.fecha_expiracion,
+        })
+
+    def patch(self, request, pk):
+        cliente = self._get_client(pk)
+        if not cliente:
+            return Response({'error': 'ApiClient no encontrado.'}, status=status.HTTP_404_NOT_FOUND)
+
+        # Activar / desactivar
+        if 'activo' in request.data:
+            cliente.activo = bool(request.data['activo'])
+
+        if 'limite_requests_diario' in request.data:
+            cliente.limite_requests_diario = int(request.data['limite_requests_diario'])
+
+        if 'fecha_expiracion' in request.data:
+            cliente.fecha_expiracion = request.data['fecha_expiracion']
+
+        # Rotar la key — genera una nueva y devuelve el crudo una sola vez
+        rotar = request.data.get('rotar_key', False)
+        nueva_key_cruda = None
+        if rotar:
+            nueva_key_cruda = secrets.token_hex(32)
+            cliente.api_key_hash = hashlib.sha256(nueva_key_cruda.encode()).hexdigest()
+
+        cliente.save()
+
+        respuesta = {
+            'id':                    cliente.id,
+            'institucion':           cliente.institucion.razon_social,
+            'activo':                cliente.activo,
+            'limite_requests_diario': cliente.limite_requests_diario,
+            'fecha_expiracion':      cliente.fecha_expiracion,
+            'mensaje':               'ApiClient actualizado correctamente.',
+        }
+        if nueva_key_cruda:
+            respuesta['nueva_api_key'] = nueva_key_cruda
+            respuesta['advertencia'] = (
+                'La key anterior queda inválida inmediatamente. '
+                'Actualiza el ERP de la clínica ahora.'
+            )
+
+        return Response(respuesta)
+
+    def delete(self, request, pk):
+        cliente = self._get_client(pk)
+        if not cliente:
+            return Response({'error': 'ApiClient no encontrado.'}, status=status.HTTP_404_NOT_FOUND)
+
+        cliente.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class ListarApiClientsView(APIView):
+    """
+    GET /api/v1/integrations/api-clients/
+
+    Lista todos los ApiClients registrados (sin exponer keys, solo metadata).
+    """
+    permission_classes = [EsTrabajador]
+
+    def get(self, request):
+        clientes = ApiClient.objects.select_related('institucion').order_by('-fecha_creacion')
+        data = [
+            {
+                'id':                    c.id,
+                'institucion':           c.institucion.razon_social,
+                'institucion_id':        c.institucion_id,
+                'nombre_cliente_api':    c.nombre_cliente_api,
+                'activo':                c.activo,
+                'limite_requests_diario': c.limite_requests_diario,
+                'fecha_creacion':        c.fecha_creacion,
+                'fecha_expiracion':      c.fecha_expiracion,
+                'vencida':               (
+                    c.fecha_expiracion is not None
+                    and c.fecha_expiracion < timezone.now()
+                ),
+            }
+            for c in clientes
+        ]
+        return Response(data)
