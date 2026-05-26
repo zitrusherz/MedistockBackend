@@ -1,9 +1,15 @@
 from django.urls import path
-from apps.logistics.views import CotizarEnvioView, CrearEnvioView, TrackingView
+from apps.logistics.views import (
+    CotizarEnvioView,
+    CrearEnvioView,
+    TrackingView,
+    ActualizarEstadoDespachoView,
+)
 
 urlpatterns = [
     path("cotizar/", CotizarEnvioView.as_view(), name="logistics-cotizar"),
     path("envios/", CrearEnvioView.as_view(), name="logistics-crear-envio"),
     path("envios/<int:pedido_id>/tracking/", TrackingView.as_view(), name="logistics-tracking"),
-]
+    path("envios/<int:pedido_id>/estado/", ActualizarEstadoDespachoView.as_view(), name="logistics-actualizar-estado"),
 
+]

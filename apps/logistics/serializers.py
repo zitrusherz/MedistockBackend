@@ -275,3 +275,77 @@ class DespachoSerializer(serializers.ModelSerializer):
             "fecha_entrega_estimada", "costo_despacho", "url_etiqueta",
         ]
         read_only_fields = fields
+
+
+TRANSICIONES_VALIDAS = {
+    # estado_actual: [estados_a_los_que_puede_pasar]
+    "PENDIENTE": ["RETIRADO", "CANCELADO"],
+    "RETIRADO": ["EN_TRANSITO", "CANCELADO"],
+    "EN_TRANSITO": ["ENTREGADO", "DEVUELTO", "CANCELADO"],
+    "ENTREGADO": [],  # estado final
+    "DEVUELTO": [],  # estado final
+    "CANCELADO": [],  # estado final
+}
+
+# Qué transiciones puede hacer cada grupo de Django
+TRANSICIONES_POR_ROL = {
+    "Administradores": {
+        "PENDIENTE": ["RETIRADO", "CANCELADO"],
+        "RETIRADO": ["EN_TRANSITO", "CANCELADO"],
+        "EN_TRANSITO": ["ENTREGADO", "DEVUELTO", "CANCELADO"],
+    },
+    "Ejecutivos": {
+        "PENDIENTE": ["CANCELADO"],
+        "RETIRADO": ["CANCELADO"],
+        "EN_TRANSITO": ["CANCELADO"],
+    },
+    "OperadoresLogisticos": {
+        "PENDIENTE": ["RETIRADO"],
+        "RETIRADO": ["EN_TRANSITO"],
+        "EN_TRANSITO": ["ENTREGADO", "DEVUELTO"],
+    },
+}
+
+
+class ActualizarEstadoDespachoSerializer(serializers.Serializer):
+    """
+    Valida que la transición de estado sea permitida según el estado actual
+    del despacho y el rol del usuario que hace la petición.
+    """
+    nuevo_estado = serializers.ChoiceField(
+        choices=["RETIRADO", "EN_TRANSITO", "ENTREGADO", "DEVUELTO", "CANCELADO"]
+    )
+    observacion = serializers.CharField(
+        max_length=255, required=False, allow_blank=True, default=""
+    )
+
+    def validate(self, data):
+        despacho = self.context["despacho"]
+        user = self.context["request"].user
+        nuevo_estado = data["nuevo_estado"]
+        estado_actual = despacho.estado_envio
+
+        # Determinar el rol del usuario (primer grupo que coincida)
+        grupos_usuario = set(user.groups.values_list("name", flat=True))
+        rol = None
+        for nombre_rol in TRANSICIONES_POR_ROL:
+            if nombre_rol in grupos_usuario:
+                rol = nombre_rol
+                break
+
+        if rol is None:
+            raise serializers.ValidationError(
+                "Tu usuario no pertenece a ningún rol autorizado para modificar despachos."
+            )
+
+        transiciones_permitidas = TRANSICIONES_POR_ROL[rol].get(estado_actual, [])
+
+        if nuevo_estado not in transiciones_permitidas:
+            permitidos_str = ", ".join(transiciones_permitidas) or "ninguno (estado final)"
+            raise serializers.ValidationError(
+                f"El rol '{rol}' no puede cambiar el estado '{estado_actual}' → '{nuevo_estado}'. "
+                f"Transiciones permitidas desde '{estado_actual}': {permitidos_str}."
+            )
+
+        return data
+

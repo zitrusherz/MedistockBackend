@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.utils.html import format_html, mark_safe
+from django.utils.html import format_html, mark_safe  # ← añadir mark_safe
 from .models import (
     Categoria, Marca, Producto, CategoriaProducto,
     Lote, Inventario, MovimientoInventario,
@@ -91,7 +91,6 @@ class ProductoAdmin(admin.ModelAdmin):
 
     def miniatura(self, obj):
         if obj.imagen:
-            # ✅ format_html correcto — datos dinámicos con {}
             return format_html(
                 '<img src="{}" style="height:40px; border-radius:4px;" />',
                 obj.imagen.url,
@@ -105,7 +104,6 @@ class ProductoAdmin(admin.ModelAdmin):
                 '<img src="{}" style="max-height:200px; border-radius:6px;" />',
                 obj.imagen.url,
             )
-        # ✅ mark_safe — string estático sin datos del modelo
         return mark_safe('Sin imagen')
     miniatura_grande.short_description = 'Preview actual'
 
@@ -178,6 +176,7 @@ class InventarioAdmin(admin.ModelAdmin):
     def alerta(self, obj):
         neto = obj.cantidad_disponible - obj.cantidad_reservada
         if neto <= obj.stock_critico:
+            # ✅ mark_safe — HTML estático, sin datos variables del objeto
             return mark_safe('<span style="color:red; font-weight:bold;">⚠ Crítico</span>')
         return mark_safe('<span style="color:green;">OK</span>')
     alerta.short_description = 'Estado'

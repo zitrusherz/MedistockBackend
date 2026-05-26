@@ -20,7 +20,7 @@ class ApiClientAdmin(admin.ModelAdmin):
         'fecha_creacion',
         'badge_vencimiento',
     ]
-    list_filter = ['activo', 'institucion']
+    list_filter   = ['activo', 'institucion']
     search_fields = ['nombre_cliente_api', 'institucion__razon_social']
     readonly_fields = [
         'api_key_hash',
@@ -28,7 +28,7 @@ class ApiClientAdmin(admin.ModelAdmin):
         'info_key',
     ]
     ordering = ['-fecha_creacion']
-    actions = ['desactivar_clientes', 'activar_clientes', 'rotar_api_key']
+    actions  = ['desactivar_clientes', 'activar_clientes', 'rotar_api_key']
 
     fieldsets = (
         ('Identificacion', {
@@ -37,8 +37,9 @@ class ApiClientAdmin(admin.ModelAdmin):
         ('Seguridad', {
             'fields': ('api_key_hash', 'info_key'),
             'description': (
-                'La API Key nunca se almacena en texto plano. '
-                'Para regenerarla usa la accion "Rotar API Key" desde el listado.'
+                'La API Key se genera automáticamente al guardar por primera vez. '
+                'Nunca se almacena en texto plano — solo su hash SHA-256. '
+                'Para regenerarla usa la acción "Rotar API Key" desde el listado.'
             ),
         }),
         ('Control de acceso', {
@@ -49,21 +50,23 @@ class ApiClientAdmin(admin.ModelAdmin):
         }),
     )
 
-    # ── Campos calculados para el listado ──────────────────
+    # ── Campos calculados para el listado ──────────────────────
 
     @admin.display(description='Activo', boolean=False, ordering='activo')
     def badge_activo(self, obj):
         if obj.activo:
-            # ✅ mark_safe para strings 100% estáticos (sin datos del usuario)
-            return mark_safe('<span style="color:#2ecc71;font-weight:bold;">✔ Activo</span>')
-        return mark_safe('<span style="color:#e74c3c;font-weight:bold;">✘ Inactivo</span>')
+            return mark_safe(
+                '<span style="color:#2ecc71;font-weight:bold;">✔ Activo</span>'
+            )
+        return mark_safe(
+            '<span style="color:#e74c3c;font-weight:bold;">✘ Inactivo</span>'
+        )
 
     @admin.display(description='Vencimiento')
     def badge_vencimiento(self, obj):
         if obj.fecha_expiracion is None:
             return mark_safe('<span style="color:#95a5a6;">Sin vencimiento</span>')
         if obj.fecha_expiracion < timezone.now():
-            # ✅ format_html cuando hay datos dinámicos (fecha del objeto)
             return format_html(
                 '<span style="color:#e74c3c;font-weight:bold;">Vencida {}</span>',
                 obj.fecha_expiracion.strftime('%d/%m/%Y'),
@@ -75,15 +78,69 @@ class ApiClientAdmin(admin.ModelAdmin):
 
     @admin.display(description='Sobre la API Key')
     def info_key(self, obj):
-        # ✅ mark_safe — string completamente estático, sin datos del modelo
+        if obj.pk:
+            # Objeto ya guardado — key generada, no recuperable
+            return mark_safe(
+                '<p style="color:#7f8c8d;">'
+                'Solo se guarda el hash SHA-256. '
+                'Para generar una nueva, vuelve al listado '
+                'y usa la acción <strong>"Rotar API Key"</strong>.'
+                '</p>'
+            )
+        # Objeto nuevo — todavía no guardado
         return mark_safe(
-            '<p style="color:#7f8c8d;">'
-            'Solo se guarda el hash SHA-256 de la key. '
-            'Para generar una nueva, selecciona el cliente en el listado '
-            'y usa la acción <strong>"Rotar API Key"</strong>.'
+            '<p style="color:#2980b9;">'
+            'La API Key se generará automáticamente al guardar. '
+            'Aparecerá en el mensaje de confirmación — <strong>cópiala en ese momento</strong>.'
             '</p>'
         )
-    # ── Acciones masivas ───────────────────────────────────
+
+    # ── Creación y edición ─────────────────────────────────────
+
+    def save_model(self, request, obj, form, change):
+        """
+        Al crear un ApiClient nuevo desde el admin:
+          1. Genera una key criptográficamente segura.
+          2. Guarda solo el hash SHA-256 en la BD.
+          3. Muestra la key en crudo en el mensaje de éxito (única oportunidad).
+
+        En edición (change=True) no toca la key.
+        """
+        if not change:
+            # --- Creación ---
+            raw_key = secrets.token_hex(32)   # 64 caracteres hex
+            obj.api_key_hash = hashlib.sha256(raw_key.encode()).hexdigest()
+            super().save_model(request, obj, form, change)
+
+            self.message_user(
+                request,
+                format_html(
+                    '<strong>✔ ApiClient creado correctamente.</strong><br>'
+                    'API Key para <em>"{}"</em>:<br>'
+                    '<code style="'
+                    'display:block;margin-top:6px;padding:8px 12px;'
+                    'background:#f4f4f4;border:1px solid #ddd;'
+                    'font-size:13px;letter-spacing:.5px;word-break:break-all;'
+                    '">{}</code>'
+                    '<span style="color:#e74c3c;font-weight:bold;">'
+                    '⚠ Cópiala ahora — no se puede recuperar después.'
+                    '</span>',
+                    obj.nombre_cliente_api,
+                    raw_key,
+                ),
+            )
+        else:
+            # --- Edición: guardar sin tocar la key ---
+            super().save_model(request, obj, form, change)
+
+    def get_readonly_fields(self, request, obj=None):
+        readonly = list(self.readonly_fields)
+        if obj:
+            # En edición la institución no se puede cambiar
+            readonly.append('institucion')
+        return readonly
+
+    # ── Acciones masivas ───────────────────────────────────────
 
     @admin.action(description='Desactivar clientes seleccionados')
     def desactivar_clientes(self, request, queryset):
@@ -95,7 +152,7 @@ class ApiClientAdmin(admin.ModelAdmin):
         total = queryset.update(activo=True)
         self.message_user(request, f'{total} cliente(s) activado(s).')
 
-    @admin.action(description='Rotar API Key (genera nueva key y muestra en mensaje)')
+    @admin.action(description='Rotar API Key — genera una nueva key')
     def rotar_api_key(self, request, queryset):
         if queryset.count() > 1:
             self.message_user(
@@ -106,29 +163,26 @@ class ApiClientAdmin(admin.ModelAdmin):
             return
 
         cliente = queryset.first()
-        nueva_key = secrets.token_hex(32)
-        cliente.api_key_hash = hashlib.sha256(nueva_key.encode()).hexdigest()
+        raw_key = secrets.token_hex(32)
+        cliente.api_key_hash = hashlib.sha256(raw_key.encode()).hexdigest()
         cliente.save(update_fields=['api_key_hash'])
 
         self.message_user(
             request,
             format_html(
-                '<strong>Nueva API Key para "{}":</strong> '
-                '<code style="background:#f4f4f4;padding:4px 8px;">{}</code> '
-                '— Cópiala ahora, no se puede recuperar después.',
+                '<strong>Nueva API Key para "{}":</strong><br>'
+                '<code style="'
+                'display:block;margin-top:6px;padding:8px 12px;'
+                'background:#f4f4f4;border:1px solid #ddd;'
+                'font-size:13px;letter-spacing:.5px;word-break:break-all;'
+                '">{}</code>'
+                '<span style="color:#e74c3c;font-weight:bold;">'
+                '⚠ La key anterior quedó inválida. Actualiza el ERP de la clínica ahora.'
+                '</span>',
                 cliente.nombre_cliente_api,
-                nueva_key,
+                raw_key,
             ),
         )
-
-    # ── Seguridad: nunca mostrar el hash en formulario editable ──
-
-    def get_readonly_fields(self, request, obj=None):
-        readonly = list(self.readonly_fields)
-        if obj:
-            # En edición: la institución tampoco se cambia
-            readonly.append('institucion')
-        return readonly
 
 
 # ============================================================
@@ -137,16 +191,10 @@ class ApiClientAdmin(admin.ModelAdmin):
 
 @admin.register(IntegracionExterna)
 class IntegracionExternaAdmin(admin.ModelAdmin):
-    list_display = [
-        'nombre',
-        'tipo_integracion',
-        'proveedor',
-        'badge_activo',
-        'url_base',
-    ]
-    list_filter  = ['tipo_integracion', 'activo']
+    list_display  = ['nombre', 'tipo_integracion', 'proveedor', 'badge_activo', 'url_base']
+    list_filter   = ['tipo_integracion', 'activo']
     search_fields = ['nombre', 'proveedor']
-    ordering = ['tipo_integracion', 'nombre']
+    ordering      = ['tipo_integracion', 'nombre']
 
     fieldsets = (
         ('Identificacion', {
@@ -167,14 +215,11 @@ class IntegracionExternaAdmin(admin.ModelAdmin):
 # ============================================================
 
 class RegistroIntegracionExitosoFilter(admin.SimpleListFilter):
-    title  = 'Resultado'
+    title          = 'Resultado'
     parameter_name = 'exitoso'
 
     def lookups(self, request, model_admin):
-        return [
-            ('1', 'Exitoso'),
-            ('0', 'Con error'),
-        ]
+        return [('1', 'Exitoso'), ('0', 'Con error')]
 
     def queryset(self, request, queryset):
         if self.value() == '1':
@@ -197,12 +242,7 @@ class RegistroIntegracionAdmin(admin.ModelAdmin):
         'api_client',
         'pedido',
     ]
-    list_filter  = [
-        'tipo_evento',
-        'metodo',
-        RegistroIntegracionExitosoFilter,
-        'api_client',
-    ]
+    list_filter   = ['tipo_evento', 'metodo', RegistroIntegracionExitosoFilter, 'api_client']
     search_fields = [
         'endpoint',
         'api_client__nombre_cliente_api',
@@ -210,22 +250,14 @@ class RegistroIntegracionAdmin(admin.ModelAdmin):
         'mensaje_error',
     ]
     readonly_fields = [
-        'api_client',
-        'integracion_externa',
-        'pedido',
-        'tipo_evento',
-        'endpoint',
-        'metodo',
-        'status_code',
-        'tiempo_respuesta_ms',
-        'exitoso',
-        'mensaje_error',
-        'fecha_registro',
+        'api_client', 'integracion_externa', 'pedido',
+        'tipo_evento', 'endpoint', 'metodo',
+        'status_code', 'tiempo_respuesta_ms',
+        'exitoso', 'mensaje_error', 'fecha_registro',
     ]
-    ordering = ['-fecha_registro']
+    ordering      = ['-fecha_registro']
     date_hierarchy = 'fecha_registro'
 
-    # Solo lectura — los logs no se crean ni editan desde el admin
     def has_add_permission(self, request):
         return False
 
@@ -236,16 +268,10 @@ class RegistroIntegracionAdmin(admin.ModelAdmin):
     def badge_status(self, obj):
         if obj.status_code is None:
             return '-'
-        if obj.status_code < 300:
-            color = '#2ecc71'
-        elif obj.status_code < 500:
-            color = '#f39c12'
-        else:
-            color = '#e74c3c'
+        color = '#2ecc71' if obj.status_code < 300 else ('#f39c12' if obj.status_code < 500 else '#e74c3c')
         return format_html(
             '<span style="color:{};font-weight:bold;">{}</span>',
-            color,
-            obj.status_code,
+            color, obj.status_code,
         )
 
     @admin.display(description='Resultado', boolean=False, ordering='exitoso')

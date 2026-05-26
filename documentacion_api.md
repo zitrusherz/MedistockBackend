@@ -4251,6 +4251,165 @@ const data = await res.json();
 
 ---
 
+### PATCH Actualizar estado de despacho
+
+Actualiza manualmente el `estado_envio` de un despacho. Las transiciones permitidas dependen del rol del usuario autenticado. El campo `estado_envio` refleja el ultimo estado conocido — idealmente sincronizado con Chilexpress en integraciones futuras (tarea periodica/webhook).
+
+**URL:** `PATCH /api/logistics/envios/{pedido_id}/estado/`
+**Autenticacion:** Requerida (JWT)
+**Permisos:** Administradores, Ejecutivos, Operadores Logisticos
+
+#### Headers requeridos
+
+| Header          | Valor              |
+|-----------------|--------------------|
+| `Authorization` | `Bearer <token>`   |
+| `Content-Type`  | `application/json` |
+
+#### Body (Request)
+
+```json
+{
+  "nuevo_estado": "RETIRADO",
+  "observacion": "Retirado por courier a las 10:00 hrs"
+}
+```
+
+**Descripcion de campos:**
+
+| Campo          | Tipo     | Requerido | Default | Descripcion |
+|----------------|----------|-----------|---------|-------------|
+| `nuevo_estado` | `string` | Si        | -       | Ver valores permitidos y tabla de transiciones |
+| `observacion`  | `string` | No        | `""`    | Comentario libre sobre el cambio de estado |
+
+**Valores permitidos `nuevo_estado`:**
+
+| Valor         | Descripcion |
+|---------------|-------------|
+| `RETIRADO`    | El courier retiró el paquete de la sucursal |
+| `EN_TRANSITO` | El paquete está en camino al destino |
+| `ENTREGADO`   | El paquete fue entregado al receptor |
+| `DEVUELTO`    | El paquete fue devuelto al remitente |
+| `CANCELADO`   | El despacho fue cancelado |
+
+**Maquina de estados y transiciones por rol:**
+
+| Estado actual → nuevo | Administrador | Ejecutivo | Operador Logistico |
+|-----------------------|:---:|:---:|:---:|
+| `PENDIENTE → RETIRADO` | ✓ | — | ✓ |
+| `RETIRADO → EN_TRANSITO` | ✓ | — | ✓ |
+| `EN_TRANSITO → ENTREGADO` | ✓ | — | ✓ |
+| `EN_TRANSITO → DEVUELTO` | ✓ | — | ✓ |
+| `PENDIENTE → CANCELADO` | ✓ | ✓ | — |
+| `RETIRADO → CANCELADO` | ✓ | ✓ | — |
+| `EN_TRANSITO → CANCELADO` | ✓ | ✓ | — |
+| `ENTREGADO / DEVUELTO / CANCELADO → *` | — (estados finales) | — | — |
+
+**Efectos secundarios automaticos:**
+
+| Nuevo estado  | Accion adicional |
+|---------------|-----------------|
+| `RETIRADO`    | Se registra `fecha_despacho = now()` |
+| `ENTREGADO`   | Se registra `fecha_entrega_real = now()` |
+| `CANCELADO`   | El pedido asociado vuelve a estado `APROBADO` para permitir redespacho |
+
+#### Parametros de URL / Query params
+
+| Parametro   | Tipo      | Descripcion |
+|-------------|-----------|-------------|
+| `pedido_id` | `integer` | ID del pedido cuyo despacho se quiere actualizar |
+
+#### Respuestas
+
+**`200 OK`**
+
+```json
+{
+  "id": 7,
+  "pedido_id": 42,
+  "courier_nombre": "Chilexpress",
+  "numero_seguimiento": "123456789",
+  "estado_envio": "RETIRADO",
+  "tipo_despacho": "NORMAL",
+  "fecha_despacho": "2025-07-10T10:00:00Z",
+  "fecha_entrega_estimada": null,
+  "costo_despacho": 0,
+  "url_etiqueta": ""
+}
+```
+
+**`400 Bad Request`** — Transicion no permitida para el rol
+
+```json
+{
+  "non_field_errors": [
+    "El rol 'Ejecutivos' no puede cambiar el estado 'RETIRADO' → 'ENTREGADO'. Transiciones permitidas desde 'RETIRADO': CANCELADO."
+  ]
+}
+```
+
+**`400 Bad Request`** — Estado invalido
+
+```json
+{
+  "nuevo_estado": ["\"INVALIDO\" is not a valid choice."]
+}
+```
+
+**`403 Forbidden`** — Usuario sin rol autorizado
+
+```json
+{
+  "non_field_errors": [
+    "Tu usuario no pertenece a ningun rol autorizado para modificar despachos."
+  ]
+}
+```
+
+**`404 Not Found`**
+
+```json
+{
+  "error": "No existe despacho para el pedido 42."
+}
+```
+
+#### Ejemplo completo
+
+```javascript
+// Operador logistico confirma retiro del paquete
+const res = await fetch('/api/logistics/envios/42/estado/', {
+  method: 'PATCH',
+  headers: {
+    'Authorization': `Bearer ${token}`,
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    nuevo_estado: 'RETIRADO',
+    observacion: 'Retirado por Chilexpress a las 10:00 hrs'
+  })
+});
+const data = await res.json();
+```
+
+```javascript
+// Ejecutivo o administrador cancela un despacho antes de que salga
+const res = await fetch('/api/logistics/envios/42/estado/', {
+  method: 'PATCH',
+  headers: {
+    'Authorization': `Bearer ${token}`,
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    nuevo_estado: 'CANCELADO',
+    observacion: 'Cliente solicito cancelacion antes del retiro'
+  })
+});
+const data = await res.json();
+```
+
+---
+
 # Ubicaciones
 
 ---

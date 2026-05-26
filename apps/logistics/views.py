@@ -2,8 +2,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-#from rest_framework.permissions import IsAuthenticated
-
+from django.utils import timezone
 from apps.logistics.serializers import (
     CotizacionInputSerializer,
     CrearEnvioInputSerializer,
@@ -12,6 +11,7 @@ from apps.logistics.serializers import (
     _cajas_disponibles,
     _productos_a_lista_empaque,
     _dimensiones_desde_resultado_empaque,
+    ActualizarEstadoDespachoSerializer,
 )
 from apps.logistics.services.chilexpress import ChilexpressService
 from apps.logistics.models import Despacho
@@ -285,3 +285,75 @@ class TrackingView(APIView):
             )
 
         return Response(tracking, status=status.HTTP_200_OK)
+
+
+class ActualizarEstadoDespachoView(APIView):
+    """
+    PATCH /api/logistics/envios/{pedido_id}/estado/
+
+    Actualiza el estado de un despacho según la máquina de estados definida.
+    El acceso está restringido por rol:
+
+    - Administradores: pueden hacer cualquier transición, incluyendo CANCELADO.
+    - Ejecutivos: solo pueden CANCELAR un despacho (antes de que salga).
+    - Operadores Logísticos: gestionan el ciclo físico completo:
+        PENDIENTE → RETIRADO → EN_TRANSITO → ENTREGADO / DEVUELTO
+
+    Body:
+        {
+            "nuevo_estado": "RETIRADO",
+            "observacion": "Retirado por courier a las 10:00 hrs"  // opcional
+        }
+    """
+    permission_classes = [IsAuthenticated]
+
+    def patch(self, request, pedido_id):
+        # 1. Obtener el despacho
+        try:
+            despacho = Despacho.objects.select_related("pedido").get(pedido_id=pedido_id)
+        except Despacho.DoesNotExist:
+            return Response(
+                {"error": f"No existe despacho para el pedido {pedido_id}."},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+
+        # 2. Validar transición + rol
+        serializer = ActualizarEstadoDespachoSerializer(
+            data=request.data,
+            context={"despacho": despacho, "request": request},
+        )
+        if not serializer.is_valid():
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        nuevo_estado = serializer.validated_data["nuevo_estado"]
+        observacion = serializer.validated_data.get("observacion", "")
+
+        # 3. Actualizar campos de fecha según el nuevo estado
+        campos_actualizar = ["estado_envio"]
+        despacho.estado_envio = nuevo_estado
+
+        if nuevo_estado == "RETIRADO":
+            despacho.fecha_despacho = timezone.now()
+            campos_actualizar.append("fecha_despacho")
+
+        elif nuevo_estado == "ENTREGADO":
+            despacho.fecha_entrega_real = timezone.now()
+            campos_actualizar.append("fecha_entrega_real")
+
+        if observacion:
+            despacho.observacion = observacion
+            campos_actualizar.append("observacion")
+
+        despacho.save(update_fields=campos_actualizar)
+
+        # 4. Si se cancela, también revertir el estado del pedido
+        if nuevo_estado == "CANCELADO":
+            pedido = despacho.pedido
+            pedido.estado_pedido = "APROBADO"  # lo devuelve a aprobado para redespachar
+            pedido.save(update_fields=["estado_pedido"])
+
+        return Response(
+            DespachoSerializer(despacho).data,
+            status=status.HTTP_200_OK,
+        )
+
