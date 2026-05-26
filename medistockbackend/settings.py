@@ -48,7 +48,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: don't run with debug turned on in production!
 
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [ "3.232.238.104",
+    "localhost",
+    "127.0.0.1",]
 
 AUTH_USER_MODEL = 'accounts.Usuario'
 
