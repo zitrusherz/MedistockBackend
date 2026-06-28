@@ -15,7 +15,7 @@ IVA = 0.19
 # ============================================================
 
 def get_imagen_url(obj, request):
-    """Devuelve la URL absoluta de la imagen del producto, o None si no tiene."""
+    """Devuelve la URL absoluta de la imagen de un objeto (Producto, Categoria o Marca), o None si no tiene."""
     if obj.imagen:
         if request:
             return request.build_absolute_uri(obj.imagen.url)
@@ -28,9 +28,95 @@ def get_imagen_url(obj, request):
 # ============================================================
 
 class CategoriaSerializer(serializers.ModelSerializer):
+    """
+    Serializer estándar de Categoria. Acepta 'padre_id' para asignar/cambiar
+    la categoría padre, y expone 'subcategorias' (hijas directas) e 'imagen_url'.
+    """
+    padre_id = serializers.PrimaryKeyRelatedField(
+        queryset=Categoria.objects.all(),
+        source='padre',
+        write_only=True,
+        required=False,
+        allow_null=True,
+    )
+    padre_nombre = serializers.CharField(source='padre.nombre', read_only=True)
+    subcategorias = serializers.SerializerMethodField()
+    imagen_url = serializers.SerializerMethodField()
+
     class Meta:
         model = Categoria
-        fields = ['id', 'nombre', 'activo']
+        fields = [
+            'id', 'nombre', 'activo',
+            'padre', 'padre_id', 'padre_nombre',
+            'subcategorias', 'imagen_url',
+        ]
+        read_only_fields = ['padre']
+
+    def get_subcategorias(self, obj):
+        # Solo un nivel hacia abajo aquí; para el árbol completo usar
+        # CategoriaArbolSerializer.
+        hijas = obj.subcategorias.all().order_by('nombre')
+        return [{'id': h.id, 'nombre': h.nombre, 'activo': h.activo} for h in hijas]
+
+    def get_imagen_url(self, obj):
+        return get_imagen_url(obj, self.context.get('request'))
+
+    def validate_padre_id(self, padre):
+        """Evita que una categoría sea padre de sí misma."""
+        instancia = self.instance
+        if instancia and padre and padre.id == instancia.id:
+            raise serializers.ValidationError(
+                'Una categoría no puede ser su propia categoría padre.'
+            )
+        return padre
+
+    def validate(self, attrs):
+        """Evita ciclos: el padre elegido no puede ser un descendiente de esta categoría."""
+        instancia = self.instance
+        nuevo_padre = attrs.get('padre')
+        if instancia and nuevo_padre:
+            actual = nuevo_padre
+            visitados = set()
+            while actual is not None:
+                if actual.id == instancia.id:
+                    raise serializers.ValidationError(
+                        {'padre_id': 'No se puede asignar como padre a una de sus propias subcategorías (ciclo).'}
+                    )
+                if actual.id in visitados:
+                    break
+                visitados.add(actual.id)
+                actual = actual.padre
+        return attrs
+
+
+class CategoriaArbolSerializer(serializers.ModelSerializer):
+    """Serializer recursivo de solo lectura para representar el árbol completo de categorías."""
+    subcategorias = serializers.SerializerMethodField()
+    imagen_url = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Categoria
+        fields = ['id', 'nombre', 'activo', 'imagen_url', 'subcategorias']
+
+    def get_subcategorias(self, obj):
+        hijas = obj.subcategorias.all().order_by('nombre')
+        return CategoriaArbolSerializer(hijas, many=True, context=self.context).data
+
+    def get_imagen_url(self, obj):
+        return get_imagen_url(obj, self.context.get('request'))
+
+
+class CategoriaImagenSerializer(serializers.ModelSerializer):
+    """Serializer exclusivo para subir/reemplazar la imagen de una categoría."""
+    imagen = serializers.ImageField(required=True)
+    imagen_url = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Categoria
+        fields = ['id', 'nombre', 'imagen', 'imagen_url']
+
+    def get_imagen_url(self, obj):
+        return get_imagen_url(obj, self.context.get('request'))
 
 
 # ============================================================
@@ -38,9 +124,27 @@ class CategoriaSerializer(serializers.ModelSerializer):
 # ============================================================
 
 class MarcaSerializer(serializers.ModelSerializer):
+    imagen_url = serializers.SerializerMethodField()
+
     class Meta:
         model = Marca
-        fields = ['id', 'nombre', 'activo']
+        fields = ['id', 'nombre', 'activo', 'imagen_url']
+
+    def get_imagen_url(self, obj):
+        return get_imagen_url(obj, self.context.get('request'))
+
+
+class MarcaImagenSerializer(serializers.ModelSerializer):
+    """Serializer exclusivo para subir/reemplazar la imagen de una marca."""
+    imagen = serializers.ImageField(required=True)
+    imagen_url = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Marca
+        fields = ['id', 'nombre', 'imagen', 'imagen_url']
+
+    def get_imagen_url(self, obj):
+        return get_imagen_url(obj, self.context.get('request'))
 
 
 # ============================================================
@@ -69,6 +173,9 @@ class ProductoSerializer(serializers.ModelSerializer):
     )
     precio_con_iva = serializers.SerializerMethodField()
     imagen_url = serializers.SerializerMethodField()
+
+    stock_total = serializers.IntegerField(read_only=True)
+
     class Meta:
         model = Producto
         fields = [
@@ -80,6 +187,7 @@ class ProductoSerializer(serializers.ModelSerializer):
             'unidad_medida',
             'largo_mm', 'ancho_mm', 'alto_mm', 'peso_mg', 'volumen_ml',
             'requiere_control_vencimiento', 'registro_sanitario',
+            'stock_total',
             'activo',
             'es_caja',
             'imagen_url',
@@ -372,12 +480,15 @@ class ProductoStockSucursalSerializer(serializers.Serializer):
 
 
 class ProductoCatalogoSerializer(serializers.ModelSerializer):
-    """Serializer para catálogo frontend con info de marca, categorías y stock por sucursal.
+    """Catálogo frontend: marca, categorías y stock (total + por sucursal).
 
-    Para evitar N+1, es recomendable prefetch en la vista si se lista en volumen.
+    El stock por sucursal se toma de un 'stock_map' precalculado en la vista
+    (una sola query para toda la página). Si no hay mapa en el contexto
+    (ej. detalle de un producto), hace el cálculo individual como fallback.
     """
     marca = MarcaSerializer(read_only=True)
     categorias = serializers.SerializerMethodField()
+    stock_total = serializers.SerializerMethodField()
     stock_por_sucursal = serializers.SerializerMethodField()
     precio_con_iva = serializers.SerializerMethodField()
     imagen_url = serializers.SerializerMethodField()
@@ -389,11 +500,46 @@ class ProductoCatalogoSerializer(serializers.ModelSerializer):
             'marca', 'unidad_medida',
             'largo_mm', 'ancho_mm', 'alto_mm', 'peso_mg', 'volumen_ml',
             'requiere_control_vencimiento', 'registro_sanitario', 'activo', 'es_caja',
-            'categorias', 'stock_por_sucursal',
+            'categorias', 'stock_total', 'stock_por_sucursal',
             'imagen_url',
-
         ]
 
+    # ── stock ──────────────────────────────────────────────────
+    def _stock_sucursales(self, obj):
+        """[{sucursal_id, sucursal_nombre, stock_neto}, ...] para este producto.
+
+        Se cachea por id en la instancia del serializer (que DRF reutiliza
+        para cada objeto en many=True) para no repetir el cálculo entre
+        stock_total y stock_por_sucursal.
+        """
+        cache = getattr(self, '_stock_cache', None)
+        if cache is None:
+            cache = {}
+            self._stock_cache = cache
+        if obj.id in cache:
+            return cache[obj.id]
+
+        stock_map = self.context.get('stock_map')
+        if stock_map is not None:
+            filas = stock_map.get(obj.id, [])
+        else:
+            # Fallback: 1 query (caso de un solo producto, sin mapa)
+            filas = list(
+                Inventario.objects.filter(lote__producto=obj)
+                .values('sucursal_id', sucursal_nombre=F('sucursal__nombre'))
+                .annotate(stock_neto=Sum(F('cantidad_disponible') - F('cantidad_reservada')))
+                .order_by('sucursal__nombre')
+            )
+        cache[obj.id] = filas
+        return filas
+
+    def get_stock_por_sucursal(self, obj):
+        return ProductoStockSucursalSerializer(self._stock_sucursales(obj), many=True).data
+
+    def get_stock_total(self, obj):
+        return sum((fila['stock_neto'] or 0) for fila in self._stock_sucursales(obj))
+
+    # ── resto ──────────────────────────────────────────────────
     def get_precio_con_iva(self, obj):
         return round(obj.valor_unitario * (1 + IVA))
 
@@ -401,15 +547,6 @@ class ProductoCatalogoSerializer(serializers.ModelSerializer):
         return list(
             obj.categoriaproducto_set.values_list('categoria__nombre', flat=True)
         )
-
-    def get_stock_por_sucursal(self, obj):
-        stock_qs = (
-            Inventario.objects.filter(lote__producto=obj)
-            .values('sucursal_id', sucursal_nombre=F('sucursal__nombre'))
-            .annotate(stock_neto=Sum(F('cantidad_disponible') - F('cantidad_reservada')))
-            .order_by('sucursal__nombre')
-        )
-        return ProductoStockSucursalSerializer(stock_qs, many=True).data
 
     def get_imagen_url(self, obj):
         return get_imagen_url(obj, self.context.get('request'))

@@ -5,6 +5,14 @@ from django.db import models
 class Categoria(models.Model):
     nombre = models.CharField(max_length=120, unique=True)
     activo = models.BooleanField(default=True)
+    padre = models.ForeignKey(
+        'self',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='subcategorias',
+    )
+    imagen = models.ImageField(upload_to='categorias/', null=True, blank=True)
 
     class Meta:
         db_table = 'categoria'
@@ -13,10 +21,17 @@ class Categoria(models.Model):
     def __str__(self):
         return self.nombre
 
+    @property
+    def imagen_url(self):
+        if self.imagen:
+            return self.imagen.url
+        return None
+
 
 class Marca(models.Model):
     nombre = models.CharField(max_length=120, unique=True)
     activo = models.BooleanField(default=True)
+    imagen = models.ImageField(upload_to='marcas/', null=True, blank=True)
 
     class Meta:
         db_table = 'marca'
@@ -24,6 +39,12 @@ class Marca(models.Model):
 
     def __str__(self):
         return self.nombre
+
+    @property
+    def imagen_url(self):
+        if self.imagen:
+            return self.imagen.url
+        return None
 
 
 class Producto(models.Model):

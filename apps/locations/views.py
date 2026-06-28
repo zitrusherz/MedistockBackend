@@ -95,3 +95,34 @@ class RegionsWithComunasView(generics.ListAPIView):
 		return Region.objects.prefetch_related(
 			Prefetch('comuna_set', queryset=comunas_qs)
 		).order_by('nombre')
+
+
+class SucursalListView(generics.ListAPIView):
+    """Lista las sucursales activas (público). Permite filtrar por
+    `region_id` o `comuna_id` mediante query params."""
+    serializer_class = SucursalPublicSerializer
+    permission_classes = [AllowAny]
+
+    def get_queryset(self):
+        qs = (
+            Sucursal.objects
+            .filter(activo=True)
+            .select_related('comuna__region')
+            .prefetch_related('comuna__comunas_chilexpress')
+            .order_by('nombre')
+        )
+
+        region_id = self.request.query_params.get('region_id')
+        comuna_id = self.request.query_params.get('comuna_id')
+
+        if region_id not in [None, '', 'undefined', 'null']:
+            if not str(region_id).isdigit():
+                raise ValidationError({'region_id': 'Debe ser un número válido.'})
+            qs = qs.filter(comuna__region_id=int(region_id))
+
+        if comuna_id not in [None, '', 'undefined', 'null']:
+            if not str(comuna_id).isdigit():
+                raise ValidationError({'comuna_id': 'Debe ser un número válido.'})
+            qs = qs.filter(comuna_id=int(comuna_id))
+
+        return qs

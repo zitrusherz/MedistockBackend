@@ -5,6 +5,7 @@ from apps.orders.views import (
     AprobarPedidoView,
     MisPedidosView,
     ListarPedidosView,
+    ResumenCotizacionesView,
 )
 
 urlpatterns = [
@@ -13,4 +14,5 @@ urlpatterns = [
     path("pedidos/todos/", ListarPedidosView.as_view(), name="orders-listar-todos"),
     path("pedidos/<int:pedido_id>/", DetallePedidoView.as_view(), name="orders-detalle"),
     path("pedidos/<int:pedido_id>/aprobar/", AprobarPedidoView.as_view(), name="orders-aprobar"),
+    path("cotizaciones/resumen/", ResumenCotizacionesView.as_view(), name="orders-cotizaciones-resumen"),
 ]

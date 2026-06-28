@@ -8,10 +8,10 @@ from apps.orders.permissions import (
     ClientePuedeEditarPedidoHastaAprobado,
 )
 from django.db import transaction
-from django.db.models import F
+from django.db.models import F, Sum
 from rest_framework.exceptions import ValidationError
 
-from apps.orders.models import Pedido, DetallePedido, AprobacionPedido
+from apps.orders.models import Pedido, DetallePedido, AprobacionPedido, Cotizacion
 from apps.orders.serializers import (
     CrearPedidoInputSerializer,
     PedidoOutputSerializer,
@@ -399,3 +399,54 @@ class ListarPedidosView(APIView):
 
         serializer = PedidoOutputSerializer(pedidos, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class ResumenCotizacionesView(APIView):
+    """
+    GET /api/orders/cotizaciones/resumen/
+
+    Alimenta el KPI "Cotizaciones pendientes" del panel operativo (T4.1).
+    Sin parámetros.
+
+    - pendientes: cotizaciones aún sin convertir en pedido / sin resolver
+      (estado BORRADOR o ENVIADA).
+    - total: total histórico de cotizaciones.
+    - monto_pendiente: suma de total_estimado de las cotizaciones pendientes.
+    """
+
+    permission_classes = [IsAuthenticated]
+
+    ROLES_PERMITIDOS = ['Administrador', 'Ejecutivo', 'Analista']
+
+    ESTADOS_PENDIENTES = ['BORRADOR', 'ENVIADA']
+
+    def get(self, request):
+        tiene_permiso = (
+            request.user.is_staff
+            or request.user.groups.filter(name__in=self.ROLES_PERMITIDOS).exists()
+        )
+
+        if not tiene_permiso:
+            return Response(
+                {"error": "Solo Administrador, Ejecutivo o Analista pueden ver este resumen."},
+                status=status.HTTP_403_FORBIDDEN,
+            )
+
+        cotizaciones_pendientes = Cotizacion.objects.filter(
+            estado__in=self.ESTADOS_PENDIENTES
+        )
+
+        pendientes = cotizaciones_pendientes.count()
+        total = Cotizacion.objects.count()
+        monto_pendiente = cotizaciones_pendientes.aggregate(
+            suma=Sum('total_estimado')
+        )['suma'] or 0
+
+        return Response(
+            {
+                "pendientes": pendientes,
+                "total": total,
+                "monto_pendiente": monto_pendiente,
+            },
+            status=status.HTTP_200_OK,
+        )
