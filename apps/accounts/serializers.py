@@ -1,9 +1,11 @@
 from django.contrib.auth.models import Group
 from django.contrib.auth.password_validation import validate_password
+from django.core.exceptions import ValidationError as DjangoValidationError
 from django.db import transaction, IntegrityError
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from .models import Usuario, Institucion, PerfilTrabajador, PerfilCliente, ConvenioInstitucion, DireccionEntrega
+from .validators import validar_rut
 from apps.locations.models import Comuna, Sucursal
 
 
@@ -328,6 +330,79 @@ class DireccionRegistroClienteSerializer(serializers.Serializer):
     telefono_receptor = serializers.CharField(max_length=30, required=False, allow_blank=True, allow_null=True)
     es_principal = serializers.BooleanField(default=True)
 
+# ============================================================
+# HELPERS REGISTRO CLIENTE
+# ============================================================
+
+def limpiar_rut(value):
+    """
+    Deja el RUT sin puntos ni guion para comparar variantes.
+    Ej: "12.345.678-5" -> "123456785".
+    """
+    if value in [None, ""]:
+        return None
+
+    return str(value).replace(".", "").replace("-", "").upper().strip()
+
+
+def formatear_rut(value):
+    """
+    Normaliza el RUT al formato usado por la BD/frontend.
+    Ej: "123456785" -> "12.345.678-5".
+    """
+    rut_limpio = limpiar_rut(value)
+
+    if not rut_limpio:
+        return None
+
+    cuerpo = rut_limpio[:-1]
+    dv = rut_limpio[-1]
+
+    try:
+        cuerpo_formateado = f"{int(cuerpo):,}".replace(",", ".")
+    except ValueError:
+        return value
+
+    return f"{cuerpo_formateado}-{dv}"
+
+
+def variantes_rut(value):
+    """
+    Genera variantes para detectar duplicados aunque la BD tenga RUTs
+    guardados con o sin puntos/guion.
+    """
+    rut_limpio = limpiar_rut(value)
+
+    if not rut_limpio:
+        return []
+
+    cuerpo = rut_limpio[:-1]
+    dv = rut_limpio[-1]
+
+    variantes = {
+        str(value).strip(),
+        rut_limpio,
+        f"{cuerpo}-{dv}",
+        formatear_rut(value),
+    }
+
+    return [v for v in variantes if v]
+
+
+def django_error_to_drf(exc):
+    """
+    Convierte errores de Django full_clean()/validators a una estructura
+    consumible por DRF y el frontend.
+    """
+    if hasattr(exc, "message_dict"):
+        return exc.message_dict
+
+    if hasattr(exc, "messages"):
+        return {"non_field_errors": exc.messages}
+
+    return {"non_field_errors": [str(exc)]}
+
+
 class InstitucionRegistroSerializer(serializers.Serializer):
     razon_social = serializers.CharField(max_length=180)
     rut_empresa = serializers.CharField(max_length=20)
@@ -342,9 +417,18 @@ class InstitucionRegistroSerializer(serializers.Serializer):
     email_contacto = serializers.EmailField(required=False, allow_blank=True, allow_null=True)
 
     def validate_rut_empresa(self, value):
-        # Si quieres permitir reutilizar institución existente, NO bloquees aquí.
-        # Solo validamos formato con el validador del modelo al crear/actualizar.
-        return value
+        if value in [None, ""]:
+            raise serializers.ValidationError("El RUT de la empresa es obligatorio.")
+
+        rut_formateado = formatear_rut(value)
+
+        try:
+            validar_rut(rut_formateado)
+        except DjangoValidationError as exc:
+            raise serializers.ValidationError(exc.messages[0])
+
+        return rut_formateado
+
 
 class ClienteCreateSerializer(serializers.Serializer):
     usuario = UsuarioInternoCreateSerializer()
@@ -360,11 +444,31 @@ class ClienteCreateSerializer(serializers.Serializer):
         allow_null=True
     )
 
-    datos_institucion = InstitucionRegistroSerializer(required=False, allow_null=True )
+    datos_institucion = InstitucionRegistroSerializer(required=False, allow_null=True)
+    direccion_entrega = DireccionRegistroClienteSerializer(required=True, write_only=True)
 
-    direccion_entrega = DireccionRegistroClienteSerializer(required=True, write_only= True)
+    def validate_rut(self, value):
+        if value in [None, ""]:
+            return None
+
+        rut_formateado = formatear_rut(value)
+
+        try:
+            validar_rut(rut_formateado)
+        except DjangoValidationError as exc:
+            raise serializers.ValidationError(exc.messages[0])
+
+        return rut_formateado
+
+    def validate_pasaporte(self, value):
+        if value in [None, ""]:
+            return None
+
+        return str(value).strip().upper()
 
     def validate(self, attrs):
+        errors = {}
+
         usuario_data = attrs.get("usuario", {})
         username = usuario_data.get("username")
         email = usuario_data.get("email")
@@ -375,62 +479,84 @@ class ClienteCreateSerializer(serializers.Serializer):
         institucion_id = attrs.get("institucion_id")
         datos_institucion = attrs.get("datos_institucion")
 
-        if username and Usuario.objects.filter(username=username).exists():
-            raise serializers.ValidationError({
-                "usuario": {
-                    "username": "Ya existe un usuario registrado con este correo."
-                }
-            })
+        # El registro público usa el correo como username.
+        if email:
+            email = email.strip().lower()
+            usuario_data["email"] = email
+            usuario_data["username"] = email
+            username = email
+        elif username:
+            username = username.strip().lower()
+            usuario_data["username"] = username
 
-        if email and Usuario.objects.filter(email=email).exists():
-            raise serializers.ValidationError({
-                "usuario": {
-                    "email": "Ya existe un usuario registrado con este email."
-                }
-            })
+        # Duplicados de usuario.
+        if username and Usuario.objects.filter(username__iexact=username).exists():
+            errors.setdefault("usuario", {})["username"] = [
+                "Ya existe un usuario registrado con este correo."
+            ]
 
-        if rut and PerfilCliente.objects.filter(rut=rut).exists():
-            raise serializers.ValidationError({
-                "rut": "Ya existe un cliente registrado con este RUT."
-            })
+        if email and Usuario.objects.filter(email__iexact=email).exists():
+            errors.setdefault("usuario", {})["email"] = [
+                "Ya existe un usuario registrado con este email."
+            ]
 
-        if pasaporte and PerfilCliente.objects.filter(pasaporte=pasaporte).exists():
-            raise serializers.ValidationError({
-                "pasaporte": "Ya existe un cliente registrado con este pasaporte."
-            })
+        # Duplicados de documento.
+        if rut:
+            rut_values = variantes_rut(rut)
 
+            if PerfilCliente.objects.filter(rut__in=rut_values).exists():
+                errors["rut"] = [
+                    "Ya existe un cliente registrado con este RUT."
+                ]
+
+            if Usuario.objects.filter(rut__in=rut_values).exists():
+                errors["rut"] = [
+                    "Ya existe una cuenta registrada con este RUT."
+                ]
+
+        if pasaporte and PerfilCliente.objects.filter(pasaporte__iexact=pasaporte).exists():
+            errors["pasaporte"] = [
+                "Ya existe un cliente registrado con este pasaporte."
+            ]
+
+        # Reglas documento: rut XOR pasaporte.
         if not rut and not pasaporte:
-            raise serializers.ValidationError(
+            errors["non_field_errors"] = [
                 "Debe proporcionar al menos un documento, RUT o Pasaporte."
-            )
+            ]
 
         if rut and pasaporte:
-            raise serializers.ValidationError(
+            errors["non_field_errors"] = [
                 "No se pueden registrar RUT y Pasaporte simultáneamente."
-            )
+            ]
 
+        # Reglas por tipo de cliente.
         if tipo_cliente == "INSTITUCIONAL":
             if not rut:
-                raise serializers.ValidationError({
-                    "rut": "Los clientes institucionales requieren obligatoriamente un RUT."
-                })
+                errors["rut"] = [
+                    "Los clientes institucionales requieren obligatoriamente un RUT."
+                ]
 
             if not institucion_id and not datos_institucion:
-                raise serializers.ValidationError({
-                    "datos_institucion": "Debe enviar los datos de la institución o un institucion_id."
-                })
+                errors["datos_institucion"] = [
+                    "Debe enviar los datos de la institución o un institucion_id."
+                ]
 
             if institucion_id and datos_institucion:
-                raise serializers.ValidationError({
-                    "institucion": "Envíe institucion_id o datos_institucion, pero no ambos."
-                })
+                errors["institucion"] = [
+                    "Envíe institucion_id o datos_institucion, pero no ambos."
+                ]
 
         if tipo_cliente == "PARTICULAR":
             if institucion_id or datos_institucion:
-                raise serializers.ValidationError({
-                    "institucion": "Un cliente particular no debe tener institución."
-                })
+                errors["institucion"] = [
+                    "Un cliente particular no debe tener institución."
+                ]
 
+        if errors:
+            raise serializers.ValidationError(errors)
+
+        attrs["usuario"] = usuario_data
         return attrs
 
     def create(self, validated_data):
@@ -444,6 +570,7 @@ class ClienteCreateSerializer(serializers.Serializer):
         try:
             with transaction.atomic():
                 password = datos_usuario.pop("password")
+                datos_usuario.pop("password2", None)
 
                 usuario = Usuario(**datos_usuario)
                 usuario.set_password(password)
@@ -451,38 +578,71 @@ class ClienteCreateSerializer(serializers.Serializer):
                 if validated_data.get("rut"):
                     usuario.rut = validated_data.get("rut")
 
+                try:
+                    usuario.full_clean()
+                except DjangoValidationError as exc:
+                    raise serializers.ValidationError({
+                        "usuario": django_error_to_drf(exc)
+                    })
+
                 usuario.save()
 
                 if tipo_cliente == "INSTITUCIONAL":
                     if datos_institucion:
-                        institucion, _ = Institucion.objects.get_or_create(
-                            rut_empresa=datos_institucion["rut_empresa"],
-                            defaults={
-                                "razon_social": datos_institucion["razon_social"],
-                                "giro": datos_institucion.get("giro"),
-                                "direccion_comercial": datos_institucion.get("direccion_comercial"),
-                                "comuna": datos_institucion.get("comuna"),
-                                "telefono": datos_institucion.get("telefono"),
-                                "email_contacto": datos_institucion.get("email_contacto"),
-                                "activo": True,
-                            }
-                        )
+                        rut_empresa = datos_institucion["rut_empresa"]
 
-                    grupo_cliente, _ = Group.objects.get_or_create(name="ClienteInstitucional")
+                        institucion = Institucion.objects.filter(
+                            rut_empresa__in=variantes_rut(rut_empresa)
+                        ).first()
 
+                        if not institucion:
+                            institucion = Institucion(
+                                rut_empresa=formatear_rut(rut_empresa),
+                                razon_social=datos_institucion["razon_social"],
+                                giro=datos_institucion.get("giro"),
+                                direccion_comercial=datos_institucion.get("direccion_comercial"),
+                                comuna=datos_institucion.get("comuna"),
+                                telefono=datos_institucion.get("telefono"),
+                                email_contacto=datos_institucion.get("email_contacto"),
+                                activo=True,
+                            )
+
+                            try:
+                                institucion.full_clean()
+                            except DjangoValidationError as exc:
+                                raise serializers.ValidationError({
+                                    "datos_institucion": django_error_to_drf(exc)
+                                })
+
+                            institucion.save()
+
+                    grupo_cliente, _ = Group.objects.get_or_create(
+                        name="ClienteInstitucional"
+                    )
                 else:
                     institucion = None
-                    grupo_cliente, _ = Group.objects.get_or_create(name="ClienteParticular")
+                    grupo_cliente, _ = Group.objects.get_or_create(
+                        name="ClienteParticular"
+                    )
 
                 usuario.groups.add(grupo_cliente)
 
-                perfil = PerfilCliente.objects.create(
+                perfil = PerfilCliente(
                     usuario=usuario,
                     institucion=institucion,
                     **validated_data
                 )
 
-                DireccionEntrega.objects.create(
+                try:
+                    perfil.full_clean()
+                except DjangoValidationError as exc:
+                    raise serializers.ValidationError(
+                        django_error_to_drf(exc)
+                    )
+
+                perfil.save()
+
+                direccion = DireccionEntrega(
                     cliente=perfil,
                     institucion=institucion if tipo_cliente == "INSTITUCIONAL" else None,
                     direccion=datos_direccion["direccion"],
@@ -496,7 +656,19 @@ class ClienteCreateSerializer(serializers.Serializer):
                     activo=True,
                 )
 
+                try:
+                    direccion.full_clean()
+                except DjangoValidationError as exc:
+                    raise serializers.ValidationError({
+                        "direccion_entrega": django_error_to_drf(exc)
+                    })
+
+                direccion.save()
+
                 return perfil
+
+        except serializers.ValidationError:
+            raise
 
         except IntegrityError as e:
             error = str(e)
@@ -504,24 +676,25 @@ class ClienteCreateSerializer(serializers.Serializer):
             if "username" in error:
                 raise serializers.ValidationError({
                     "usuario": {
-                        "username": "Ya existe un usuario registrado con este correo."
+                        "username": ["Ya existe un usuario registrado con este correo."]
                     }
                 })
 
             if "email" in error:
                 raise serializers.ValidationError({
                     "usuario": {
-                        "email": "Ya existe un usuario registrado con este email."
+                        "email": ["Ya existe un usuario registrado con este email."]
                     }
                 })
 
             if "rut" in error:
                 raise serializers.ValidationError({
-                    "rut": "Ya existe un registro con este RUT."
+                    "rut": ["Ya existe un registro con este RUT."]
                 })
 
             raise serializers.ValidationError({
-                "detail": "No se pudo completar el registro porque algunos datos ya existen."
+                "detail": ["No se pudo completar el registro porque algunos datos ya existen."],
+                "debug": [error],
             })
 
     def to_representation(self, instance):
@@ -540,8 +713,9 @@ class ClienteCreateSerializer(serializers.Serializer):
             "telefono": instance.telefono,
             "institucion": instance.institucion.id if instance.institucion else None,
             "activo": instance.activo,
-            "mensaje": "Cliente registrado correctamente."
+            "mensaje": "Cliente registrado correctamente.",
         }
+
 
 class PerfilClienteResumenSerializer(serializers.ModelSerializer):
     nombre_completo = serializers.SerializerMethodField()
