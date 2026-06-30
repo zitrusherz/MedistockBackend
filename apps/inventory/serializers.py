@@ -6,7 +6,8 @@ from .models import (
     TrasladoInventario, DetalleTrasladoInventario
 )
 from apps.locations.models import Sucursal
-
+import os
+from django.conf import settings
 IVA = 0.19
 
 
@@ -14,14 +15,50 @@ IVA = 0.19
 # HELPER — URL absoluta de imagen
 # ============================================================
 
-def get_imagen_url(obj, request):
-    """Devuelve la URL absoluta de la imagen de un objeto (Producto, Categoria o Marca), o None si no tiene."""
-    if obj.imagen:
-        if request:
-            return request.build_absolute_uri(obj.imagen.url)
-        return obj.imagen.url
-    return None
+IMAGE_EXTENSIONS = ('.jpg', '.jpeg', '.png', '.webp', '.gif', '.bmp', '.svg')
 
+
+def get_imagen_url(obj, request):
+    """
+    Devuelve la URL absoluta de la imagen de un objeto (Producto, Categoria o Marca).
+
+    El campo `imagen` en la BD puede venir con o sin extensión (ej: 'categorias/limpieza').
+    Esta función busca en MEDIA_ROOT cualquier archivo cuyo nombre base coincida y
+    tenga una extensión de imagen válida. Si lo encuentra, devuelve esa URL real.
+    Si no, retorna None.
+    """
+    if not obj.imagen:
+        return None
+
+    # Ruta tal como está registrada (puede traer extensión o no)
+    ruta_bd = obj.imagen.name  # p.ej. "categorias/limpieza" o "categorias/limpieza.jpg"
+
+    directorio, nombre_archivo = os.path.split(ruta_bd)
+    nombre_base, ext_bd = os.path.splitext(nombre_archivo)
+
+    carpeta_abs = os.path.join(settings.MEDIA_ROOT, directorio)
+    ruta_relativa = None
+
+    if os.path.isdir(carpeta_abs):
+        # 1) Si la ruta de la BD ya apunta a un archivo existente, úsala tal cual
+        if ext_bd and os.path.isfile(os.path.join(settings.MEDIA_ROOT, ruta_bd)):
+            ruta_relativa = ruta_bd
+        else:
+            # 2) Buscar por nombre base + cualquier extensión de imagen
+            for archivo in os.listdir(carpeta_abs):
+                base, ext = os.path.splitext(archivo)
+                if base.lower() == nombre_base.lower() and ext.lower() in IMAGE_EXTENSIONS:
+                    ruta_relativa = os.path.join(directorio, archivo).replace('\\', '/')
+                    break
+
+    if not ruta_relativa:
+        return None
+
+    url = settings.MEDIA_URL.rstrip('/') + '/' + ruta_relativa.lstrip('/')
+
+    if request:
+        return request.build_absolute_uri(url)
+    return url
 
 # ============================================================
 # CATEGORÍA

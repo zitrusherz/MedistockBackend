@@ -5,7 +5,7 @@ from .views import (
     RegionsWithComunasView,
     ComunaListView,
     ComunaChilexpressListView,
-    SucursalListView,      # <-- nuevo
+    SucursalListView,     
     SucursalDetailView,
 )
 
@@ -14,6 +14,6 @@ urlpatterns = [
     path('regions-with-comunas/', RegionsWithComunasView.as_view(), name='regions-with-comunas'),
     path('comunas/', ComunaListView.as_view(), name='comunas-list'),
     path('comunas-chilexpress/', ComunaChilexpressListView.as_view(), name='comunas-chilexpress-list'),
-    path('sucursales/', SucursalListView.as_view(), name='sucursales-list'),          # <-- nuevo
+    path('sucursales/', SucursalListView.as_view(), name='sucursales-list'),
     path('sucursales/<int:pk>/', SucursalDetailView.as_view(), name='sucursal-detail'),
 ]

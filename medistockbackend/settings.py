@@ -124,18 +124,17 @@ DATABASES = {
     #    'CERT': os.getenv('DB_CERT_REMOTE', ''),
     #},
     'default': {
-        'NAME': os.getenv('DB_NAME', 'medistock_db'),
-        'ENGINE': os.getenv('DB_ENGINE', 'django.db.backends.mysql'),
-        'HOST': os.getenv('DB_HOST', '127.0.0.1'),
-        'PORT': int(os.getenv('DB_PORT', '3306')),
-        'USER': os.getenv('DB_USER', 'admin_medistock'),
-        'PASSWORD': os.getenv('DB_PASSWORD', ''),
+        'NAME': 'medistock_db',
+        'ENGINE': 'django.db.backends.mysql',
+        'HOST': '127.0.0.1',
+        'PORT': 3306,
+        'USER': 'admin_medistock',
+        'PASSWORD': 'te@A9P%Zg&CbbXraXqdy',
         'OPTIONS': {
             'charset': 'utf8mb4',
             'collation': 'utf8mb4_unicode_ci',
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
         },
-
     }
 
 }
