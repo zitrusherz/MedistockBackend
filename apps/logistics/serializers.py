@@ -1,3 +1,5 @@
+from collections import Counter
+
 from rest_framework import serializers
 from apps.locations.models import ComunaChilexpress, Sucursal
 from apps.orders.models import Pedido, DetallePedido
@@ -29,22 +31,24 @@ def _productos_a_lista_empaque(detalles_pedido) -> list[dict]:
     return items
 
 
-def _productos_manuales_a_lista_empaque(productos_data: list[dict]) -> list[dict]:
+def _productos_ids_a_lista_empaque(productos_por_id: dict[int, Producto], productos_ids: list[int]) -> list[dict]:
     """
-    Convierte los productos del modo manual (validados por ProductoManualSerializer)
-    en la lista de dicts que espera calcular_caja_optima.
-    Expande según cantidad.
+    Convierte una lista de IDs de productos en la lista de dicts que espera
+    calcular_caja_optima. Si un ID se repite, se interpreta como más de una unidad.
     """
     items = []
-    for idx, prod in enumerate(productos_data):
-        for i in range(prod["cantidad"]):
-            items.append({
-                "id": f"manual-{idx}-{i}",
-                "largo_mm": prod["largo_mm"],
-                "ancho_mm": prod["ancho_mm"],
-                "alto_mm":  prod["alto_mm"],
-                "peso_mg":  prod["peso_mg"],
-            })
+    ocurrencias = Counter()
+
+    for producto_id in productos_ids:
+        prod = productos_por_id[producto_id]
+        ocurrencias[producto_id] += 1
+        items.append({
+            "id": f"{prod.sku}-{ocurrencias[producto_id]}",
+            "largo_mm": prod.largo_mm or 1,
+            "ancho_mm": prod.ancho_mm or 1,
+            "alto_mm":  prod.alto_mm or 1,
+            "peso_mg":  prod.peso_mg or 1,
+        })
     return items
 
 
@@ -107,30 +111,43 @@ class CotizacionInputSerializer(serializers.Serializer):
 
     Modos:
       - Con pedido:  pedido_id + county_code_destino
-      - Sin pedido:  sucursal_id + productos + county_code_destino
+      - Sin pedido:  sucursal_id + productos_ids + county_code_destino
     """
     pedido_id           = serializers.IntegerField(required=False, allow_null=True)
     sucursal_id         = serializers.IntegerField(required=False, allow_null=True)
-    productos           = ProductoManualSerializer(many=True, required=False)
+    productos_ids       = serializers.ListField(
+        child=serializers.IntegerField(min_value=1),
+        required=False,
+    )
     county_code_destino = serializers.CharField(max_length=10)
 
     def validate(self, data):
         pedido_id   = data.get("pedido_id")
         sucursal_id = data.get("sucursal_id")
-        productos   = data.get("productos")
+        productos_ids = data.get("productos_ids") or []
 
         if not pedido_id:
             if not sucursal_id:
                 raise serializers.ValidationError(
                     "Si no se indica un pedido, debe especificar 'sucursal_id'."
                 )
-            if not productos:
+            if not productos_ids:
                 raise serializers.ValidationError(
-                    "Si no se indica un pedido, debe especificar al menos un producto en 'productos'."
+                    "Si no se indica un pedido, debe especificar al menos un producto en 'productos_ids'."
                 )
         else:
             if not Pedido.objects.filter(pk=pedido_id).exists():
                 raise serializers.ValidationError(f"No existe un pedido con id={pedido_id}.")
+
+        if productos_ids:
+            productos_existentes = set(
+                Producto.objects.filter(pk__in=productos_ids, activo=True).values_list("pk", flat=True)
+            )
+            faltantes = sorted(set(productos_ids) - productos_existentes)
+            if faltantes:
+                raise serializers.ValidationError(
+                    f"No existen o están inactivos los productos con id(s): {', '.join(str(pk) for pk in faltantes)}."
+                )
 
         if not ComunaChilexpress.objects.filter(
             county_code=data["county_code_destino"],
@@ -165,10 +182,13 @@ class CotizacionInputSerializer(serializers.Serializer):
             peso_total_mg   = sum((d.producto.peso_mg or 0) * d.cantidad for d in detalles)
             valor_declarado = pedido.total
         else:
-            items           = _productos_manuales_a_lista_empaque(data["productos"])
+            productos_ids   = data["productos_ids"]
+            productos_qs    = Producto.objects.filter(pk__in=productos_ids, activo=True)
+            productos_por_id = {producto.pk: producto for producto in productos_qs}
+            items           = _productos_ids_a_lista_empaque(productos_por_id, productos_ids)
             sucursal        = Sucursal.objects.get(pk=data["sucursal_id"])
-            peso_total_mg   = sum(p["peso_mg"] * p["cantidad"] for p in data["productos"])
-            valor_declarado = sum(p["valor_unitario"] * p["cantidad"] for p in data["productos"])
+            peso_total_mg   = sum((productos_por_id[producto_id].peso_mg or 0) for producto_id in productos_ids)
+            valor_declarado = sum((productos_por_id[producto_id].valor_unitario or 0) for producto_id in productos_ids)
 
         # Calcular empaque óptimo con cajas reales
         try:

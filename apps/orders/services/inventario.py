@@ -12,24 +12,24 @@ def _usuario_default(pedido, usuario):
 
 @transaction.atomic
 def reservar_stock_pedido(pedido, usuario=None):
-    """Reserva stock para un pedido en su sucursal de origen."""
+    """Reserva stock para un pedido, buscando en cualquier sucursal disponible."""
     detalles = DetallePedido.objects.filter(pedido=pedido).select_related("lote")
     if not detalles:
         return
 
     usuario = _usuario_default(pedido, usuario)
-    sucursal_id = pedido.sucursal_origen_id
 
     for detalle in detalles:
+        # Buscar inventario en CUALQUIER sucursal (no solo en la sucursal de origen)
         inventario = (
             Inventario.objects
             .select_for_update()
-            .filter(lote_id=detalle.lote_id, sucursal_id=sucursal_id)
+            .filter(lote_id=detalle.lote_id)
             .first()
         )
         if not inventario:
             raise ValidationError({
-                "stock": f"No existe inventario para lote id={detalle.lote_id} en la sucursal indicada."
+                "stock": f"No existe inventario para lote id={detalle.lote_id} en ninguna sucursal."
             })
 
         disponible_neto = inventario.cantidad_disponible - inventario.cantidad_reservada
@@ -52,13 +52,13 @@ def reservar_stock_pedido(pedido, usuario=None):
             tipo_movimiento="RESERVA",
             cantidad=detalle.cantidad,
             motivo="Reserva por pedido",
-            observacion=f"Pedido {pedido.id}",
+            observacion=f"Pedido {pedido.id} (Sucursal {inventario.sucursal_id})",
         )
 
 
 @transaction.atomic
 def consumir_reserva_pedido(pedido, usuario=None, motivo="Consumo de reserva"):
-    """Consume la reserva de un pedido y descuenta stock disponible."""
+    """Consume la reserva de un pedido, buscando stock en cualquier sucursal."""
     if MovimientoInventario.objects.filter(
         pedido=pedido,
         tipo_movimiento="SALIDA",
@@ -70,18 +70,18 @@ def consumir_reserva_pedido(pedido, usuario=None, motivo="Consumo de reserva"):
         return False
 
     usuario = _usuario_default(pedido, usuario)
-    sucursal_id = pedido.sucursal_origen_id
 
     for detalle in detalles:
+        # Buscar inventario en CUALQUIER sucursal (no solo en la sucursal de origen)
         inventario = (
             Inventario.objects
             .select_for_update()
-            .filter(lote_id=detalle.lote_id, sucursal_id=sucursal_id)
+            .filter(lote_id=detalle.lote_id)
             .first()
         )
         if not inventario:
             raise ValidationError({
-                "stock": f"No existe inventario para lote id={detalle.lote_id} en la sucursal indicada."
+                "stock": f"No existe inventario para lote id={detalle.lote_id} en ninguna sucursal."
             })
 
         if inventario.cantidad_reservada < detalle.cantidad:
@@ -112,7 +112,7 @@ def consumir_reserva_pedido(pedido, usuario=None, motivo="Consumo de reserva"):
             tipo_movimiento="SALIDA",
             cantidad=detalle.cantidad,
             motivo=motivo,
-            observacion=f"Pedido {pedido.id}",
+            observacion=f"Pedido {pedido.id} (Sucursal {inventario.sucursal_id})",
         )
 
     return True

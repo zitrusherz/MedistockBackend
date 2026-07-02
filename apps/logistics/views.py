@@ -37,9 +37,7 @@ class CotizarEnvioView(APIView):
         {
             "sucursal_id": 1,
             "county_code_destino": "CONC",
-            "productos": [
-                {"peso_mg": 500000, "largo_mm": 200, "ancho_mm": 150, "alto_mm": 100, "cantidad": 3}
-            ]
+            "productos_ids": [12, 12, 15, 20]
         }
     """
     permission_classes = [IsAuthenticated]

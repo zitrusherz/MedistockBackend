@@ -83,8 +83,7 @@ class CrearPedidoInputSerializer(serializers.Serializer):
                 "La dirección de entrega no pertenece al cliente autenticado."
             )
 
-        # Verificar stock por cada línea en la sucursal de origen
-        sucursal_id   = data["sucursal_origen_id"]
+        # Verificar stock por cada línea en CUALQUIER sucursal (no solo en la sucursal de origen)
         errores_stock = []
 
         for detalle in data["detalles"]:
@@ -93,14 +92,14 @@ class CrearPedidoInputSerializer(serializers.Serializer):
             lote_id     = detalle.get("lote_id")
 
             if lote_id:
+                # Si se especifica un lote, debe existir en CUALQUIER sucursal con stock
                 inventario = Inventario.objects.filter(
                     lote_id=lote_id,
                     lote__producto_id=producto_id,
-                    sucursal_id=sucursal_id,
                 ).first()
                 if not inventario:
                     errores_stock.append(
-                        f"Producto id={producto_id}: lote id={lote_id} no existe en la sucursal indicada."
+                        f"Producto id={producto_id}: lote id={lote_id} no existe en el sistema."
                     )
                 else:
                     disponible_neto = (
@@ -112,16 +111,16 @@ class CrearPedidoInputSerializer(serializers.Serializer):
                         f"Disponible neto: {disponible_neto}, solicitado: {cantidad}."
                     )
             else:
+                # Buscar stock total en CUALQUIER sucursal
                 stock_total = Inventario.objects.filter(
                     lote__producto_id=producto_id,
-                    sucursal_id=sucursal_id,
                     lote__activo=True,
                 ).values_list("cantidad_disponible", "cantidad_reservada")
                 stock_total = sum((d - r) for d, r in stock_total)
 
                 if stock_total < cantidad:
                     errores_stock.append(
-                        f"Producto id={producto_id}: stock insuficiente en la sucursal. "
+                        f"Producto id={producto_id}: stock insuficiente en el sistema. "
                         f"Disponible neto: {stock_total}, solicitado: {cantidad}."
                     )
 

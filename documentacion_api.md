@@ -4007,9 +4007,7 @@ Sin pedido:
 {
   "sucursal_id": 1,
   "county_code_destino": "CONC",
-  "productos": [
-    {"peso_mg": 500000, "largo_mm": 200, "ancho_mm": 150, "alto_mm": 100, "cantidad": 3, "valor_unitario": 1000}
-  ]
+  "productos_ids": [12, 12, 15, 20]
 }
 ```
 
@@ -4020,18 +4018,13 @@ Sin pedido:
 | `pedido_id`          | `integer` | Cond.     | -       | Pedido existente |
 | `sucursal_id`        | `integer` | Cond.     | -       | Sucursal si no hay pedido |
 | `county_code_destino`| `string`  | Si        | -       | Codigo Chilexpress destino |
-| `productos`          | `array`   | Cond.     | -       | Productos manuales |
+| `productos_ids`      | `array`   | Cond.     | -       | IDs de productos a cotizar |
 
-**Estructura `productos`:**
+**Estructura `productos_ids`:**
 
 | Campo         | Tipo      | Requerido | Default | Descripcion |
 |---------------|-----------|-----------|---------|-------------|
-| `peso_mg`     | `integer` | Si        | -       | Peso en mg |
-| `largo_mm`    | `integer` | Si        | -       | Largo en mm |
-| `ancho_mm`    | `integer` | Si        | -       | Ancho en mm |
-| `alto_mm`     | `integer` | Si        | -       | Alto en mm |
-| `cantidad`    | `integer` | Si        | `1`     | Cantidad |
-| `valor_unitario` | `integer` | No     | `0`     | Valor para declarado |
+| `producto_id` | `integer` | Si        | -       | ID del producto en inventario |
 
 #### Parametros de URL / Query params
 

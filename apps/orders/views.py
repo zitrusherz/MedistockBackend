@@ -56,14 +56,13 @@ def _calcular_montos(detalles_data: list[dict]) -> dict:
     }
 
 
-def _elegir_lote(producto_id: int, sucursal_id: int, cantidad: int):
+def _elegir_lote(producto_id: int, cantidad: int):
     """
-    Elige el lote más próximo a vencer con stock suficiente (FEFO).
+    Elige el lote más próximo a vencer con stock suficiente en CUALQUIER sucursal (FEFO global).
     Retorna la instancia de Inventario o None si no hay stock.
     """
     return Inventario.objects.filter(
         lote__producto_id=producto_id,
-        sucursal_id=sucursal_id,
         lote__activo=True,
         cantidad_disponible__gte=F("cantidad_reservada") + cantidad,
     ).order_by("lote__fecha_vencimiento").select_related("lote").first()
@@ -116,12 +115,12 @@ class CrearPedidoView(APIView):
 
             # Elegir lote si no se especificó
             if not lote_id:
-                inventario = _elegir_lote(producto_id, data["sucursal_origen_id"], cantidad)
+                inventario = _elegir_lote(producto_id, cantidad)
                 if not inventario:
                     # No debería llegar aquí porque validate() ya verificó stock,
                     # pero puede haber una race condition entre validate y atomic
                     return Response(
-                        {"error": f"Sin stock disponible para producto id={producto_id} en la sucursal indicada."},
+                        {"error": f"Sin stock disponible para producto id={producto_id} en el sistema."},
                         status=status.HTTP_409_CONFLICT,
                     )
                 lote_id = inventario.lote_id
