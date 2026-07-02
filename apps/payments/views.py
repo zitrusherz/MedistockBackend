@@ -6,6 +6,7 @@ from django.utils import timezone
 from django.utils.dateparse import parse_datetime, parse_date
 from datetime import datetime, time, timedelta, date
 from collections import defaultdict
+from typing import cast
 from apps.payments.services.pedido_post_pago import aprobar_pedido_y_crear_despacho_pendiente
 from rest_framework import permissions, status
 from rest_framework.exceptions import NotFound, PermissionDenied, ValidationError
@@ -226,6 +227,7 @@ class WebpayCommitView(APIView):
                 transaccion.transaction_date = parsed_date
 
         despacho_creado = False
+        despacho = None
 
         if aprobada:
             transaccion.estado_pago = "CONFIRMADO"
@@ -291,7 +293,7 @@ class WebpayCommitView(APIView):
         }
 
         if aprobada:
-            response_data["despacho"] = {
+            response_data["despacho"] = None if despacho is None else {
                 "id": despacho.id,
                 "estado_envio": despacho.estado_envio,
                 "creado": despacho_creado,
@@ -450,7 +452,7 @@ class VentasPorCategoriaView(APIView):
             hasta = hoy
             desde = _restar_meses(hoy, 12)
         elif desde is None:
-            desde = _restar_meses(hasta, 12)
+            desde = _restar_meses(cast(date, hasta), 12)
         elif hasta is None:
             hasta = hoy
 

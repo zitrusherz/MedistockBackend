@@ -183,6 +183,9 @@ class WebpayService:
                 "aprobada": cls.es_transaccion_aprobada(response),
             }
 
+        except ValidationError:
+            raise
+
         except Exception as exc:
             raise WebpayServiceError(
                 f"No se pudo confirmar la transacción Webpay: {str(exc)}"
@@ -215,6 +218,9 @@ class WebpayService:
                 "raw": response,
                 "aprobada": cls.es_transaccion_aprobada(response),
             }
+
+        except ValidationError:
+            raise
 
         except Exception as exc:
             raise WebpayServiceError(
