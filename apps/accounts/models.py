@@ -25,8 +25,22 @@ class Usuario(AbstractUser):
 
 
 class Institucion(models.Model):
+    TIPO_INSTITUCION_CHOICES = [
+        ('HOSPITAL', 'Hospital'),
+        ('CLINICA', 'Clínica'),
+        ('LABORATORIO', 'Laboratorio'),
+        ('CENTRO_MEDICO', 'Centro Médico'),
+        ('FARMACIA', 'Farmacia'),
+    ]
+
     razon_social = models.CharField(max_length=180)
     rut_empresa = models.CharField(max_length=20, unique=True, validators=[validar_rut])
+    tipo_institucion = models.CharField(
+        max_length=20,
+        choices=TIPO_INSTITUCION_CHOICES,
+        blank=True,
+        null=True,
+    )
     giro = models.CharField(max_length=180, blank=True, null=True)
     direccion_comercial = models.CharField(max_length=255, blank=True, null=True)
     comuna = models.ForeignKey('locations.Comuna', on_delete=models.SET_NULL, null=True, blank=True)

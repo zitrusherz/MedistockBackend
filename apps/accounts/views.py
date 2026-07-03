@@ -1,3 +1,4 @@
+from django.db.models import Prefetch
 from rest_framework import viewsets, permissions, generics, status
 from rest_framework.decorators import action
 from rest_framework.exceptions import PermissionDenied
@@ -6,6 +7,7 @@ from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenObtainPairView
 from .models import PerfilTrabajador, PerfilCliente, DireccionEntrega
+from .permissions import EsEjecutivoOAdministrador
 from .serializers import (CustomTokenObtainPairSerializer, PerfilTrabajadorSerializer, TrabajadorCreateSerializer,
                           PerfilClienteSerializer, MiPerfilClienteSerializer, ClienteCreateSerializer,
                           MiDireccionEntregaSerializer)
@@ -34,9 +36,22 @@ class TrabajadorViewSet(viewsets.ModelViewSet):
 
 
 class ClienteViewSet(viewsets.ModelViewSet):
-    queryset = PerfilCliente.objects.select_related('usuario', 'institucion').all()
+    """
+    Listado/detalle de clientes para uso administrativo.
+    Solo Administrador o Ejecutivo pueden acceder, y cada cliente
+    viene acompañado de sus direcciones de entrega activas.
+    """
+    queryset = PerfilCliente.objects.select_related('usuario', 'institucion').prefetch_related(
+        Prefetch(
+            'direccionentrega_set',
+            queryset=DireccionEntrega.objects.filter(
+                activo=True
+            ).select_related('comuna', 'comuna__region').order_by('-es_principal', 'id'),
+            to_attr='direcciones_activas'
+        )
+    ).all()
     serializer_class = PerfilClienteSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [EsEjecutivoOAdministrador]
 
 class MiPerfilView(APIView):
     permission_classes = [permissions.IsAuthenticated]

@@ -99,7 +99,7 @@ class InstitucionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Institucion
         fields = [
-            'id', 'razon_social', 'rut_empresa', 'giro',
+            'id', 'razon_social', 'rut_empresa', 'tipo_institucion', 'giro',
             'direccion_comercial', 'comuna', 'telefono', 'email_contacto',
             'convenio_activo', 'credito_autorizado', 'limite_credito', 'activo'
         ]
@@ -108,7 +108,7 @@ class InstitucionSerializer(serializers.ModelSerializer):
 class InstitucionResumenSerializer(serializers.ModelSerializer):
     class Meta:
         model = Institucion
-        fields = ['id', 'razon_social', 'rut_empresa']
+        fields = ['id', 'razon_social', 'rut_empresa', 'tipo_institucion']
 
 
 # ============================================================
@@ -184,12 +184,33 @@ class PerfilTrabajadorResumenSerializer(serializers.ModelSerializer):
 # ============================================================
 
 class PerfilClienteSerializer(serializers.ModelSerializer):
+    """
+    Serializer completo de PerfilCliente, pensado para las vistas de
+    administración (Administrador/Ejecutivo). Incluye las direcciones
+    de entrega activas del cliente.
+    """
     usuario = UsuarioSerializer(read_only=True)
     institucion = InstitucionResumenSerializer(read_only=True)
+    direcciones = serializers.SerializerMethodField()
 
     class Meta:
         model = PerfilCliente
-        fields = ['id', 'usuario', 'rut', 'pasaporte', 'tipo_cliente', 'telefono', 'institucion', 'activo']
+        fields = [
+            'id', 'usuario', 'rut', 'pasaporte', 'tipo_cliente', 'telefono',
+            'institucion', 'direcciones', 'activo'
+        ]
+
+    def get_direcciones(self, obj):
+        # Si la vista hizo prefetch (ver ClienteViewSet), usamos esa lista
+        # ya cargada para evitar una consulta N+1 por cada cliente.
+        direcciones = getattr(obj, 'direcciones_activas', None)
+
+        if direcciones is None:
+            direcciones = obj.direccionentrega_set.filter(
+                activo=True
+            ).select_related('comuna', 'comuna__region')
+
+        return MiDireccionEntregaSerializer(direcciones, many=True).data
 
 class MiPerfilClienteSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(source='usuario.email', required=False, allow_blank=False)
@@ -406,6 +427,11 @@ def django_error_to_drf(exc):
 class InstitucionRegistroSerializer(serializers.Serializer):
     razon_social = serializers.CharField(max_length=180)
     rut_empresa = serializers.CharField(max_length=20)
+    tipo_institucion = serializers.ChoiceField(
+        choices=Institucion.TIPO_INSTITUCION_CHOICES,
+        required=False,
+        allow_null=True
+    )
     giro = serializers.CharField(max_length=180, required=False, allow_blank=True, allow_null=True)
     direccion_comercial = serializers.CharField(max_length=255, required=False, allow_blank=True, allow_null=True)
     comuna = serializers.PrimaryKeyRelatedField(
@@ -599,6 +625,7 @@ class ClienteCreateSerializer(serializers.Serializer):
                             institucion = Institucion(
                                 rut_empresa=formatear_rut(rut_empresa),
                                 razon_social=datos_institucion["razon_social"],
+                                tipo_institucion=datos_institucion.get("tipo_institucion"),
                                 giro=datos_institucion.get("giro"),
                                 direccion_comercial=datos_institucion.get("direccion_comercial"),
                                 comuna=datos_institucion.get("comuna"),
