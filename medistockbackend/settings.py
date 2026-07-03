@@ -39,6 +39,10 @@ ALLOWED_HOSTS = [
     ).split(",")
     if host.strip()
 ]
+
+CSRF_TRUSTED_ORIGINS = [
+    "http://98.95.174.251","http://127.0.0.1","http://localhost"
+]
 TRANSBANK_ENVIRONMENT = os.getenv("TRANSBANK_ENVIRONMENT")
 
 TRANSBANK_WEBPAY_COMMERCE_CODE = os.getenv("TRANSBANK_WEBPAY_COMMERCE_CODE")
