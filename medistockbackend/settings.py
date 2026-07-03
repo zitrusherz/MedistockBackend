@@ -28,8 +28,17 @@ MEDISTOCK_RUT      = os.getenv("MEDISTOCK_RUT")
 MEDISTOCK_TELEFONO = os.getenv("MEDISTOCK_TELEFONO")
 MEDISTOCK_EMAIL    = os.getenv("MEDISTOCK_EMAIL")
 
-FRONTEND_BASE_URL = "http://3.232.238.104"
-BACKEND_BASE_URL = "http://3.232.238.104"
+FRONTEND_BASE_URL = os.getenv("FRONTEND_BASE_URL", "http://localhost:5173")
+BACKEND_BASE_URL = os.getenv("BACKEND_BASE_URL", "http://127.0.0.1:8000")
+
+ALLOWED_HOSTS = [
+    host.strip()
+    for host in os.getenv(
+        "ALLOWED_HOSTS",
+        "localhost,127.0.0.1",
+    ).split(",")
+    if host.strip()
+]
 TRANSBANK_ENVIRONMENT = os.getenv("TRANSBANK_ENVIRONMENT")
 
 TRANSBANK_WEBPAY_COMMERCE_CODE = os.getenv("TRANSBANK_WEBPAY_COMMERCE_CODE")
@@ -48,9 +57,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: don't run with debug turned on in production!
 
 
-ALLOWED_HOSTS = [ "3.232.238.104",
-    "localhost",
-    "127.0.0.1",]
 
 AUTH_USER_MODEL = 'accounts.Usuario'
 
