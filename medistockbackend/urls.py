@@ -35,5 +35,5 @@ urlpatterns = [
     path('api/locations/', include('apps.locations.urls')),
     path("api/payments/", include("apps.payments.urls")),
     path("api/orders/", include("apps.orders.urls")),
-    path('api/v1/integrations/', include('apps.integrations.urls')),
+    path('api/integrations/', include('apps.integrations.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
