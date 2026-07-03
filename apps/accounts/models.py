@@ -100,29 +100,32 @@ class PerfilCliente(models.Model):
 
     def clean(self):
         """
-                Validación a nivel de modelo (cross-field validation).
-                Asegura la integridad: un cliente debe tener RUT o Pasaporte, pero no ninguno.
-                """
+        Validación a nivel de modelo.
+        - Todo cliente debe tener RUT o Pasaporte.
+        - No puede tener ambos.
+        - Si es institucional, debe tener RUT.
+        """
         super().clean()
 
-        # Regla 1: Obligatoriedad de al menos un documento
+        errors = {}
+
         if not self.rut and not self.pasaporte:
-            raise ValidationError(
+            errors["__all__"] = [
                 "Debe proporcionar al menos un documento de identificación (RUT o Pasaporte)."
-            )
+            ]
 
-        # Regla 2: Evitar redundancia (Opcional, según tus reglas de negocio)
         if self.rut and self.pasaporte:
-            raise ValidationError(
+            errors["__all__"] = [
                 "No se pueden registrar ambos documentos (RUT y Pasaporte) a la vez. Elija uno."
-            )
+            ]
 
-        # Regla 3: Si es institucional, típicamente se exige RUT en Chile
-        if self.tipo_cliente == 'INSTITUCIONAL' and not self.rut:
-            raise ValidationError(
-                {"rut": "Los clientes de tipo Institucional requieren obligatoriamente un RUT."}
-            )
+        if self.tipo_cliente == "INSTITUCIONAL" and not self.rut:
+            errors["rut"] = [
+                "Los clientes de tipo Institucional requieren obligatoriamente un RUT."
+            ]
 
+        if errors:
+            raise ValidationError(errors)
 
 class ConvenioInstitucion(models.Model):
     institucion = models.ForeignKey(Institucion, on_delete=models.CASCADE)

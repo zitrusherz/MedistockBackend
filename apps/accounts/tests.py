@@ -55,13 +55,12 @@ class ModelStrAndCleanTests(SimpleTestCase):
 
 	def test_perfil_cliente_institucional_requires_rut(self):
 		c = PerfilCliente(tipo_cliente="INSTITUCIONAL", rut=None, pasaporte=None)
+
 		with self.assertRaises(ValidationError) as cm:
 			c.clean()
-		# For institutional clients the model raises a dict with 'rut' key
-		exc = cm.exception
-		if hasattr(exc, "message_dict") and exc.message_dict:
-			self.assertIn("rut", exc.message_dict)
-		else:
-			# fallback: check message text
-			self.assertIn("Institucional", str(exc))
 
+		self.assertIn("rut", cm.exception.message_dict)
+		self.assertIn(
+			"Los clientes de tipo Institucional requieren obligatoriamente un RUT.",
+			cm.exception.message_dict["rut"],
+		)

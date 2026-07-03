@@ -3,3 +3,4 @@
 usuarios_cockpit.txt
 prod-ca-2021.crt
 copilot-instructions.md
+__pycache__/

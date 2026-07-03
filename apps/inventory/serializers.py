@@ -15,8 +15,10 @@ IVA = 0.19
 # HELPER — URL absoluta de imagen
 # ============================================================
 
-IMAGE_EXTENSIONS = ('.jpg', '.jpeg', '.png', '.webp', '.gif', '.bmp', '.svg')
-
+IMAGE_EXTENSIONS = (
+    '.jpg', '.jpeg', '.png', '.webp',
+    '.gif', '.bmp', '.svg', '.avif'
+)
 
 def get_imagen_url(obj, request):
     """

@@ -1,10 +1,3 @@
-# apps/logistics/services/logistica.py
-#
-# Esta es la capa que le faltaba al proyecto.
-# ChilexpressService solo habla con la API externa.
-# LogisticaService conoce tus modelos Django y orquesta todo.
-#
-# La view solo llama a LogisticaService. No sabe nada de Chilexpress.
 
 from decimal import Decimal
 from django.db import transaction
