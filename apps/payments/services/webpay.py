@@ -114,7 +114,7 @@ class WebpayService:
         amount = cls._normalizar_monto(amount)
 
         if return_url is None:
-            backend_base_url = getattr(settings, "BACKEND_BASE_URL", "http://localhost:8000")
+            backend_base_url = getattr(settings, "BACKEND_BASE_URL", "http://98.95.174.251:8000")
             return_url = f"{backend_base_url}/api/payments/webpay/commit/"
 
         try:

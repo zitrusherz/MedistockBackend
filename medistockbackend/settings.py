@@ -28,14 +28,14 @@ MEDISTOCK_RUT      = os.getenv("MEDISTOCK_RUT")
 MEDISTOCK_TELEFONO = os.getenv("MEDISTOCK_TELEFONO")
 MEDISTOCK_EMAIL    = os.getenv("MEDISTOCK_EMAIL")
 
-FRONTEND_BASE_URL = os.getenv("FRONTEND_BASE_URL", "http://localhost:5173")
+FRONTEND_BASE_URL = os.getenv("FRONTEND_BASE_URL", "http://98.95.174.251:5173")
 BACKEND_BASE_URL = os.getenv("BACKEND_BASE_URL", "http://127.0.0.1:8000")
 
 ALLOWED_HOSTS = [
     host.strip()
     for host in os.getenv(
         "ALLOWED_HOSTS",
-        "localhost,127.0.0.1",
+        "98.95.174.251,127.0.0.1",
     ).split(",")
     if host.strip()
 ]

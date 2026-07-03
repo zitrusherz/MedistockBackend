@@ -92,7 +92,7 @@ class WebpayIniciarPagoView(APIView):
         session_id = f"USER-{request.user.id}-PED-{pedido.id}"
         amount = int(pedido.total)
 
-        backend_base_url = getattr(settings, "BACKEND_BASE_URL", "http://localhost:8000")
+        backend_base_url = getattr(settings, "BACKEND_BASE_URL", "http://98.95.174.251:8000")
         return_url = f"{backend_base_url}/api/payments/webpay/commit/"
 
         resultado_webpay = WebpayService.crear_transaccion(
